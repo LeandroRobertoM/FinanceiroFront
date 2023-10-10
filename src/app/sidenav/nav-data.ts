@@ -15,9 +15,9 @@ export const navbarData = [
         label: 'Relatórios'
     },
     {
-        routeLink: 'coupens',
+        routeLink: 'Categoria/tabela',
         icon: 'fal fa-hand-holding',
-        label: 'Financeiro'
+        label: 'Financeiroo'
     },
     {
         routeLink: 'pages',

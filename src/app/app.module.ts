@@ -17,7 +17,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './features/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 
-// Importe o ReactiveFormsModule aqui
 import { ReactiveFormsModule } from '@angular/forms';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 import { CategoriaFormUpdateComponent } from './features/categoria/categoria-form-update/categoria-form-update.component';
@@ -34,6 +33,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+//Services
+import { categoriaService } from './services/categoria.service';
 
 
 @NgModule({
@@ -67,6 +70,7 @@ import { MatPaginator } from '@angular/material/paginator';
     HttpClientModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatPaginatorModule, 
     
   ],
   providers: [],
