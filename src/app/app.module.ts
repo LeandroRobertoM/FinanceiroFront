@@ -29,6 +29,13 @@ import { DespesaFormComponent } from './features/despesa/despesa-form/despesa-fo
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
 
+import { MatTableModule } from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,8 +65,9 @@ import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    // Adicione o ReactiveFormsModule às importações do AppModule
     ReactiveFormsModule,
+    MatTableModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
