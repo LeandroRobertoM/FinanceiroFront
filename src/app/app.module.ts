@@ -27,6 +27,8 @@ import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-
 import { DespesaFormComponent } from './features/despesa/despesa-form/despesa-form.component';
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
+import { CommonModule } from '@angular/common';
+
 
 import { MatTableModule } from '@angular/material/table';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -34,9 +36,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
 
 //Services
 import { categoriaService } from './services/categoria.service';
+
 
 
 @NgModule({
@@ -52,6 +58,7 @@ import { categoriaService } from './services/categoria.service';
     PagesComponent,
     MediaComponent,
     SettingsComponent,
+    SublevelMenuComponent,
     LoginComponent,
     CategoriaFormComponent,
     CategoriaFormUpdateComponent,
@@ -61,19 +68,22 @@ import { categoriaService } from './services/categoria.service';
     SistemaTableComponent,
     DespesaFormComponent,
     DespesaFormUpdateComponent,
-    DespesaTableComponent
+    DespesaTableComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule, 
+    MatSnackBarModule
     
   ],
-  providers: [],
+  providers: [categoriaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
