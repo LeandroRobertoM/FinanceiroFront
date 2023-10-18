@@ -19,7 +19,7 @@
                     <div class="md-6">
                         <div class="mt-6">
                             <input type="text" (keyup)="applyFilter(getValue($event))"
-                                placeholder="Pesquisa de Cliente">
+                                placeholder="Pesquisa de Categorias">
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             <br>
             <div class="row">
                 <div class="TabelaGrid">
-                    <div class="md-12">
+                    <div class="md-6">
                         <table mat-table [dataSource]="dataSource" matSort matSortStart="desc" border="1">
                             <ng-container matColumnDef="idCliente">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>CODIGO.:</th>

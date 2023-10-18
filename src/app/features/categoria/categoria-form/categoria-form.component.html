@@ -1,1 +1,24 @@
-<p>categoria-form works!</p>
+<div class="container-fluid page">
+    <div class="d-flex page__box p-3 mt-2">Cadastrar Categoria</div>
+    <div class="page__content shadow p-3 position-relative">
+        <div class="page__content-data position-absolute">
+            <form [formGroup]="form" (ngSubmit)="salvar()">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="name" class="custom-label">Nome</label>
+                        <input type="text" class="form-control custom-input" formControlName="nome" id="nome" name="nome" autocomplete="off" required>
+                    </div>
+                </div>
+                <div id="actions" class="Opcaonovo">
+                    <div class="col-md-12">
+                        <button mat-raised-button type="submit" value="salvar" [disabled]="form.invalid" color="primary">Salvar</button>
+                        <a href="index.php" class="btn btn-default">Cancelar</a>
+                    </div>
+                </div>
+                <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
+                    <span *ngIf="form.get('nome')?.errors?.['required']">O nome é obrigatório!<br></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

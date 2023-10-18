@@ -1,0 +1,72 @@
+// Estilos para o formulário
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fff; // Cor de fundo branca
+    font-family: Arial, sans-serif; // Fonte padrão
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+  
+    .custom-label {
+      color: #263238; // Cor do cabeçalho da tabela
+      font-weight: bold;
+    }
+  
+    .custom-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+  
+    .custom-button {
+      background-color: #263238; // Cor de fundo do cabeçalho da tabela
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+      
+      &:hover {
+        background-color: #1e252a; // Cor de fundo mais escura ao passar o mouse
+      }
+    }
+  
+    .btn-default {
+      background-color: #ccc; // Cor de fundo padrão para o botão "Cancelar"
+      color: #333;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #999; // Cor de fundo mais escura ao passar o mouse
+      }
+    }
+  
+    .alert {
+      background-color: #e35e6b; // Cor de fundo para mensagens de erro
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  }
+  

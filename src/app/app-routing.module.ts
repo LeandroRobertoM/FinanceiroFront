@@ -6,6 +6,10 @@ import { ProductsComponent } from './products/products.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CoupensComponent } from './coupens/coupens.component';
 import { SettingsComponent } from './settings/settings.component';
+
+import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
+import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-table.component';
+import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
 import { CategoriaFormUpdateComponent } from './features/categoria/categoria-form-update/categoria-form-update.component';
@@ -35,6 +39,27 @@ const routes: Routes = [
       {
         path: 'update/:idCategoria',
         component: CategoriaFormUpdateComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'home', pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'Sistema',
+    children: [
+      {
+        path: 'formulario',
+        component: SistemaFormComponent,
+      },
+      {
+        path: 'tabela',
+        component: SistemaTableComponent,
+      },
+      {
+        path: 'update/:idSistema',
+        component: SistemaFormUpdateComponent,
       },
       {
         path: '',

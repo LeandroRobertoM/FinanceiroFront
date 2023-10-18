@@ -1,4 +1,4 @@
 export interface ICategoria{
     nome:string;
-    idSistemaFinanceiro:number
+    idSistemaFinanceiro?:number
 }

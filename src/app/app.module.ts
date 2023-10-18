@@ -80,7 +80,8 @@ import { categoriaService } from './services/categoria.service';
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule, 
-    MatSnackBarModule
+    MatSnackBarModule,
+  
     
   ],
   providers: [categoriaService],

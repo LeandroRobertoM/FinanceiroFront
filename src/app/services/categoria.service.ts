@@ -10,7 +10,7 @@ import { map, catchError } from "rxjs/operators";
 @Injectable()
 export class categoriaService {
 
-  private api: string = "http://localhost:5055/api/Categoria"
+  private api: string = "http://localhost:5055/api"
 
   public dataSource = new MatTableDataSource<ICategoria>();
   constructor(private snackBar: MatSnackBar, private httpClient: HttpClient) { }
@@ -37,7 +37,7 @@ export class categoriaService {
   //getAllCategoria(email: string): Observable<ICategoria[]> {
   getAllCategoria(): Observable<ICategoria[]> {
     const email = 'leandro.machados@ndd.com.br'; // Defina o email desejado aqui
-    const url = `${this.api}/ListarCategoriasUsuario/${email}`;
+    const url = `${this.api}/ListarCategoriasUsuario?emailUsuario=${email}`;
     return this.httpClient.get<ICategoria[]>(url)
       .pipe(
         tap(categorias => console.log(categorias))

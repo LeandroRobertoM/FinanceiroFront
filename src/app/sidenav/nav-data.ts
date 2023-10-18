@@ -8,7 +8,7 @@ export const navbarData: INavbarData[] = [
     },
     {
         routeLink: 'products',
-        icon: 'fal fa-box-open',
+        icon: 'fa fa-box-open',
         label: 'Produtos',
         items: [
             {
@@ -43,11 +43,11 @@ export const navbarData: INavbarData[] = [
     },
     {
         routeLink: 'coupens',
-        icon: 'fal fa-tags',
+        icon: 'fas fa-hand-holding-usd',
         label: 'Financeiro',
         items: [
             {
-                routeLink: 'Categoria/Sistema',
+                routeLink: 'Sistema/formulario',
                 label: 'Sistema Financeiro'
             },
             {

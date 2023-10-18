@@ -50,7 +50,7 @@ export class CategoriaTableComponent implements OnInit, AfterViewInit {
   }
 
   navigateToCategoriaCreate(): void {
-    this.router.navigate(['/categoria/formulario'])
+    this.router.navigate(['/Categoria/formulario'])
     console.log("console")
   }
 
