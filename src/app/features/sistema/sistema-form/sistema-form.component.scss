@@ -10,12 +10,20 @@ body {
   font-family: "Poppins";
   margin: 0;
   background: #b4e7b6;
-
+  font-weight: normal;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
 }
+
+h1{
+font-family: inherit;
+font-weight: normal;
+line-height: 1.1;
+color: inherit;
+}
+
 
 input {
   background: #ffffff;
@@ -29,11 +37,17 @@ input {
 }
 
 label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px; 
+  transition: all linear 160ms;
 }
 
-.error-input {
-  font-size: 14px;
-  color: red;
+
+.group-label-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; /* Adicione um espaçamento vertical entre os elementos */
 }
 
 .btn-primary {
@@ -60,11 +74,6 @@ label {
     width: auto;
   }
 
-  .icone-cadastrotitulo {
-    width: 24px; // Ajuste o tamanho do ícone conforme necessário
-    margin-right: 10px; // Espaço entre o ícone e o texto
-  }
-
   .btn-limpar {
     color: #fff;
     background-color: #36515f;
@@ -88,3 +97,80 @@ label {
     border-top: 1px solid #ccc; /* Adicione uma borda superior */
     padding-top: 10px; /* Adicione um espaçamento na parte superior */
   }
+
+  .DivTitlebar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .DivTitlebar img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+  }
+  
+  h1 {
+    margin: 0; /* Remova o espaçamento superior do título */
+  }
+
+  .error-message {
+    margin-top: 5px; 
+    font-size: 14px; 
+    color: red; 
+  }
+  
+
+  .btn-primary {
+    background-color: #36515f;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    text-decoration: none; /* Remover sublinhado */
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 8px 14px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1706ff;
+    transform: scale(1.05);
+  }
+
+  .btn-cancelar {
+    background-color: #36515f;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    text-decoration: none; /* Remover sublinhado */
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 8px 14px;
+  }
+  
+  .btn-cancelar:hover {
+    background-color: #f72727d7;
+    transform: scale(1.05);
+  }
+  
+  .btn-limpar {
+    background-color: #36515f; /* Cor de fundo do botão Limpar */
+    color: #fff; /* Cor do texto do botão Limpar */
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    text-decoration: none; /* Remover sublinhado */
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 8px 14px;
+    margin-right: 10px; /* Margem à direita para separar botões */
+  }
+  
+  .btn-limpar:hover {
+    background-color: #c2b9b9e1; /* Cor de fundo no hover */
+    transform: scale(1.05);
+  }
+  
+  
+  
