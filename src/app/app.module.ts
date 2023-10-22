@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,7 +38,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
 
 //Services
@@ -81,6 +81,7 @@ import { categoriaService } from './services/categoria.service';
     MatTableModule,
     MatPaginatorModule, 
     MatSnackBarModule,
+    NgSelectModule,
   
     
   ],

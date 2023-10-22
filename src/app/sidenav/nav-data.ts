@@ -55,7 +55,7 @@ export const navbarData: INavbarData[] = [
                 label: 'Categoria'
             },
             {
-                routeLink: 'Categoria/Despesa',
+                routeLink: 'Despesa/formulario',
                 label: 'Despesa'
             },
         ]

@@ -13,6 +13,9 @@ import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-upda
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
 import { CategoriaFormUpdateComponent } from './features/categoria/categoria-form-update/categoria-form-update.component';
+import { DespesaFormComponent } from './features/despesa/despesa-form/despesa-form.component';
+import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
+import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 
 
 const routes: Routes = [
@@ -60,6 +63,27 @@ const routes: Routes = [
       {
         path: 'update/:idSistema',
         component: SistemaFormUpdateComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'home', pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'Despesa',
+    children: [
+      {
+        path: 'formulario',
+        component: DespesaFormComponent,
+      },
+      {
+        path: 'tabela',
+        component: DespesaTableComponent,
+      },
+      {
+        path: 'update/:idCategoria',
+        component: DespesaFormUpdateComponent,
       },
       {
         path: '',

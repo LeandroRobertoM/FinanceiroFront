@@ -1,1 +1,55 @@
-<p>despesa-form works!</p>
+<div class="container-base">
+  <div class="DivTitlebar">
+    <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">  
+    <h1>Cadastro de Despesa</h1>
+  </div>
+  <br>
+  <br>
+  <div class="DivFormGroup">
+    <form [formGroup]="despesaForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-label-row col-md-4">
+          <label for="name">Nome</label>
+          <input type="text" name="name" id="name" placeholder="Nome" formControlName="name" required />
+        </div>
+        <div class="group-label-row col-md-4">
+          <label for="name">Valor R$</label>
+          <input type="number" name="valor" id="valor" placeholder="valor" formControlName="valor" required />
+        </div>
+        <div class="group-label-row col-md-4">
+          <label for="name">Data de Vencimento</label>
+          <input type="date" name="data" id="data" placeholder="Data" formControlName="data" required />
+        </div>
+      </div>
+      <div class="row">
+        <div class="custom-select col-md-6">
+          <label for="sistema" class="control-label">Sistema</label>
+          <select class="form-select" id="sistema" formControlName="sistema">
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
+        </div>
+        <div class="custom-select col-md-6">
+          <label for="categoria" class="control-label">Categoria</label>
+          <select class="form-select" id="categoria" formControlName="categoria">
+            <option value="eletrônicos">Cartão</option>
+            <option value="alimentacao">Alimentação</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="ViewFooter">
+    <br>
+    <div class="row">
+      <div class="group-btn-row">
+        <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;"/>
+        <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+        <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+      </div>
+    </div>
+  </div>
+</div>
