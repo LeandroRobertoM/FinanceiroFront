@@ -16,6 +16,7 @@ import { CategoriaFormUpdateComponent } from './features/categoria/categoria-for
 import { DespesaFormComponent } from './features/despesa/despesa-form/despesa-form.component';
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
+import { PagesComponent } from './pages/pages.component';
 
 
 const routes: Routes = [
@@ -88,6 +89,15 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'home', pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'Pages',
+    children: [
+      {
+        path: 'pages',
+        component: PagesComponent,
       },
     ],
   },

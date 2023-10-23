@@ -63,7 +63,13 @@ export const navbarData: INavbarData[] = [
     {
         routeLink: 'pages',
         icon: 'fal fa-file',
-        label: 'Pages'
+        label: 'Pages',
+        items: [
+            {
+                routeLink: 'Pages/pages',
+                label: 'pages'
+            },
+        ]
     },
    /* {
         routeLink: 'media',
