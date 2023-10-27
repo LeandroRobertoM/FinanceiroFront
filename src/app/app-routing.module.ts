@@ -7,6 +7,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { CoupensComponent } from './coupens/coupens.component';
 import { SettingsComponent } from './settings/settings.component';
 
+import { AuthGuard } from './guards/auth-guard.service';
+
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
 import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-table.component';
 import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
@@ -35,14 +37,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: CategoriaFormComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'tabela',
         component: CategoriaTableComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'update/:idCategoria',
         component: CategoriaFormUpdateComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: '',
@@ -56,14 +61,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: SistemaFormComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'tabela',
         component: SistemaTableComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'update/:idSistema',
         component: SistemaFormUpdateComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: '',
@@ -77,14 +85,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: DespesaFormComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'tabela',
         component: DespesaTableComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: 'update/:idCategoria',
         component: DespesaFormUpdateComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: '',

@@ -17,7 +17,8 @@ import { MediaComponent } from './media/media.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './features/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { AuthGuard } from './guards/auth-guard.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 import { CategoriaFormUpdateComponent } from './features/categoria/categoria-form-update/categoria-form-update.component';
@@ -29,6 +30,8 @@ import { DespesaFormComponent } from './features/despesa/despesa-form/despesa-fo
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
 import { CommonModule } from '@angular/common';
+import { HTTPStatus,LoaderInterceptor } from './interceptor/loader.interceptor';
+import { catchError, map, startWith } from 'rxjs/operators'; 
 
 
 import { MatTableModule } from '@angular/material/table';
@@ -43,6 +46,9 @@ import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
 //Services
 import { categoriaService } from './services/categoria.service';
 
+
+
+const RxJS = [LoaderInterceptor, HTTPStatus];
 
 
 @NgModule({
@@ -85,7 +91,11 @@ import { categoriaService } from './services/categoria.service';
   
     
   ],
-  providers: [categoriaService],
+  providers: [
+    AuthGuard,
+    RxJS,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
