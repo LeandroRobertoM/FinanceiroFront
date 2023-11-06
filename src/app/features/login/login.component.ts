@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { navbarData } from 'src/app/sidenav/nav-data'; // 
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private loginService: LoginService
-  ) {}
+    private loginService: LoginService,
+    public authService: AuthService) {
+
+    } 
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -42,12 +45,16 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).subscribe(
       token => {
         alert(token);
+        alert(token);
+        
         console.log('Entrou no Token.');
         
         // Defina isAuthenticated como true após um login bem-sucedido
+        this.authService.UsuarioAutenticado(true);
         
-        
-        this.router.navigate(['/dashboard']);
+        console.log('Valor da variável UsuarioAutenticado:', this.authService.UsuarioAutenticado);
+
+        this.router.navigate(['Sistema/formulario']);
       },
       err => {
         console.error('Erro ao fazer login:', err); // Log detalhado do erro

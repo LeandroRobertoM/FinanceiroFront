@@ -7,6 +7,23 @@
     box-sizing: border-box;
 }
 
+.login-page {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #023047;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 7px;
+    padding: 40px;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+    gap: 5px;
+}
+
 body {
     position: relative;
     font-family: 'Roboto', sans-serif;
@@ -28,6 +45,8 @@ body {
     }
 
     .card-body {
-        padding: 1rem 1.5rem; 
+        padding: 1rem 1.0rem; 
     }
+
+    
 }
