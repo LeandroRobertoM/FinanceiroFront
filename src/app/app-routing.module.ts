@@ -24,7 +24,6 @@ import { PagesComponent } from './pages/pages.component';
 const routes: Routes = [
  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path:'login',component:LoginComponent}, 
-  { path:'',component:LoginComponent},
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
   { path: 'products', component: ProductsComponent },
   { path: 'statistics', component: StatisticsComponent },
