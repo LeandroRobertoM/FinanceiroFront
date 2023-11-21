@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
       this.authService.UsuarioAutenticado(true);
 
       console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
-
-      this.router.navigate(['/dashboard']);
+     
+      this.router.navigate(['Sistema/formulario']);
     } catch (err) {
       console.error('Erro ao fazer login:', err);
 

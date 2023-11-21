@@ -1,4 +1,4 @@
-<ng-container *ngIf="isAuthenticated; else loginScreen">
+<ng-container *ngIf="isLoggedIn; else loginScreen">
   <div>
     Usuário autenticado
   </div>
@@ -12,4 +12,4 @@
   <app-login></app-login>
 </ng-template>
 
-Valor de isAuthenticated: {{ isAuthenticated }}
+Valor de isAuthenticated: {{ isLoggedIn }}
