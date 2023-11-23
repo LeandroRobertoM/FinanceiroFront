@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate {
           //validation
           if (status === false) {
             console.log('Usuário não autenticado'); // Adicione esta linha para depuração
+            this.authService.isLoggedInSubject.next(false);
             blnUnAuthorize = true;
           }
 
@@ -35,8 +36,10 @@ export class AuthGuard implements CanActivate {
           if (blnUnAuthorize && redirect != null && redirect.length > 0) {
             console.log('Redirecionando para a página de login com redirecionamento'); // Adicione esta linha para depuração
             this.router.navigate(['/login', { redirect }]);
+            this.authService.isLoggedInSubject.next(false);
           } else if (blnUnAuthorize) {
             console.log('Redirecionando para a página de login'); // Adicione esta linha para depuração
+            
             this.router.navigate(['/login']);
           }
 

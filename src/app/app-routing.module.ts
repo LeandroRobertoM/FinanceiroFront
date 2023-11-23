@@ -25,11 +25,11 @@ const routes: Routes = [
  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path:'login',component:LoginComponent}, 
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
-  { path: 'products', component: ProductsComponent },
-  { path: 'statistics', component: StatisticsComponent },
-  { path: 'coupens', component: CoupensComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'products', component: ProductsComponent,canActivate: [AuthGuard]  },
+  { path: 'statistics', component: StatisticsComponent,canActivate: [AuthGuard]  },
+  { path: 'coupens', component: CoupensComponent,canActivate: [AuthGuard]  },
+  { path: 'settings', component: SettingsComponent,canActivate: [AuthGuard]  },
+  { path: 'login', component: LoginComponent,canActivate: [AuthGuard]  },
   {
     path: 'Categoria',
     children: [
