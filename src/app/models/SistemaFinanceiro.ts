@@ -1,6 +1,6 @@
 export class SistemaFinanceiro{
 
-    Id:number;
+    id:number;
     Nome:string;
     Mes:Number;
     Ano:Number;
@@ -8,4 +8,8 @@ export class SistemaFinanceiro{
     GerarCopiaDespesa:Boolean;
     MesCopia:Number;
     AnoCopia:number;
+
+    NomePropriedade:string="";
+    mensagem:string="";
+    notificacoes:[];
 }

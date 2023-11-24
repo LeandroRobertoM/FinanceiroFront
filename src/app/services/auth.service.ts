@@ -36,7 +36,9 @@ export class AuthService {
   }
 
   get getToken() {
+    
     this.token = localStorage.getItem('token');
+    console.log('GETTOKEN:', this.token);
     return this.token;
   }
 
@@ -50,5 +52,19 @@ export class AuthService {
     this.limparToken();
     localStorage.clear();
     sessionStorage.clear();
+  }
+
+  setEmailUser(email: string) {
+    localStorage.setItem('emailUser', email);
+  }
+  getEmailUser() {
+    var emailUserLogado = localStorage.getItem('emailUser');
+    if (emailUserLogado) {
+        return emailUserLogado;
+    }
+    else {
+        this.limparDadosUsuario();
+        return "";
+    }
   }
 }

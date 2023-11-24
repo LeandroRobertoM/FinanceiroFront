@@ -38,6 +38,9 @@ export class LoginComponent implements OnInit {
     try {
       const token = await this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).toPromise();
       console.log('Entrou no Token:', token);
+      
+       //Difine o valor settar o token 
+       this.authService.setToken(token);
 
       // Defina isAuthenticated como true após um login bem-sucedido
       this.authService.UsuarioAutenticado(true);

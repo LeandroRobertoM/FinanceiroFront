@@ -1,37 +1,33 @@
 <div class="container-base">
-    <div class="DivTitlebar">
+  <div class="DivTitlebar">
       <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">  
       <h1>Cadastro de Sistemas</h1>
-      </div>
-      <br>
-      <br>
-      <div class="DivFormGroup">
-        <form [formGroup]="sistemaForm" (submit)="enviar()">
+  </div>
+  <br>
+  <br>
+  <div class="DivFormGroup">
+      <form [formGroup]="sistemaForm" (submit)="enviar()">
           <div class="row">
-            <div class="group-label-row">
-              <label for="name">Sistema</label>
-         
-              <input type="text" name="name" id="name" placeholder="Nome" formControlName="name" required />
-            </div>
-            <div class="error-message">
-              <label class="error-input" *ngIf="sistemaForm.get('name')?.errors?.['required'] && sistemaForm.get('name')?.touched">
-                Campo Obrigatório!
-              </label>
-            </div>
-          </div>
-        </form>
-    </div>
-    <br>
-     <br>
-     <br>
-      <div class="ViewFooter">
-        <br>
-        <div class="row">
-            <div class="group-btn-row">
-                <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;"/>
-                <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
-                <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+              <div class="group-label-row">
+                  <label for="name">Sistema</label>
+                  <input type="text" name="name" id="name" placeholder="Nome" formControlName="name" required />
               </div>
-        </div>
-      </div>
+              <div class="error-message">
+                  <label class="error-input" *ngIf="sistemaForm.get('name')?.errors?.['required'] && sistemaForm.get('name')?.touched">
+                      Campo Obrigatório!
+                  </label>
+              </div>
+          </div>
+          <div class="ViewFooter">
+              <br>
+              <div class="row">
+                  <div class="group-btn-row">
+                      <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;"/>
+                      <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+                      <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
 </div>
