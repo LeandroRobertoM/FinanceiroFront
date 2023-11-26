@@ -9,7 +9,7 @@ export class SistemaFinanceiro{
     MesCopia:Number;
     AnoCopia:number;
 
-    NomePropriedade:string="";
-    mensagem:string="";
-    notificacoes:[];
+    NomePropriedade?:string="";
+    mensagem?:string="";
+    notificacoes?:[];
 }

@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+//Desing components terceiros
+import { MatIconModule } from '@angular/material/icon';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SistemafinanceiroComponent } from './features/sistemafinanceiro/sistemafinanceiro.component';
@@ -88,6 +91,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatPaginatorModule, 
     MatSnackBarModule,
     NgSelectModule,
+    MatIconModule,
   
     
   ],

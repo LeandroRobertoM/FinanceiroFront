@@ -1,1 +1,69 @@
-<p>sistema-table works!</p>
+<div class="row">
+    <div class="Opcaonovo">
+        <div class="md-6">
+            <button mat-raised-button (click)="navigateToSistemaFinanceiroCreate()" color="primary">
+                Novo
+            </button>
+
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="Opcaofiltro">
+            <div class="md-6">
+                <div class="mt-6">
+                    <input type="text" (keyup)="applyFilter(getValue($event))"
+                        placeholder="Pesquisa de Sistema">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="TabelaGrid">
+            <div class="md-12">
+                <table mat-table [dataSource]="dataSource" matSort matSortStart="desc" border="1">
+
+                    <!--- Note that these columns can be defined in any order.
+  The actual rendered columns are set as a property on the row definition" -->
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>CODIGO.:</th>
+                        <td mat-cell *matCellDef="let sistemafinanceiro"> {{sistemafinanceiro.id}} </td>
+                    </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="nome">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>NOME.:</th>
+                        <td mat-cell *matCellDef="let sistemafinanceiro"> {{sistemafinanceiro.nome}} </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>AÇÕES</th>
+                        <td mat-cell *matCellDef="let row">
+                            <a routerLink="/Sistema/update/{{ row.id }}" class="edit">
+                                <i class="material-icons">
+                                    edit
+                                </i>
+                            </a>
+                            <a routerLink="/Sistema/update/{{ row.id }}" class="Ferrramenta">
+                                <i class="material-icons">
+                                    build
+                                </i>
+                            </a>
+                            <button class="btn btn-danger" (click)="excluirSistemaFinanceiro(row)" class="delete">
+                                <i class="material-icons">
+                                    delete
+                               </i>
+                            </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSize]="6" [pageSizeOptions]="[2, 4,8]">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>

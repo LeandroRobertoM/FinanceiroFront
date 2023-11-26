@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     public authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -38,15 +38,15 @@ export class LoginComponent implements OnInit {
     try {
       const token = await this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).toPromise();
       console.log('Entrou no Token:', token);
-      
-       //Difine o valor settar o token 
-       this.authService.setToken(token);
+
+      //Difine o valor settar o token 
+      this.authService.setToken(token);
 
       // Defina isAuthenticated como true após um login bem-sucedido
       this.authService.UsuarioAutenticado(true);
 
       console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
-     
+
       this.router.navigate(['Sistema/formulario']);
     } catch (err) {
       console.error('Erro ao fazer login:', err);

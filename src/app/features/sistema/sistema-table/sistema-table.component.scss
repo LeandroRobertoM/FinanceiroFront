@@ -1,0 +1,76 @@
+
+
+
+.page {
+    color: white;
+    padding: 0 1rem;
+    background: #f1f5f9;
+  
+    &__box {
+      min-height: 30px;
+      background: #1e293b;
+      margin: 0 -1rem;
+      font-size: 25px;
+    }
+  
+    &__content {
+      min-height: calc(80vh - 18px);
+      border-radius: 8px;
+      margin-top: -1rem;
+      background: white;
+      color: black;
+      font-size: 12px;
+    }
+  }
+  
+  e {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  
+  
+  table {
+    width: 100%;
+    margin-right: 8cm;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    width: 100%;
+  }
+  
+  table th {
+    background-color: #1e293b;
+    color: white;
+    text-align: center;
+  }
+  
+  .center{
+      text-align: center;
+  } 
+  
+  table th,td {
+    padding: 1px 1px;
+    text-align: left;
+    
+    
+  }
+  
+  .Opcaonovo{
+    height: auto;
+    display: flex;
+    align-items: right;
+    justify-content: right;
+  }
+  
+  .edit {
+    margin-right: 10px;
+  }
+  
+  .edit>i {
+    color: #d9cd26;
+  }
+  
+  .delete>i {
+    color: #e35e6b;
+  }
