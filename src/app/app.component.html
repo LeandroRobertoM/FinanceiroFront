@@ -1,7 +1,7 @@
 <ng-container *ngIf="isLoggedIn; else loginScreen">
-  <div>
+ <!-- <div>
     Usuário autenticado
-  </div>
+  </div> -->
   <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
   <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth">
     <router-outlet></router-outlet> <!-- Aqui está o router-outlet -->
@@ -11,5 +11,3 @@
   <div>Usuário não autenticado</div>
   <app-login></app-login>
 </ng-template>
-
-Valor de isAuthenticated: {{ isLoggedIn }}

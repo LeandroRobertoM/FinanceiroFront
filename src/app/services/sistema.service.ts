@@ -42,8 +42,8 @@ export class SistemaService {
 
     showMessage(msg: string, isError: boolean = false): void {
         this.snackBar.open(msg, "X", {
-            duration: 3000,
-            horizontalPosition: "left",
+            duration: 2500,
+            horizontalPosition: "right",
             verticalPosition: "top",
             panelClass: isError ? ["msg-error"] : ["msg-success"],
         });

@@ -5,6 +5,17 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 //Desing components terceiros
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table'
+import {MatSortModule} from '@angular/material/sort'
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
+import { MatDividerModule } from '@angular/material/divider';
+
+
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,14 +48,9 @@ import { HTTPStatus,LoaderInterceptor } from './interceptor/loader.interceptor';
 import { catchError, map, startWith } from 'rxjs/operators'; 
 
 
-import { MatTableModule } from '@angular/material/table';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
+
 
 //Services
 import { categoriaService } from './services/categoria.service';
@@ -87,11 +93,17 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatTableModule,
-    MatPaginatorModule, 
     MatSnackBarModule,
     NgSelectModule,
     MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatDividerModule,
+
   
     
   ],

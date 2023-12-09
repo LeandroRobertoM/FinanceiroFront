@@ -41,7 +41,7 @@ export class SistemaTableComponent implements OnInit, AfterViewInit {
   }
 
   navigateToSistemaFinanceiroCreate(): void {
-    this.router.navigate(['/clientes/formulario'])
+    this.router.navigate(['/Sistema/formulario'])
     console.log("console")
   }
 
