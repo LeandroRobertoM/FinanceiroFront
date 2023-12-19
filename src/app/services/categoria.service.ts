@@ -1,75 +1,57 @@
-import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ICategoria } from "../features/categoria/Categoria.model";
-import { Observable, subscribeOn, tap, EMPTY, ObservedValueOf } from "rxjs";
-import { MatTableDataSource } from '@angular/material/table';
+import { Injectable } from "@angular/core";
+import { environment } from "src/environment";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { map, catchError } from "rxjs/operators";
+import { Observable, subscribeOn, tap, EMPTY, ObservedValueOf } from "rxjs";
+import { Categoria } from "../models/Categoria";
+
+@Injectable({
+    providedIn: 'root'
+})
+
+export class CategoriaService {
+
+    constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
+
+    }
+
+    private readonly baseURL = environment["endPoint"]
+
+    AdicionarCategoria(categoria: Categoria) {
+        return this.httpClient.post<Categoria>(`${this.baseURL}/AdicionarSistemaFinanceiro`,
+        categoria)
+    }
+
+    ListaCategoriaUsuario(emailUsuario: string) {
+        return this.httpClient.get(`${this.baseURL}/ListaSistemaUsuario?emailUsuario=${emailUsuario}`
+        )
+    }
+    CadastrarCategoriaNoSistema(idSistema: number, emailUsuario: string) {
+        return this.httpClient.post<any>(`${this.baseURL}/CadastrarUsuarioNoSistema?idSistema=${idSistema}&emailUsuario=${emailUsuario}`, null)
+    }
+
+    ListaCategoriaUsuarioTable(emailUsuario: string): Observable<Categoria[]> {
+        const url = `${this.baseURL}/ListaSistemaUsuario?emailUsuario=${emailUsuario}`;
+      
+        return this.httpClient.get<Categoria[]>(url)
+          .pipe(
+            tap(categorias => console.log(categorias))
+          );
+      }
 
 
-@Injectable()
-export class categoriaService {
+    showMessage(msg: string, isError: boolean = false): void {
+        this.snackBar.open(msg, "X", {
+            duration: 2500,
+            horizontalPosition: "right",
+            verticalPosition: "top",
+            panelClass: isError ? ["msg-error"] : ["msg-success"],
+        });
+    }
 
-  private api: string = "http://localhost:5055/api"
+    errorHandler(e: any): Observable<any> {
+        this.showMessage("Ocorreu um erro!", true);
+        return EMPTY;
+      }
 
-  public dataSource = new MatTableDataSource<ICategoria>();
-  constructor(private snackBar: MatSnackBar, private httpClient: HttpClient) { }
-
-  showMessage(msg: string, isError: boolean = false): void {
-    this.snackBar.open(msg, "X", {
-      duration: 3000,
-      horizontalPosition: "right",
-      verticalPosition: "top",
-      panelClass: isError ? ["msg-error"] : ["msg-success"],
-    });
-  }
-  public salvarCliente(novoCategoria: ICategoria): Observable<ICategoria> {
-    //  console.log(novoCliente);
-    // this.httpClient.post(`${this.api}/api/Cliente`, novoCliente)
-    //    .subscribe(() => { });
-    return this.httpClient.post<ICategoria>(`${this.api}`, novoCategoria).pipe(
-      map((obj) => obj),
-      catchError((e) => this.errorHandler(e))
-    );
-  }
-
-  //depois terei que ajustar para isso
-  //getAllCategoria(email: string): Observable<ICategoria[]> {
-  getAllCategoria(): Observable<ICategoria[]> {
-    const email = 'leandro.machados@ndd.com.br'; // Defina o email desejado aqui
-    const url = `${this.api}/ListarCategoriasUsuario?emailUsuario=${email}`;
-    return this.httpClient.get<ICategoria[]>(url)
-      .pipe(
-        tap(categorias => console.log(categorias))
-      );
-  }
-  getIDCliente(idCliente: number): Observable<ICategoria> {
-    const url = `${this.api}/${idCliente}`;
-    return this.httpClient.get<ICategoria>(url).pipe(
-      map((obj) => obj),
-      catchError((e) => this.errorHandler(e))
-    );
-  }
-
-  updateCliente(cliente: ICategoria): Observable<ICategoria> {
-    const url = `${this.api}`;
-    console.log(url)
-    return this.httpClient.put<ICategoria>(url, cliente).pipe(
-      map((obj) => obj),
-      catchError((e) => this.errorHandler(e))
-    );
-  }
-  deleteCliente(cliente: ICategoria): Observable<ICategoria> {
-    const url = `${this.api}/${cliente.idSistemaFinanceiro}`;
-    console.log(url)
-    return this.httpClient.delete<ICategoria>(url).pipe(
-      map((obj) => obj),
-      catchError((e) => this.errorHandler(e))
-    ); 
-  }
-  
-  errorHandler(e: any): Observable<any> {
-    this.showMessage("Ocorreu um erro!", true);
-    return EMPTY;
-  }
 }

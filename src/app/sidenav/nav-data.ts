@@ -51,7 +51,7 @@ export const navbarData: INavbarData[] = [
                 label: 'Sistema Financeiro'
             },
             {
-                routeLink: 'Categoria/tabela',
+                routeLink: 'Categoria/formulario',
                 label: 'Categoria'
             },
             {

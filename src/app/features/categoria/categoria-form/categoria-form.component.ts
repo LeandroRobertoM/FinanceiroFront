@@ -1,41 +1,55 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Categoria } from 'src/app/models/Categoria';
+import { CategoriaService } from 'src/app/services/categoria.service';
 import { Router } from '@angular/router';
-import { ICategoria } from '../Categoria.model';
-import { categoriaService } from 'src/app/services/categoria.service';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-categoria-form',
   templateUrl: './categoria-form.component.html',
   styleUrls: ['./categoria-form.component.scss']
 })
-export class CategoriaFormComponent {
-  categoria: ICategoria;
-  public form!: FormGroup;
-  public formValido: boolean = true;
+export class CategoriaFormComponent implements OnInit{
+  categoria: Categoria;
+  public form!:FormGroup;
+  public formValido:boolean=true;
 
-  constructor(private categoriaService: categoriaService, private router: Router) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoriaService: CategoriaService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  public ngOnInit(): void {
-
-    this.form = new FormGroup({
-      nome: new FormControl (null, [Validators.required, Validators.minLength(3)]),
-      
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      nome: [null, [Validators.required, Validators.minLength(3)]],
+      IdSistema: [null, [Validators.required, Validators.minLength(3)]],
+      // Adicione outros campos do formulário aqui, se houver
     });
   }
 
+  public salvar(): void {
+    if (this.form.valid) {
+      const novaCategoria: Categoria = {
+        Nome: this.form.value.nome,
+        IdSistema: this.form.value.IdSistema, // Atualizado para capturar o valor de IdSistema
+        // Adicione outras propriedades da Categoria aqui, se houver
+      };
 
-public salvar(): void {
-  if (this.form.valid) {
-    const novoCategoria: ICategoria = {
-      nome: this.form.value.nome
-  
-    };
+      this.categoriaService.AdicionarCategoria(novaCategoria).subscribe(
+        () => {
+          this.categoriaService.showMessage('Categoria criada com sucesso!');
+          this.router.navigate(['/products']);
+        },
+        (error) => {
+          console.error(error);
+          this.categoriaService.showMessage('Erro ao criar a Categoria.', true); // true indica que é um erro
+        }
+      );
+    }
+  }
+}
 
-    this.categoriaService.salvarCliente(novoCategoria).subscribe(() => {
-      this.categoriaService.showMessage('Categoria criado com sucesso!')
-      this.router.navigate(['/products'])
-  })
- }
-}
-}

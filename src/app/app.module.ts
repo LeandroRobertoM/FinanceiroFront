@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SistemafinanceiroComponent } from './features/sistemafinanceiro/sistemafinanceiro.component';
@@ -34,9 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { AuthGuard } from './guards/auth-guard.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
-import { CategoriaFormUpdateComponent } from './features/categoria/categoria-form-update/categoria-form-update.component';
-import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
+
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
 import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
 import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-table.component';
@@ -50,10 +49,9 @@ import { catchError, map, startWith } from 'rxjs/operators';
 
 
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 
 
-//Services
-import { categoriaService } from './services/categoria.service';
 
 
 
@@ -75,15 +73,13 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     SettingsComponent,
     SublevelMenuComponent,
     LoginComponent,
-    CategoriaFormComponent,
-    CategoriaFormUpdateComponent,
-    CategoriaTableComponent,
     SistemaFormComponent,
     SistemaFormUpdateComponent,
     SistemaTableComponent,
     DespesaFormComponent,
     DespesaFormUpdateComponent,
     DespesaTableComponent,
+    CategoriaFormComponent,
 
   ],
   imports: [
@@ -96,6 +92,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatSnackBarModule,
     NgSelectModule,
     MatIconModule,
+
     MatTableModule,
     MatSortModule,
     MatButtonModule,

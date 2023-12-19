@@ -11,12 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './sistema-form.component.html',
   styleUrls: ['./sistema-form.component.scss']
 })
-/*export class SistemaFormComponent {
-  constructor(public formBuilder: FormBuilder, public sistemaService: SistemaService,
-    public authService: AuthService) {
 
-  }
-*/
 
 export class SistemaFormComponent implements OnInit {
   Sistema: SistemaFinanceiro;
