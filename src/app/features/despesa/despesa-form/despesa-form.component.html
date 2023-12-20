@@ -1,0 +1,63 @@
+<div class="container-base">
+  <div class="DivTitlebar">
+    <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">  
+    <h1>Cadastro de Despesa</h1>
+  </div>
+  <br>
+  <br>
+  <div class="DivFormGroup">
+    <form [formGroup]="despesaForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-label-row col-md-4"> <!-- Corrigido o nome da classe -->
+          <label for="name">Nome</label>
+          <input type="text" name="name" id="name" placeholder="Nome" formControlName="name" required />
+        </div>
+        <div class="group-label-row col-md-3"> <!-- Corrigido o nome da classe -->
+          <label for="valor">Valor R$</label> <!-- Corrigido o atributo "for" para "valor" -->
+          <input type="number" name="valor" id="valor" placeholder="valor" formControlName="valor" required />
+        </div>
+        <div class="group-label-row col-md-3"> <!-- Corrigido o nome da classe -->
+          <label for="data">Data de Vencimento</label> <!-- Corrigido o atributo "for" para "data" -->
+          <input type="date" name="data" id="data" placeholder="Data" formControlName="data" required />
+        </div>
+      </div>
+      <div class="row">
+        <div class="custom-selec col-md-6">
+          <div class="form-group">
+            <label for="categoria">Categoria</label>
+            <select class="form-control" id="categoria" name="categoria">
+              <option value="eletronicos">Eletrônicos</option>
+              <option value="alimentacao">casa</option>
+              <option value="vestuario">Vestuário</option>
+              <option value="saude">Saúde</option>
+              <option value="educacao">Educação</option>
+            </select>
+        </div></div>
+        <div class="custom-selec col-md-6">
+          <div class="form-group">
+            <label for="categoria">Categoria</label>
+            <select class="form-control" id="categoria" name="categoria">
+              <option value="eletronicos">Eletrônicos</option>
+              <option value="alimentacao">Alimentação</option>
+              <option value="vestuario">Vestuário</option>
+              <option value="saude">Saúde</option>
+              <option value="educacao">Educação</option>
+            </select>
+        </div></div>
+      </div>
+    </form>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="ViewFooter">
+    <br>
+    <div class="row">
+      <div class="group-btn-row">
+        <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;"/>
+        <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+        <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,13 @@
-<app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
-<app-body
-    [collapsed]="isSideNavCollapsed"
-    [screenWidth]="screenWidth"
-></app-body>
+<ng-container *ngIf="isLoggedIn; else loginScreen">
+ <!-- <div>
+    Usuário autenticado
+  </div> -->
+  <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+  <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth">
+    <router-outlet></router-outlet> <!-- Aqui está o router-outlet -->
+  </app-body>
+</ng-container>
+<ng-template #loginScreen>
+  <div>Usuário não autenticado</div>
+  <app-login></app-login>
+</ng-template>

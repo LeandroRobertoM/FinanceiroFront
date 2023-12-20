@@ -1,0 +1,40 @@
+<div class="container-base">
+  <div class="DivTitlebar">
+    <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">  
+    <h1>Cadastro de Categoria</h1>
+  </div>
+  <br>
+  <br>
+  <div class="DivFormGroup">
+    <form [formGroup]="form" (submit)="salvar()">
+      <div class="row">
+        <div class="group-label-row">
+          <label for="name">Nome</label>
+          <input type="text" name="name" id="name" placeholder="Nome" formControlName="nome" required />
+        </div>
+      </div>
+      <div class="row">
+        <div class="group-label-row">
+          <label for="sistema" class="control-label">Sistema</label>
+          <select class="form-select" id="sistema" formControlName="sistema">
+            <option *ngFor="let sistema of listSistemas" [ngValue]="sistema.id">{{sistema.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
+        <span *ngIf="form.get('nome')?.errors?.['required']">O Nome da Categoria é obrigatório!<br></span>
+        <span *ngIf="form.get('IdSistema')?.errors?.['required']">O IdSistema da Categoria é obrigatório!<br></span>
+      </div> 
+      <div class="ViewFooter">
+        <br>
+        <div class="row">
+          <div class="group-btn-row">
+            <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;" />
+            <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+            <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

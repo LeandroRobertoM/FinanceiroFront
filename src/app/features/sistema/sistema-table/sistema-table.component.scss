@@ -1,0 +1,72 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap");
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+
+
+.row {
+  display: block; /* Ou display: initial; ou display: inline-block; - dependendo do layout desejado */
+  /* Outros estilos que você já tem para a classe .row */
+}
+
+table {
+  width: 100%;
+  margin-right: 8cm;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+table th {
+  background-color: #263238;
+  border-collapse: none;
+  color: white;
+  text-align: center;
+}
+
+table td {
+  padding: 1 px 1px;
+  text-align: left;
+}
+
+
+.center{
+    text-align: center;
+} 
+
+.Opcaonovo{
+  height: auto;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.Opcaofiltro {
+  .md-12 {
+    .mt-12 {
+      input[type="text"] {
+        padding: 10px 15px; /* Ajuste o padding conforme necessário */
+        font-size: 16px; /* Tamanho da fonte */
+        width: 30%; /* Largura da caixa de filtro */
+        box-sizing: border-box; /* Inclui o padding no tamanho total */
+        border: 1px solid #ccc; /* Adiciona uma borda para destacar a caixa de filtro */
+        border-radius: 5px; /* Adiciona bordas arredondadas */
+      }
+    }
+  }
+}
+
+.edit {
+  margin-right: 10px;
+}
+
+.edit>i {
+  color: #d9cd26;
+}
+
+.delete>i {
+  color: #e35e6b;
+}

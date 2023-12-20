@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -16,12 +17,16 @@ export class AppComponent implements OnInit {
   isSideNavCollapsed = true;
   screenWidth = 0;
   isAuthenticated = false;
+  isLoggedIn = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public authService: AuthService) {}
 
   ngOnInit() {
-
-    this.checkAuthenticationStatus();
+    this.authService.isLoggedIn$.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+    });
+    //this.checkAuthenticationStatus();
+  //  this.checkTokenOnRefresh();
   }
 
   onToggleSideNav(data: SideNavToggle): void {
@@ -29,21 +34,29 @@ export class AppComponent implements OnInit {
     this.isSideNavCollapsed = data.collapsed;
   }
 
-  // Verifique a autenticação (substitua pela lógica real)
-  private checkAuthenticationStatus(): void {
-    // Simule a verificação de autenticação (substitua pela lógica real)
-    const authToken = localStorage.getItem('authToken'); // Suponha que você armazene o token no localStorage
-  
-    // Verifique se um token de autenticação existe
-    const isAuthenticated = !!authToken; // Verifica se o token existe
-  
-    // Atualize o estado de isAuthenticated com base na verificação
-    this.isAuthenticated = isAuthenticated;
+  checkAuthenticationStatus(): void {
+    this.authService.UsuarioEstaAutenticado().then((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
+      console.log('Valor Variavel checkstatus:' + this.isAuthenticated);
+    });
   }
 
-  // Função para simular um login bem-sucedido
+  checkTokenOnRefresh(): void {
+    console.log('Usuario Entrou antes do F5:');
+    this.authService.getToken().subscribe((token) => {
+      if (token) {
+        this.isAuthenticated = true;
+        console.log('Usuário autenticado. Token recebido:', token);
+      } else {
+        console.log('Usuário não autenticado. Redirecionando para a página de login.');
+        this.isAuthenticated = false;
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
   onLoginSuccess() {
-    this.isAuthenticated = true;
-    this.router.navigate(['/dashboard']); // Redirecione para a página de dashboard após o login bem-sucedido
+    this.authService.UsuarioEstaAutenticado()
+    this.router.navigate(['/dashboard']);
   }
 }
