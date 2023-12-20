@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
 
       //Difine o valor settar o token 
       this.authService.setToken(token);
+      this.authService.setEmailUser(this.loginForm.value.email);
 
       // Defina isAuthenticated como true após um login bem-sucedido
       this.authService.UsuarioAutenticado(true);

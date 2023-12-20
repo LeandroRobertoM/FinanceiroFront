@@ -62,7 +62,7 @@ export class SistemaFormComponent implements OnInit {
           const sistemaFinanceiro: SistemaFinanceiro = response.dados;
           console.error('SistemaFianceiro:' + sistemaFinanceiro.id);
   
-          this.sistemaService.CadastrarUsuarioNoSistema(sistemaFinanceiro.id, "leandro.machados@ndd.com.br").subscribe(
+          this.sistemaService.CadastrarUsuarioNoSistema(sistemaFinanceiro.id, this.authService.getEmailUser()).subscribe(
             () => {
               this.sistemaService.showMessage('Sistema Financeiro criado com sucessossssssss!');
              this.router.navigate(['Sistema/tabela']); // Navega para outra rota após o sucesso

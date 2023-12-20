@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 
 //Desing components terceiros
 import { MatIconModule } from '@angular/material/icon';
@@ -83,6 +83,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
 
   ],
   imports: [
+    
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -92,7 +93,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatSnackBarModule,
     NgSelectModule,
     MatIconModule,
-
+    
     MatTableModule,
     MatSortModule,
     MatButtonModule,
@@ -100,7 +101,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatPaginatorModule,
     MatSortModule,
     MatDividerModule,
-
+    
   
     
   ],
