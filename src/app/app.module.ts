@@ -13,8 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -50,6 +49,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 import { DespesaFormComponent } from './features/despesa-form/despesa-form.component';
+import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
 
 
 
@@ -80,6 +80,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     DespesaTableComponent,
     CategoriaFormComponent,
     DespesaFormComponent,
+    CategoriaTableComponent,
     
 
   ],
@@ -94,7 +95,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatSnackBarModule,
     NgSelectModule,
     MatIconModule,
-    
+    MatProgressSpinnerModule,
     MatTableModule,
     MatSortModule,
     MatButtonModule,

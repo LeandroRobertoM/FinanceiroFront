@@ -18,6 +18,7 @@ import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-upda
 import { PagesComponent } from './pages/pages.component';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 import { DespesaFormComponent } from './features/despesa-form/despesa-form.component';
+import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
 
 
 const routes: Routes = [
@@ -39,7 +40,7 @@ const routes: Routes = [
       },
       {
         path: 'tabela',
-        component: CategoriaFormComponent,
+        component: CategoriaTableComponent,
         canActivate:[AuthGuard]
       },
       {
