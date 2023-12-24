@@ -42,6 +42,17 @@ label {
   transition: all linear 160ms;
 }
 
+select {
+  background: #ffffff;
+  box-sizing: border-box;
+  width: 397px;
+  height: 44px;
+  border: 1px solid #ccd4db;
+  border-radius: 4px;
+  padding: 8px;
+  color: #6e778b;
+}
+
 
 .group-label-row {
   display: flex;
@@ -171,4 +182,18 @@ label {
     transform: scale(1.05);
   }
   
+  ::ng-deep .mat-mdc-slide-toggle.mat-accent {
+    --mdc-switch-selected-focus-state-layer-color: #4caf50;
+    --mdc-switch-selected-handle-color: #4caf50;
+    --mdc-switch-selected-hover-state-layer-color: #4caf50;
+    --mdc-switch-selected-pressed-state-layer-color: #4caf50;
+    --mdc-switch-selected-focus-handle-color: #4caf50;
+    --mdc-switch-selected-hover-handle-color: #4caf50;
+    --mdc-switch-selected-pressed-handle-color: #4caf50;
+    --mdc-switch-selected-focus-track-color: #4caf50;
+    --mdc-switch-selected-hover-track-color: #4caf50;
+    --mdc-switch-selected-pressed-track-color: #4caf50;
+    --mdc-switch-selected-track-color: #062e08;
+}
+
 

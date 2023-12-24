@@ -1,9 +1,8 @@
 export class Categoria
 {
     Id?: number;
-    Nome: string;
     nome?: string;
-    IdSistema:number;
+    idSistemaFinanceiro:number;
 
     NomePropriedade?:string="";
     mensagem?:string="";

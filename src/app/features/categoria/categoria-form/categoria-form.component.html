@@ -10,7 +10,7 @@
       <div class="row">
         <div class="group-label-row">
           <label for="name">Nome</label>
-          <input type="text" name="name" id="name" placeholder="Nome" formControlName="nome" required />
+          <input type="text" name="name" id="Nome" placeholder="Nome" formControlName="nome" required />
         </div>
       </div>
       <div class="row">
@@ -23,8 +23,7 @@
       </div>
       <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
         <span *ngIf="form.get('nome')?.errors?.['required']">O Nome da Categoria é obrigatório!<br></span>
-        <span *ngIf="form.get('IdSistema')?.errors?.['required']">O IdSistema da Categoria é obrigatório!<br></span>
-      </div> 
+        <span *ngIf="form.get('sistema')?.errors?.['required']" class="error-message">O Sistema é obrigatório!</span>      </div> 
       <div class="ViewFooter">
         <br>
         <div class="row">

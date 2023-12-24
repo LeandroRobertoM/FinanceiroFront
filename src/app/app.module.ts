@@ -12,7 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -39,7 +39,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
 import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
 import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-table.component';
-import { DespesaFormComponent } from './features/despesa/despesa-form/despesa-form.component';
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
 import { CommonModule } from '@angular/common';
@@ -50,6 +49,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
+import { DespesaFormComponent } from './features/despesa-form/despesa-form.component';
 
 
 
@@ -76,10 +76,11 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     SistemaFormComponent,
     SistemaFormUpdateComponent,
     SistemaTableComponent,
-    DespesaFormComponent,
     DespesaFormUpdateComponent,
     DespesaTableComponent,
     CategoriaFormComponent,
+    DespesaFormComponent,
+    
 
   ],
   imports: [
@@ -101,7 +102,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatPaginatorModule,
     MatSortModule,
     MatDividerModule,
-    
+    MatSlideToggleModule,
   
     
   ],
