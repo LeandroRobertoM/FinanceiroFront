@@ -28,7 +28,7 @@ export class UsuarioTableComponent implements OnInit, AfterViewInit {
 
 
     /// lista despesa Usuarios
-    this.UserService.ListaDespesaUsuarioTable((this.authService.getEmailUser())).subscribe(data => {
+    this.UserService.ListaUsuarioSistema((this.authService.getEmailUser())).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -61,8 +61,8 @@ export class UsuarioTableComponent implements OnInit, AfterViewInit {
     return (event.target as HTMLInputElement).value;
   }
 
-  public excluirSistemaFinanceiro(despesa: Despesa) {
-    if (confirm(`Você Deseja Excluir o Sistema ${despesa.idDespesa}? sendo Excluindo todos os pedidos seram excluido`)) {
+  public excluirSistemaFinanceiro(UsuarioModel: UsuarioModel) {
+    if (confirm(`Você Deseja Excluir o Sistema ${UsuarioModel.UserId}? sendo Excluindo todos os pedidos seram excluido`)) {
       //this.SistemaService.ListaSistemaUsuario(sistema).subscribe//
       (() => {
        // this.clienteservice.showMessage("Cliente excluido com sucesso!");
