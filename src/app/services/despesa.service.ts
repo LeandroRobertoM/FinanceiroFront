@@ -39,6 +39,16 @@ export class DespesaService {
           );
       }
 
+      //Carregar graficos
+      CarregaGraficos(emailUsuario: string): Observable<Despesa[]> {
+        const url = `${this.baseURL}/CarregaGraficos?emailUsuario=${emailUsuario}`;
+      
+        return this.httpClient.get<Despesa[]>(url)
+          .pipe(
+            tap(carregagraficos => console.log(carregagraficos))
+          );
+      }
+
 
     showMessage(msg: string, isError: boolean = false): void {
         this.snackBar.open(msg, "X", {

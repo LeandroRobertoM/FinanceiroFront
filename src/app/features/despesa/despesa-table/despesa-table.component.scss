@@ -6,36 +6,47 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 
-
 .row {
   display: block; /* Ou display: initial; ou display: inline-block; - dependendo do layout desejado */
   /* Outros estilos que você já tem para a classe .row */
 }
+// ajuste necessario 
+
 
 table {
   width: 100%;
-  margin-right: 8cm;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   border: 1px solid #ccc;
-  width: 100%;
 }
 
-table th {
-  background-color: #263238;
-  border-collapse: none;
-  color: white;
-  text-align: center;
-}
-
-table td {
-  padding: 1 px 1px;
+/* Estilos para cabeçalhos de coluna */
+th,
+td {
+  padding: 12px;
   text-align: left;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+.center{
+  text-align: center;
+} 
+
+tr:nth-child(even) {
+  background-color: #cac6c6fa;
 }
 
+tr:hover {
+  background-color: #cac6c6fa;
+}
 
-.center{
-    text-align: center;
-} 
+/* Estilos para a célula de ação */
+.action-cell {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
 
 .Opcaonovo{
   height: auto;
@@ -59,14 +70,14 @@ table td {
   }
 }
 
-.edit {
-  margin-right: 10px;
+.action-cell a, .action-cell button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
 }
 
-.edit>i {
-  color: #d9cd26;
-}
-
-.delete>i {
-  color: #e35e6b;
+.action-cell a:hover, .action-cell button:hover {
+  color: #777;
 }

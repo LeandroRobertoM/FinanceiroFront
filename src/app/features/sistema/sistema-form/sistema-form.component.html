@@ -1,32 +1,84 @@
 <div class="container-base">
-  <div class="DivTitlebar">
-      <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">  
-      <h1>Cadastro de Sistemas</h1>
-  </div>
-  <br>
-  <br>
-  <div class="DivFormGroup">
-      <form [formGroup]="form" (submit)="salvar()">
-          <div class="row">
-              <div class="group-label-row">
-                  <label for="name">Sistema</label>
-                  <input type="text" name="name" id="name" placeholder="Nome" formControlName="name" required />
-              </div>
-          </div>
-          <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
-            <span *ngIf="form.get('name')?.errors?.['required']">O Nome do Sistema é obrigatório!<br></span>
-          </div> 
-          <div class="ViewFooter">
-              <br>
-              <div class="row">
-                  <div class="group-btn-row">
-                      <input type="submit" value="Salvar"  class="btn-primary" style="margin-right: 10px;"/>
-                      <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
-                      <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
-                  </div>
-              </div>
+    <div class="DivTitlebar">
+        <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">
+        <h1>Cadastro de Sistema Financeiro</h1>
+    </div>
+    <br>
+    <br>
+    <div class="DivFormGroup">
+        <form [formGroup]="form" (submit)="salvar()">
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <div class="group-label-row">
+                        <label for="nome">Sistema</label>
+                        <input type="text" name="nome" id="nome" placeholder="nome" formControlName="nome">
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="group-label-row">
+                        <label for="mes">Mês Sistema</label>
+                        <input type="text" name="mes" id="mes" placeholder="Mês Sistema" formControlName="mes"
+                            required />
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="group-label-row">
+                        <label for="ano">Ano Sistema</label>
+                        <input type="text" name="ano" id="ano" placeholder="Ano Sistema" formControlName="ano"
+                            required />
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="group-label-row">
+                        <label for="diaFechamento">Dia Fechamento</label>
+                        <input type="text" name="diaFechamento" id="diaFechamento" placeholder="diaFechamento" formControlName="diaFechamento"
+                            required />
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
+                <span *ngIf="form.get('nome')?.errors?.['required']">O nome é obrigatorio !<br></span>
+                <span *ngIf="form.get('mes')?.errors?.['required']">O Mês é obrigatorio !<br></span>
+                <span *ngIf="form.get('ano')?.errors?.['required']">O Ano é obrigatório!<br></span>
+                <span *ngIf="form.get('diaFechamento')?.errors?.['required']">O dia do Fechamento do mês é
+                    obrigatório!<br></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <div class="group-label-row">
+                        <label for="mesCopia">Mês Cópia</label>
+                        <input type="text" name="mesCopia" id="mesCopia" placeholder="Mês Cópia"
+                            formControlName="mesCopia" required />
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="group-label-row">
+                        <label for="anoCopia">Ano Cópia</label>
+                        <input type="text" name="anoCopia" id="anoCopia" placeholder="Ano Cópia"
+                            formControlName="anoCopia" required />
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="group-row">
 
-          </div>
-      </form>
-  </div>
+                        <mat-slide-toggle class="group-slide" [color]="gerarCopiaDespesa" [checked]="checked"
+                            [disabled]="disabled" (change)="handleChangeCopia($event)">
+                            Gerar Copia das Despesas?
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="ViewFooter">
+                <br>
+                <div class="row">
+                    <div class="group-btn-row">
+                        <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;" />
+                        <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+                        <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
 </div>

@@ -50,6 +50,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
 import { DespesaFormComponent } from './features/despesa-form/despesa-form.component';
 import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
+import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-form.component';
+import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
 
 
 
@@ -81,6 +83,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     CategoriaFormComponent,
     DespesaFormComponent,
     CategoriaTableComponent,
+    UsuarioFormComponent,
+    UsuarioTableComponent,
     
 
   ],

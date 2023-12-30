@@ -27,7 +27,8 @@ export class DespesaTableComponent implements OnInit, AfterViewInit {
   constructor(public authService: AuthService,private DespesaService: DespesaService, private router: Router) {
 
 
-    this.DespesaService.ListaDespesaUsuarioTable('leandrorobertotec@uniplaclages.edu.br').subscribe(data => {
+    /// lista despesa Usuarios
+    this.DespesaService.ListaDespesaUsuarioTable((this.authService.getEmailUser())).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

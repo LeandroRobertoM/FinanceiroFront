@@ -88,12 +88,12 @@ export const navbarData: INavbarData[] = [
         expanded: true,
         items: [
             {
-                routeLink: 'settings/profile',
-                label: 'Profile'
+                routeLink: 'Usuario/formulario',
+                label: 'Usuarios'
             },
             {
-                routeLink: 'settings/customize',
-                label: 'Customize'
+                routeLink: 'settings/Banco',
+                label: 'Banco'
             }
         ]
     },
