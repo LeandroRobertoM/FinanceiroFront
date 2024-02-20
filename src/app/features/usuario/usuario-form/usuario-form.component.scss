@@ -197,3 +197,80 @@ select {
 }
 
 
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ccc;
+  }
+  
+  /* Estilos para cabeçalhos de coluna */
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  .center{
+    text-align: center;
+  } 
+  
+  tr:nth-child(even) {
+    background-color: #cac6c6fa;
+  }
+  
+  tr:hover {
+    background-color: #cac6c6fa;
+  }
+
+
+  .badge-empresa-vinculada {
+    display: inline-block;
+    background-color: #e6e6e6;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-right: 10px;
+  }
+  
+  .badge-empresa-vinculada span {
+    margin-right: 5px;
+  }
+  
+  .ndd-font-close {
+    cursor: pointer;
+    color: #888;
+  }
+
+  .modal-dialog {
+    max-width: 90%;
+  }
+  .modal-dialog-slideout {
+    min-height: 100%;
+    margin: 0 0 0 auto;
+    background: #fff;
+  }
+  .modal.fade .modal-dialog.modal-dialog-slideout {
+    -webkit-transform: translate(100%, 0)scale(1);
+    transform: translate(100%, 0)scale(1);
+  }
+  .modal.fade.show .modal-dialog.modal-dialog-slideout {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    display: flex;
+    align-items: stretch;
+    -webkit-box-align: stretch;
+    height: 100%;
+  }
+  .modal.fade.show .modal-dialog.modal-dialog-slideout .modal-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .modal-dialog-slideout .modal-content {
+    border: 0;
+  }
+  .modal-dialog-slideout .modal-header,
+  .modal-dialog-slideout .modal-footer {
+    height: 4rem;
+    display: block;
+  }

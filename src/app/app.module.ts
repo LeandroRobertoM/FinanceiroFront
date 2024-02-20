@@ -14,6 +14,7 @@ import { SublevelMenuComponent } from './sidenav/sublevel-menu.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -108,6 +109,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatSortModule,
     MatDividerModule,
     MatSlideToggleModule,
+    MatCheckboxModule,
   
     
   ],

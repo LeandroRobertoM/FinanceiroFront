@@ -58,7 +58,7 @@ export class CategoriaFormComponent implements OnInit{
         (response: any) => {
           const categoria: Categoria = response.dados;
           this.categoriaService.showMessage('Categoria criada com sucesso!');
-          this.router.navigate(['/products']);
+          this.router.navigate(['Categoria/tabela']);
         },
         (error) => {
           console.error(error);

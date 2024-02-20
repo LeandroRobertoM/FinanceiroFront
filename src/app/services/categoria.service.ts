@@ -31,7 +31,7 @@ export class CategoriaService {
     }
 
     ListaCategoriaUsuarioTable(emailUsuario: string): Observable<Categoria[]> {
-        const url = `${this.baseURL}/ListaSistemaUsuario?emailUsuario=${emailUsuario}`;
+        const url = `${this.baseURL}/ListarCategoriasUsuario?emailUsuario=${emailUsuario}`;
       
         return this.httpClient.get<Categoria[]>(url)
           .pipe(

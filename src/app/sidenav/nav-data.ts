@@ -7,9 +7,9 @@ export const navbarData: INavbarData[] = [
         label: 'Dashboard'
     },
     {
-        routeLink: 'products',
+        routeLink: 'Compras',
         icon: 'fa fa-box-open',
-        label: 'Produtos',
+        label: 'Compras',
         items: [
             {
                 routeLink: 'products/level1.1',
@@ -60,22 +60,6 @@ export const navbarData: INavbarData[] = [
             },
         ]
     },
-    {
-        routeLink: 'pages',
-        icon: 'fal fa-file',
-        label: 'Pages',
-        items: [
-            {
-                routeLink: 'Pages/pages',
-                label: 'pages'
-            },
-        ]
-    },
-   /* {
-        routeLink: 'media',
-        icon: 'fal fa-camera',
-        label: 'Media'
-    },*/
     {
         routeLink: 'statistics',
         icon: 'fal fa-chart-bar',

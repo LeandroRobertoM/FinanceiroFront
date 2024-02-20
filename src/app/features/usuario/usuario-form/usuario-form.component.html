@@ -3,43 +3,103 @@
     <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">  
     <h1>Cadastro de Usuario</h1>
   </div>
-  <br>
-  <br>
-  <div class="DivFormGroup">
-    <form [formGroup]="form" (submit)="salvar()">
-      <div class="row">
+  <div class="row">
+    <!-- Inputs do formulário -->
+    <div class="DivFormGroup">
+      <form [formGroup]="form" (submit)="salvar()">
         <div class="group-label-row">
           <label for="cpf">CPF</label>
-          <input type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf" required />
+          <input type="text" name="cpf" id="cpf" placeholder="cpf" formControlName="cpf" required />
         </div>
-      </div>
-      <div class="row">
         <div class="group-label-row">
-          <label for="email">Email</label>
-          <input type="text" name="email" id="email" placeholder="Email" formControlName="email" required />
+          <label for="email">E-mail:</label>
+          <input type="text" name="email" id="email" placeholder="email" formControlName="email" required />
         </div>
-      </div> 
-      <div class="row">
         <div class="group-label-row">
-          <label for="senha">Senha</label>
-          <input type="text" name="senha" id="senha" placeholder="Senha" formControlName="senha" required />
+          <label for="senha">Senha:</label>
+          <input type="text" name="senha" id="senha" placeholder="senha" formControlName="senha" required />
         </div>
-      </div> 
-      <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
-        <span *ngIf="form.get('cpf')?.errors?.['required']">O CPF do Usuario é obrigatório!<br></span>
-        <span *ngIf="form.get('email')?.errors?.['required']">O email do Usuario é obrigatório!<br></span>
-        <span *ngIf="form.get('senha')?.errors?.['required']">A senha do Usuario é obrigatória!<br></span>
-      </div>
-      <div class="ViewFooter">
-        <br>
-        <div class="row">
+        <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
+          <span *ngIf="form.get('cpf')?.errors?.['required']">O CPF do Usuario é obrigatório!<br></span>
+          <span *ngIf="form.get('email')?.errors?.['requred']">O email do Usuario é obrigatório!<br></span>
+          <span *ngIf="form.get('senha')?.errors?.['required']">A senha do Usuario é obrigatória!<br></span>
+        </div>
+        <div class="ViewFooter">
+          <br>
           <div class="group-btn-row">
             <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;" />
-            <input type="button" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
-            <input type="reset" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+            <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+            <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Grid de sistemas -->
+    <div *ngIf="exibirGridSistemas" class="GridView">
+      <h3>Busca de Sistemas Financeiros</h3>
+      <div class="Opcaofiltro">
+        <div class="md-8">
+          <div class="md-8">
+            <input type="text" (keyup)="applyFilter(getValue($event))" placeholder="Pesquisa de Sistema">
           </div>
         </div>
       </div>
-    </form>
+      <br>
+      <table mat-table [dataSource]="dataSource" matSort matSortStart="desc" class="mat-elevation-z8 table-style">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                           (change)="$event ? selection.toggle(row) : null"
+                           [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>CODIGO</th>
+          <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>NOME</th>
+          <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.nome }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <br>
+      <mat-paginator [pageSize]="6" [pageSizeOptions]="[6,8]" [length]="dataSource.data.length"></mat-paginator>
+      <div class="row">
+        <div class="group-label-row">
+          <button (click)="getSelectedIds()" class="btn-primary">Adicionar Selecionados</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="group-label-row">
+    <span>Sistemas Vinculados:</span>
+    <div *ngFor="let sistema of sistemasSelecionados" class="sistema-item">
+      {{ sistema }}
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <a href="javascript:void(0)" (click)="exibirListaSistemas()">Vincular Sistema Financeiro</a>
+</div>
+<!-- Após o botão "Adicionar Selecionados" -->
+<div class="row" *ngIf="exibirGridSistemasAdicionados">
+  <div class="group-label-row">
+    <span>Sistemas Selecionados:</span>
+    <div *ngFor="let sistema of sistemasSelecionados" class="sistema-item">
+      {{ sistema }}
+    </div>
   </div>
 </div>

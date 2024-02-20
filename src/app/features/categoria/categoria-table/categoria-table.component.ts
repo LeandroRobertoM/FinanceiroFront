@@ -21,7 +21,7 @@ export class CategoriaTableComponent implements OnInit, AfterViewInit {
   constructor(public authService: AuthService,private CategoriaService: CategoriaService, private router: Router) {
 
 
-    this.CategoriaService.ListaCategoriaUsuarioTable('leandrorobertotec@uniplaclages.edu.br').subscribe(data => {
+    this.CategoriaService.ListaCategoriaUsuarioTable((this.authService.getEmailUser())).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
