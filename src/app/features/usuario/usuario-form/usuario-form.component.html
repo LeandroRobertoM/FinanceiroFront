@@ -81,21 +81,15 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="group-label-row">
-    <span>Sistemas Vinculados:</span>
-    <div *ngFor="let sistema of sistemasSelecionados" class="sistema-item">
-      {{ sistema }}
-    </div>
-  </div>
-</div>
+
+<!-- 
 <div class="row">
   <a href="javascript:void(0)" (click)="exibirListaSistemas()">Vincular Sistema Financeiro</a>
-</div>
+</div>>-->
 <div class="row">
   <a href="javascript:void(0)" (click)="openDialog()">Vincular Sistemas Financeiro</a>
 </div>
-<!-- Após o botão "Adicionar Selecionados" -->
+<!-- Após o botão "Adicionar Selecionados"
 <div class="row" *ngIf="exibirGridSistemasAdicionados">
   <div class="group-label-row">
     <span>Sistemas Selecionados:</span>
@@ -103,4 +97,4 @@
       {{ sistema }}
     </div>
   </div>
-</div>
+</div>-->

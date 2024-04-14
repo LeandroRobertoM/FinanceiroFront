@@ -157,25 +157,23 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
     return (event.target as HTMLInputElement).value;
   }
   
-  openDialog():void{
-    const dialogRef = this.dialog.open(UsuarioTableSistemaDialogComponent,{
-      width: '800px',
-      height: '800px',
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UsuarioTableSistemaDialogComponent, {
+      // Defina as configurações do dialog conforme necessário
+      maxWidth: '100vw',
+      maxHeight: '100vh',
       position: {
-        left: '600px' // Posição em relação ao lado direito da janela
+        right: '0',
+        top: '0'
       }
-    });
-
-    dialogRef.afterOpened().subscribe(() => {
-       dialogRef.componentInstance.exibirListaSistemasAdicionadosUsuarioDialog
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      console.log("the dialog was closed")
+      if (result) {
+        const sistemasSelecionados = dialogRef.componentInstance.getSistemasSelecionados();
+        console.log("Sistemas SelecionadosAgor01235a:", sistemasSelecionados);
+        this.exibirListaSistemasAdicionadosUsuario();
+      }
     });
-
-
   }
- 
-
 }

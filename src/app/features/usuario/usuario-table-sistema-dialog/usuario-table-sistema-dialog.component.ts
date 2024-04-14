@@ -107,14 +107,16 @@ export class UsuarioTableSistemaDialogComponent implements OnInit,AfterViewInit 
     this.sistemasSelecionados = [...this.sistemasSelecionados, ...sistemasSelecionadosAtuais];
 
     // Exibe os sistemas selecionados no console
-    console.log("Sistemas Selecionados:", this.sistemasSelecionados);
+    console.log("Sistemas SelecionadosPrimeiraVez:", this.sistemasSelecionados);
 
-    // Mantém os grids de exibição conforme necessário
-    this.exibirGridSistemas = false;
-    this.exibirGridSistemasAdicionados = true;
-}
+    this.cancel();
+  }
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
+  }
+
+  getSistemasSelecionados(): string[] {
+    return this.sistemasSelecionados;
   }
 
   isAllSelected(): boolean {
