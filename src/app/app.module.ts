@@ -15,6 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -53,6 +54,7 @@ import { DespesaFormComponent } from './features/despesa-form/despesa-form.compo
 import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
 import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-form.component';
 import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
+import { UsuarioTableSistemaDialogComponent } from './features/usuario/usuario-table-sistema-dialog/usuario-table-sistema-dialog.component';
 
 
 
@@ -86,6 +88,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     CategoriaTableComponent,
     UsuarioFormComponent,
     UsuarioTableComponent,
+    UsuarioTableSistemaDialogComponent,
+ 
     
 
   ],
@@ -110,6 +114,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatDividerModule,
     MatSlideToggleModule,
     MatCheckboxModule,
+    MatDialogModule,
   
     
   ],

@@ -9,6 +9,8 @@ import { MatSort } from '@angular/material/sort';
 import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
+import { UsuarioTableSistemaDialogComponent } from '../usuario-table-sistema-dialog/usuario-table-sistema-dialog.component';
 
 
 @Component({
@@ -42,6 +44,7 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
+    public dialog:MatDialog
     
 
   ) {}
@@ -152,6 +155,26 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
 
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
+  }
+  
+  openDialog():void{
+    const dialogRef = this.dialog.open(UsuarioTableSistemaDialogComponent,{
+      width: '800px',
+      height: '800px',
+      position: {
+        left: '600px' // Posição em relação ao lado direito da janela
+      }
+    });
+
+    dialogRef.afterOpened().subscribe(() => {
+       dialogRef.componentInstance.exibirListaSistemasAdicionadosUsuarioDialog
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("the dialog was closed")
+    });
+
+
   }
  
 
