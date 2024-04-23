@@ -1,0 +1,293 @@
+/* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap");
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  font-family: "Poppins";
+  margin: 0;
+  background: #b4e7b6;
+  font-weight: normal;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+h1{
+font-family: inherit;
+font-weight: normal;
+line-height: 1.1;
+color: inherit;
+}
+
+
+input {
+  background: #ffffff;
+  box-sizing: border-box;
+  height: 44px;
+  border: 1px solid #ccd4db;
+  border-radius: 4px;
+  padding: 8px;
+  color: #6e778b;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px; 
+  transition: all linear 160ms;
+}
+
+select {
+  background: #ffffff;
+  box-sizing: border-box;
+  width: 397px;
+  height: 44px;
+  border: 1px solid #ccd4db;
+  border-radius: 4px;
+  padding: 8px;
+  color: #6e778b;
+}
+
+
+.group-label-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; /* Adicione um espaçamento vertical entre os elementos */
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #36515f;
+  border-color: #36515f;
+  box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2),
+  0 1px 5px 0 rgba(156, 39, 176, 0.12);
+
+  cursor: pointer;
+  min-width: 150px;
+  width: auto;
+}
+
+.btn-cancelar {
+    color: #fff;
+    background-color: #36515f;
+    border-color: #36515f;
+    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2),
+    0 1px 5px 0 rgba(156, 39, 176, 0.12);
+  
+    cursor: pointer;
+    min-width: 150px;
+    width: auto;
+  }
+
+  .btn-limpar {
+    color: #fff;
+    background-color: #36515f;
+    border-color: #36515f;
+    box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2),
+    0 1px 5px 0 rgba(156, 39, 176, 0.12);
+  
+    cursor: pointer;
+    min-width: 150px;
+    width: auto;
+  }
+
+.DivTitlebar {
+    /* Estilos para a DivTitlebar */
+    border-bottom: 1px solid #ccc; /* Adicione uma borda inferior */
+    padding-bottom: 10px; /* Adicione um espaçamento na parte inferior */
+  }
+  
+  .ViewFooter {
+    /* Estilos para o ViewFooter */
+    border-top: 1px solid #ccc; /* Adicione uma borda superior */
+    padding-top: 10px; /* Adicione um espaçamento na parte superior */
+  }
+
+  .DivTitlebar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .DivTitlebar img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+  }
+  
+  h1 {
+    margin: 0; /* Remova o espaçamento superior do título */
+  }
+
+  .error-message {
+    margin-top: 5px; 
+    font-size: 14px; 
+    color: red; 
+  }
+  
+
+  .btn-primary {
+    background-color: #36515f;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    text-decoration: none; /* Remover sublinhado */
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 8px 14px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1706ff;
+    transform: scale(1.05);
+  }
+
+  .btn-cancelar {
+    background-color: #36515f;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    text-decoration: none; /* Remover sublinhado */
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 8px 14px;
+  }
+  
+  .btn-cancelar:hover {
+    background-color: #f72727d7;
+    transform: scale(1.05);
+  }
+  
+  .btn-limpar {
+    background-color: #36515f; /* Cor de fundo do botão Limpar */
+    color: #fff; /* Cor do texto do botão Limpar */
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    text-decoration: none; /* Remover sublinhado */
+    transition: all linear 160ms;
+    cursor: pointer;
+    padding: 8px 14px;
+    margin-right: 10px; /* Margem à direita para separar botões */
+  }
+  
+  .btn-limpar:hover {
+    background-color: #c2b9b9e1; /* Cor de fundo no hover */
+    transform: scale(1.05);
+  }
+  
+  ::ng-deep .mat-mdc-slide-toggle.mat-accent {
+    --mdc-switch-selected-focus-state-layer-color: #4caf50;
+    --mdc-switch-selected-handle-color: #4caf50;
+    --mdc-switch-selected-hover-state-layer-color: #4caf50;
+    --mdc-switch-selected-pressed-state-layer-color: #4caf50;
+    --mdc-switch-selected-focus-handle-color: #4caf50;
+    --mdc-switch-selected-hover-handle-color: #4caf50;
+    --mdc-switch-selected-pressed-handle-color: #4caf50;
+    --mdc-switch-selected-focus-track-color: #4caf50;
+    --mdc-switch-selected-hover-track-color: #4caf50;
+    --mdc-switch-selected-pressed-track-color: #4caf50;
+    --mdc-switch-selected-track-color: #062e08;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ccc;
+  }
+  
+  /* Estilos para cabeçalhos de coluna */
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  .center{
+    text-align: center;
+  } 
+  
+  tr:nth-child(even) {
+    background-color: #cac6c6fa;
+  }
+  
+  tr:hover {
+    background-color: #cac6c6fa;
+  }
+
+
+  .badge-empresa-vinculada {
+    display: inline-block;
+    background-color: #e6e6e6;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-right: 10px;
+  }
+  
+  .badge-empresa-vinculada span {
+    margin-right: 5px;
+  }
+  
+  .ndd-font-close {
+    cursor: pointer;
+    color: #888;
+  }
+
+  .modal-dialog {
+    max-width: 90%;
+  }
+  .modal-dialog-slideout {
+    min-height: 100%;
+    margin: 0 0 0 auto;
+    background: #fff;
+  }
+  .modal.fade .modal-dialog.modal-dialog-slideout {
+    -webkit-transform: translate(100%, 0)scale(1);
+    transform: translate(100%, 0)scale(1);
+  }
+  .modal.fade.show .modal-dialog.modal-dialog-slideout {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    display: flex;
+    align-items: stretch;
+    -webkit-box-align: stretch;
+    height: 100%;
+  }
+  .modal.fade.show .modal-dialog.modal-dialog-slideout .modal-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .modal-dialog-slideout .modal-content {
+    border: 0;
+  }
+  .modal-dialog-slideout .modal-header,
+  .modal-dialog-slideout .modal-footer {
+    height: 4rem;
+    display: block;
+  }
+
+  .badge-container {
+    display: inline-block;
+}
+
+.badge-sistema-usuario {
+    border-radius: 25px;
+    background-color: #8cd0f1;
+    padding: 3px 7px;
+    color: #546e7a;
+    cursor: pointer;
+    margin: 6px 7px 5px;
+}
+
+.badge-sistema-usuario:hover {
+    background-color: #66a9d8;
+}

@@ -1,0 +1,73 @@
+<div class="container-base">
+  <div class="DivTitlebar">
+    <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">
+    <h1>Cadastro de Despesa</h1>
+  </div>
+  <br>
+  <br>
+  <div class="DivFormGroup">
+    <form [formGroup]="form" (submit)="salvar()">
+      <div class="row">
+        <div class="form-group col-md-4">
+          <div class="group-label-row">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="Nome" placeholder="Nome" formControlName="nome" required />
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <div class="group-label-row">
+            <label for="data">Data de Vencimento</label>
+            <input type="date" name="data" id="data" placeholder="data" formControlName="data" required />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-3">
+            <div class="group-row">
+
+              <mat-slide-toggle class="group-slide" [color]="color" [checked]="checked" [disabled]="disabled"
+                (change)="handleChangePago($event)">
+                Pago?
+              </mat-slide-toggle>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <div class="group-label-row">
+            <label for="valor">Valor:</label>
+            <input type="text" name="valor" id="valor" placeholder="valor" formControlName="valor" required />
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <div class="group-label-row">
+            <label for="categoria" class="control-label">categoria</label>
+            <select class="form-select" id="categoria" formControlName="categoria">
+              <option *ngFor="let categoria of lisCategoriaSistemas" [ngValue]="categoria.id">{{categoria.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+      <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
+        <span *ngIf="form.get('nome')?.errors?.['required']">O Nome é obrigatório!<br></span>
+        <span *ngIf="form.get('valor')?.errors?.['required']">O Valor é obrigatório!<br></span>
+        <span *ngIf="form.get('categoria')?.errors?.['required']" class="error-message">A Categoria é
+          obrigatória!</span>
+        <span *ngIf="form.get('data')?.errors?.['required']" class="error-message">A Data é obrigatória!</span>
+      </div>
+      <div class="ViewFooter">
+        <br>
+        <div class="row">
+          <div class="group-btn-row">
+            <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;" />
+            <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+            <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

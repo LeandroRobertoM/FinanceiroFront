@@ -1,5 +1,5 @@
-import { Component,OnInit } from '@angular/core';
-import { FormControl,FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
 import { SistemaService } from 'src/app/services/sistema.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,55 +17,52 @@ export class SistemaFormComponent implements OnInit {
   Sistema: SistemaFinanceiro;
   public form!: FormGroup;
   public formValido: boolean = true;
-  constructor(private formBuilder: FormBuilder, private sistemaService: SistemaService, private authService: AuthService, private router: Router) {}
+  gerarCopiaDespesa = 'accent';
+  checked = false;
+  disabled = false;
 
- // sistemaForm: FormGroup;
+  constructor(private formBuilder: FormBuilder, private sistemaService: SistemaService, private authService: AuthService, private router: Router) { }
 
-  ngOnInit():void {
-
-    this.form = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.minLength(3)]],
-      // Adicione outros campos do formulário aqui, se houver
-    });
-  /*
-    this.sistemaForm = this.formBuilder.group
+  ngOnInit(): void {
+  
+    this.form = this.formBuilder.group
       (
         {
-          name: ['', [Validators.required]]
+          nome:['', [Validators.required]], 
+          mes: ['', [Validators.required]], 
+          ano: ['', [Validators.required]], 
+          diaFechamento: ['', [Validators.required]], 
         }
-      )*/
-
-
+      )
   }
 
-
- /* dadorForm() {
-    return this.sistemaForm.controls;
+  handleChangeCopia(item: any) {
+    this.checked = item.checked as boolean;
   }
-  */
+
   public salvar(): void {
     if (this.form.valid) {
       const novoSistema: SistemaFinanceiro = {
-        Nome: this.form.value.name,
-        id:0,
-        Mes:0,
-        Ano:0,
-        DiaFechamento:0,
-        GerarCopiaDespesa:true,
-        MesCopia:0,
-        AnoCopia:0,
-
+        Nome: this.form.value.nome,
+        id: 0,
+        Mes: this.form.value.mes,
+        Ano: this.form.value.ano,
+        DiaFechamento: this.form.value.DiaFechamento,
+        GerarCopiaDespesa: true,
+        MesCopia: this.form.value.mesCopia,
+        AnoCopia: this.form.value.anoCopia,
       };
 
+      //Ajustado adicionar SistemaFinanceiro
       this.sistemaService.AdicionarSistemaFinanceiro(novoSistema).subscribe(
         (response: any) => {
           const sistemaFinanceiro: SistemaFinanceiro = response.dados;
           console.error('SistemaFianceiro:' + sistemaFinanceiro.id);
-  
+
           this.sistemaService.CadastrarUsuarioNoSistema(sistemaFinanceiro.id, this.authService.getEmailUser()).subscribe(
             () => {
               this.sistemaService.showMessage('Sistema Financeiro criado com sucessossssssss!');
-             this.router.navigate(['Sistema/tabela']); // Navega para outra rota após o sucesso
+              this.router.navigate(['Sistema/tabela']); // Navega para outra rota após o sucesso
             },
             (error) => {
               console.error(error);
@@ -80,41 +77,5 @@ export class SistemaFormComponent implements OnInit {
       );
     }
   }
-
-
-
-  /*enviar() {
-    const dados = this.dadorForm();
-    const item = new SistemaFinanceiro();
-    item.Nome = dados["name"].value;
-    item.id = 0;
-    item.Mes = 0;
-    item.Ano = 0;
-    item.DiaFechamento = 0;
-    item.GerarCopiaDespesa = true;
-    item.MesCopia = 0;
-    item.AnoCopia = 0;
-  
-    this.sistemaService.AdicionarSistemaFinanceiro(item).subscribe(
-      (response: any) => {
-        const sistemaFinanceiro: SistemaFinanceiro = response.dados;
-        console.error('SistemaFianceiro:' + sistemaFinanceiro.id);
-  
-        this.sistemaService.CadastrarUsuarioNoSistema(sistemaFinanceiro.id, "leandro.machados@ndd.com.br").subscribe(
-          () => {
-            this.sistemaService.showMessage('Sistema Financeiro criado com sucesso!');
-            // Navega para outra rota ou executa outra ação, se necessário
-          },
-          (error) => {
-            console.error(error);
-            this.sistemaService.showMessage('Erro ao criar Sistema Financeiro.', true); // true indica que é um erro
-          }
-        );
-      },
-      (error) => {
-        console.error(error);
-        this.sistemaService.showMessage('Erro ao adicionar o Sistema Financeiro.', true); // true indica que é um erro
-      }
-    );
-  }*/
 }
+

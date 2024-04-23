@@ -12,11 +12,14 @@ import { AuthGuard } from './guards/auth-guard.service';
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
 import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-table.component';
 import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
-import { DespesaFormComponent } from './features/despesa/despesa-form/despesa-form.component';
+
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 import { PagesComponent } from './pages/pages.component';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
+import { DespesaFormComponent } from './features/despesa-form/despesa-form.component';
+import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
+import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-form.component';
 
 
 const routes: Routes = [
@@ -38,7 +41,7 @@ const routes: Routes = [
       },
       {
         path: 'tabela',
-        component: CategoriaFormComponent,
+        component: CategoriaTableComponent,
         canActivate:[AuthGuard]
       },
       {
@@ -88,6 +91,30 @@ const routes: Routes = [
       {
         path: 'tabela',
         component: DespesaTableComponent,
+        canActivate:[AuthGuard]
+      },
+      {
+        path: 'update/:idCategoria',
+        component: DespesaFormUpdateComponent,
+        canActivate:[AuthGuard]
+      },
+      {
+        path: '',
+        redirectTo: 'home', pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'Usuario',
+    children: [
+      {
+        path: 'formulario',
+        component: UsuarioFormComponent,
+        canActivate:[AuthGuard]
+      },
+      {
+        path: 'tabela',
+        component: UsuarioFormComponent,
         canActivate:[AuthGuard]
       },
       {

@@ -18,7 +18,7 @@ export class CategoriaService {
     private readonly baseURL = environment["endPoint"]
 
     AdicionarCategoria(categoria: Categoria) {
-        return this.httpClient.post<Categoria>(`${this.baseURL}/AdicionarSistemaFinanceiro`,
+        return this.httpClient.post<Categoria>(`${this.baseURL}/AdicionarCategoria`,
         categoria)
     }
 
@@ -31,7 +31,16 @@ export class CategoriaService {
     }
 
     ListaCategoriaUsuarioTable(emailUsuario: string): Observable<Categoria[]> {
-        const url = `${this.baseURL}/ListaSistemaUsuario?emailUsuario=${emailUsuario}`;
+        const url = `${this.baseURL}/ListarCategoriasUsuario?emailUsuario=${emailUsuario}`;
+      
+        return this.httpClient.get<Categoria[]>(url)
+          .pipe(
+            tap(categorias => console.log(categorias))
+          );
+      }
+
+      ListaCategoriaSistemas(emailUsuario: string): Observable<Categoria[]> {
+        const url = `${this.baseURL}/ListarCategoriasUsuario?emailUsuario=${emailUsuario}`;
       
         return this.httpClient.get<Categoria[]>(url)
           .pipe(

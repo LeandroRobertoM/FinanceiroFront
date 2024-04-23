@@ -1,33 +1,27 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
+import { AuthService } from 'src/app/services/auth.service';
+import { CategoriaService } from 'src/app/services/categoria.service';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table'
 import { MatSort } from '@angular/material/sort';
+import { Categoria } from 'src/app/models/Categoria';
 import { MatPaginator } from '@angular/material/paginator'
-import { SistemaService } from 'src/app/services/sistema.service';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-sistema-table',
-  templateUrl: './sistema-table.component.html',
-  styleUrls: ['./sistema-table.component.scss']
+  selector: 'app-categoria-table',
+  templateUrl: './categoria-table.component.html',
+  styleUrls: ['./categoria-table.component.scss']
 })
-export class SistemaTableComponent implements OnInit, AfterViewInit {
+export class CategoriaTableComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['id', 'nome', 'action']
-  sistemafinanceiro: SistemaFinanceiro;
-  dataSource = new MatTableDataSource<SistemaFinanceiro>
+  categoria: Categoria;
+  dataSource = new MatTableDataSource<Categoria>
 
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  constructor(public authService: AuthService,private CategoriaService: CategoriaService, private router: Router) {
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
 
-  constructor(public authService: AuthService,private SistemaService: SistemaService, private router: Router) {
-
-//ajustado passando o email que está logado 
-    this.SistemaService.ListaSistemaUsuarioTable((this.authService.getEmailUser())).subscribe(data => {
+    this.CategoriaService.ListaCategoriaUsuarioTable((this.authService.getEmailUser())).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -35,13 +29,20 @@ export class SistemaTableComponent implements OnInit, AfterViewInit {
 
   }
 
+  @ViewChild(MatSort)
+  sort!: MatSort;
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
+
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  navigateToSistemaFinanceiroCreate(): void {
-    this.router.navigate(['/Sistema/formulario'])
+  navigateToCategoriaCreate(): void {
+    this.router.navigate(['/Categoria/formulario'])
     console.log("console")
   }
 
@@ -56,14 +57,12 @@ export class SistemaTableComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
   }
-
-
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
   }
 
-  public excluirSistemaFinanceiro(sistema: SistemaFinanceiro) {
-    if (confirm(`Você Deseja Excluir o Sistema ${sistema.id}? sendo Excluindo todos os pedidos seram excluido`)) {
+  public excluirCategoria(categoria: Categoria) {
+    if (confirm(`Você Deseja Excluir o Sistema ${categoria.Id}? sendo Excluindo todos os pedidos seram excluido`)) {
       //this.SistemaService.ListaSistemaUsuario(sistema).subscribe//
       (() => {
        // this.clienteservice.showMessage("Cliente excluido com sucesso!");
@@ -72,3 +71,4 @@ export class SistemaTableComponent implements OnInit, AfterViewInit {
     }
   }
 }
+

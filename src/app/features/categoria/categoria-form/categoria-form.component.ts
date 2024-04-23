@@ -17,7 +17,7 @@ import { SelectModel } from 'src/app/models/SelectModel';
 export class CategoriaFormComponent implements OnInit{
   categoria: Categoria;
   public form!:FormGroup;
-  public formValido:boolean=true;
+  public  :boolean=true;
   
 
   constructor(
@@ -36,7 +36,7 @@ export class CategoriaFormComponent implements OnInit{
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       nome: [null, [Validators.required, Validators.minLength(3)]],
-      IdSistema: [null, [Validators.required, Validators.minLength(3)]],
+      sistema: ['', Validators.required], 
       sistemaSelect: [null] 
     }
     );
@@ -47,15 +47,18 @@ export class CategoriaFormComponent implements OnInit{
   public salvar(): void {
     if (this.form.valid) {
       const novaCategoria: Categoria = {
-        Nome: this.form.value.nome,
-        IdSistema: this.form.value.IdSistema, // Atualizado para capturar o valor de IdSistema
+        nome: this.form.value.nome,
+        idSistemaFinanceiro: parseInt(this.form.value.sistema),
+        
+        // Atualizado para capturar o valor de IdSistema
         // Adicione outras propriedades da Categoria aqui, se houver
       };
 
       this.categoriaService.AdicionarCategoria(novaCategoria).subscribe(
-        () => {
+        (response: any) => {
+          const categoria: Categoria = response.dados;
           this.categoriaService.showMessage('Categoria criada com sucesso!');
-          this.router.navigate(['/products']);
+          this.router.navigate(['Categoria/tabela']);
         },
         (error) => {
           console.error(error);

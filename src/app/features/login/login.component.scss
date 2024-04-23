@@ -1,11 +1,10 @@
-
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
   color: #023047;
 }
-
+// testess 
 .page {
   display: flex;
   flex-direction: column;
@@ -14,7 +13,6 @@ body {
   width: 100%;
   height: 100vh;
   background-color: #263238;
-  
 }
 
 .formLogin {
@@ -60,16 +58,22 @@ body {
   font-weight: 600;
 }
 
-.formLogin a {
-  display: inline-block;
-  margin-bottom: 20px;
+.formLogin .additional-links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.formLogin .additional-links a {
   font-size: 13px;
   color: #555;
   transition: all linear 160ms;
+  text-decoration: none;
 }
 
-.formLogin a:hover {
+.formLogin .additional-links a:hover {
   color: #462c37;
+  text-decoration: underline;
 }
 
 .btn {

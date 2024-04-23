@@ -7,9 +7,9 @@ export const navbarData: INavbarData[] = [
         label: 'Dashboard'
     },
     {
-        routeLink: 'products',
+        routeLink: 'Compras',
         icon: 'fa fa-box-open',
-        label: 'Produtos',
+        label: 'Compras',
         items: [
             {
                 routeLink: 'products/level1.1',
@@ -47,35 +47,19 @@ export const navbarData: INavbarData[] = [
         label: 'Financeiro',
         items: [
             {
-                routeLink: 'Sistema/formulario',
+                routeLink: 'Sistema/tabela',
                 label: 'Sistema Financeiro'
             },
             {
-                routeLink: 'Categoria/formulario',
+                routeLink: 'Categoria/tabela',
                 label: 'Categoria'
             },
             {
-                routeLink: 'Despesa/formulario',
+                routeLink: 'Despesa/tabela',
                 label: 'Despesa'
             },
         ]
     },
-    {
-        routeLink: 'pages',
-        icon: 'fal fa-file',
-        label: 'Pages',
-        items: [
-            {
-                routeLink: 'Pages/pages',
-                label: 'pages'
-            },
-        ]
-    },
-   /* {
-        routeLink: 'media',
-        icon: 'fal fa-camera',
-        label: 'Media'
-    },*/
     {
         routeLink: 'statistics',
         icon: 'fal fa-chart-bar',
@@ -88,12 +72,12 @@ export const navbarData: INavbarData[] = [
         expanded: true,
         items: [
             {
-                routeLink: 'settings/profile',
-                label: 'Profile'
+                routeLink: 'Usuario/formulario',
+                label: 'Usuarios'
             },
             {
-                routeLink: 'settings/customize',
-                label: 'Customize'
+                routeLink: 'settings/Banco',
+                label: 'Banco'
             }
         ]
     },
