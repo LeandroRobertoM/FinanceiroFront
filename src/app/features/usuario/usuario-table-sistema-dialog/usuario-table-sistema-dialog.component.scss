@@ -274,3 +274,12 @@ table {
     height: 4rem;
     display: block;
   }
+
+
+  .mat-dialog-container {
+    overflow: hidden !important; /* Impede a rolagem do conteúdo */
+  }
+  
+  .mat-dialog-actions {
+    display: none; /* Remove as ações do diálogo */
+  }

@@ -1,47 +1,49 @@
-<h2 mat-dialog-title>Insira Sistemas Vinculados ao Usuario</h2>
+<h2 mat-dialog-title>Busca de Sistemas Financeiros</h2>
 <mat-dialog-content class="mat-typography">
- <!-- Grid de sistemas -->
- <div  class="GridView">
-  <h3>Busca de Sistemas Financeiros</h3>
-  <div class="Opcaofiltro">
-    <div class="md-12">
-      <div class="md-12">
-        <input type="text" (keyup)="applyFilter(getValue($event))" placeholder="Pesquisa de Sistema">
+    <div  class="GridView">
+      <div class="Opcaofiltro">
+        <div class="md-12">
+          <div class="md-12">
+            <input type="text" (keyup)="applyFilter(getValue($event))" placeholder="Pesquisa de Sistema">
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <br>
-  <table mat-table [dataSource]="dataSource" matSort matSortStart="desc" class="mat-elevation-z8 table-style">
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                       (change)="$event ? selection.toggle(row) : null"
-                       [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>CODIGO</th>
-      <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.id }}</td>
-    </ng-container>
-    <ng-container matColumnDef="nome">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>NOME</th>
-      <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.nome }}</td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <br>
-  <mat-paginator [pageSize]="6" [pageSizeOptions]="[4,8]" [length]="dataSource.data.length"></mat-paginator>
-  <div class="row">
-      <div class="group-label-row">
-        <button (click)="getSelectedIds()" class="btn-primary">Adicionar Selecionados</button>
+      <br>
+      <table mat-table [dataSource]="dataSource" matSort matSortStart="desc" class="mat-elevation-z8 table-style">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                           (change)="$event ? selection.toggle(row) : null"
+                           [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>CODIGO</th>
+          <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>NOME</th>
+          <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.nome }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <br>
+      <mat-paginator [pageSize]="6" [pageSizeOptions]="[4,8]" [length]="dataSource.data.length"></mat-paginator>
+      <div class="row">
+          <div class="group-label-row">
+            <button (click)="getSelectedIdsDialog()" class="btn-primary">Adicionar Selecionados</button>
+          </div>
+        </div>
       </div>
+</mat-dialog-content>
 <mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
 </mat-dialog-actions>

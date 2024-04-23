@@ -32,6 +32,7 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
 
 
   sistemasSelecionados: string[] = [];
+  sistemasSelecionadosLocal: { codigo: number, nome: string }[] = [];
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -141,7 +142,7 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
     this.exibirGridSistemasAdicionados = true;
 }
 
-  removerSistema(sistema: string): void {
+  removerSistemass(sistema: string): void {
     this.sistemasSelecionados = this.sistemasSelecionados.filter(item => item !== sistema);
   }
 
@@ -156,24 +157,37 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
   }
+
+  removerSistema(sistema: { codigo: number; nome: string; }): void {
+    const index = this.sistemasSelecionadosLocal.findIndex(s => s.codigo === sistema.codigo);
+    if (index !== -1) {
+      this.sistemasSelecionadosLocal.splice(index, 1);
+    }
+  }
   
   openDialog(): void {
     const dialogRef = this.dialog.open(UsuarioTableSistemaDialogComponent, {
       // Defina as configurações do dialog conforme necessário
       maxWidth: '100vw',
-      maxHeight: '100vh',
+      maxHeight: '100h',
       position: {
-        right: '0',
-        top: '0'
+        right: '100',
+        top: '100'
       }
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const sistemasSelecionados = dialogRef.componentInstance.getSistemasSelecionados();
-        console.log("Sistemas SelecionadosAgor01235a:", sistemasSelecionados);
-        this.exibirListaSistemasAdicionadosUsuario();
-      }
-    });
+    // Obtém a referência do dialogRef e acessa a variável sistemasSelecionados
+  dialogRef.afterOpened().subscribe(() => {
+    const sistemasSelecionados = dialogRef.componentInstance.sistemasSelecionados;
+    console.log("Sistemas Selecionados do diálogo:", sistemasSelecionados);
+
+    //  sistemas selecionados antes de fechar o diálogo
+  
+    this.sistemasSelecionadosLocal = sistemasSelecionados;
+    console.log("Sistemas Selecionados Local:", this.sistemasSelecionadosLocal);
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    // Faça o que desejar após o fechamento do diálogo
+  });
   }
 }

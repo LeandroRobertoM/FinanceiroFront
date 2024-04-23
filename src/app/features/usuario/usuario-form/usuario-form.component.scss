@@ -274,3 +274,20 @@ table {
     height: 4rem;
     display: block;
   }
+
+  .badge-container {
+    display: inline-block;
+}
+
+.badge-sistema-usuario {
+    border-radius: 25px;
+    background-color: #8cd0f1;
+    padding: 3px 7px;
+    color: #546e7a;
+    cursor: pointer;
+    margin: 6px 7px 5px;
+}
+
+.badge-sistema-usuario:hover {
+    background-color: #66a9d8;
+}

@@ -24,6 +24,20 @@
           <span *ngIf="form.get('email')?.errors?.['requred']">O email do Usuario é obrigatório!<br></span>
           <span *ngIf="form.get('senha')?.errors?.['required']">A senha do Usuario é obrigatória!<br></span>
         </div>
+        <div class="group-label-row">
+          <div class="link-container">
+            <a href="javascript:void(0)" (click)="openDialog()">Vincular Sistemas Financeiro</a>
+          </div>
+        </div>
+        <div *ngIf="sistemasSelecionadosLocal.length > 0">
+          <label for="SistemasVinculados">Sistemas associados..:</label>
+          <div class="badge-container">
+            <span *ngFor="let sistema of sistemasSelecionadosLocal" class="badge-sistema-usuario">
+              {{ sistema.nome }}
+              <mat-icon class="close-icon" (click)="removerSistema(sistema)">close</mat-icon>
+            </span>
+          </div>
+        </div>
         <div class="ViewFooter">
           <br>
           <div class="group-btn-row">
@@ -34,67 +48,5 @@
         </div>
       </form>
     </div>
-    <!-- Grid de sistemas -->
-    <div *ngIf="exibirGridSistemas" class="GridView">
-      <h3>Busca de Sistemas Financeiros</h3>
-      <div class="Opcaofiltro">
-        <div class="md-8">
-          <div class="md-8">
-            <input type="text" (keyup)="applyFilter(getValue($event))" placeholder="Pesquisa de Sistema">
-          </div>
-        </div>
-      </div>
-      <br>
-      <table mat-table [dataSource]="dataSource" matSort matSortStart="desc" class="mat-elevation-z8 table-style">
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                           (change)="$event ? selection.toggle(row) : null"
-                           [checked]="selection.isSelected(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>CODIGO</th>
-          <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.id }}</td>
-        </ng-container>
-        <ng-container matColumnDef="nome">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>NOME</th>
-          <td mat-cell *matCellDef="let sistemafinanceiro">{{ sistemafinanceiro.nome }}</td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      <br>
-      <mat-paginator [pageSize]="6" [pageSizeOptions]="[6,8]" [length]="dataSource.data.length"></mat-paginator>
-      <div class="row">
-        <div class="group-label-row">
-          <button (click)="getSelectedIds()" class="btn-primary">Adicionar Selecionados</button>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
-
-<!-- 
-<div class="row">
-  <a href="javascript:void(0)" (click)="exibirListaSistemas()">Vincular Sistema Financeiro</a>
-</div>>-->
-<div class="row">
-  <a href="javascript:void(0)" (click)="openDialog()">Vincular Sistemas Financeiro</a>
-</div>
-<!-- Após o botão "Adicionar Selecionados"
-<div class="row" *ngIf="exibirGridSistemasAdicionados">
-  <div class="group-label-row">
-    <span>Sistemas Selecionados:</span>
-    <div *ngFor="let sistema of sistemasSelecionados" class="sistema-item">
-      {{ sistema }}
-    </div>
-  </div>
-</div>-->
