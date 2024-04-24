@@ -176,18 +176,24 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
       }
     });
   
-    // Obtém a referência do dialogRef e acessa a variável sistemasSelecionados
-  dialogRef.afterOpened().subscribe(() => {
-    const sistemasSelecionados = dialogRef.componentInstance.sistemasSelecionados;
-    console.log("Sistemas Selecionados do diálogo:", sistemasSelecionados);
+    let sistemasSelecionadosDialog: { codigo: number, nome: string }[] = []; // Variável temporária para armazenar os sistemas selecionados do diálogo
 
-    //  sistemas selecionados antes de fechar o diálogo
+    // Obtém a referência do dialogRef e acessa a variável sistemasSelecionados
+    dialogRef.afterOpened().subscribe(() => {
+      sistemasSelecionadosDialog = dialogRef.componentInstance.sistemasSelecionados;
+      console.log("Sistemas Selecionados do diálogo:", sistemasSelecionadosDialog);
+    });
   
-    this.sistemasSelecionadosLocal = sistemasSelecionados;
-    console.log("Sistemas Selecionados Local:", this.sistemasSelecionadosLocal);
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    // Faça o que desejar após o fechamento do diálogo
-  });
+    dialogRef.afterClosed().subscribe(result => {
+      // Adicione os novos sistemas selecionados do diálogo à variável local this.sistemasSelecionadosLocal
+      sistemasSelecionadosDialog.forEach(sistema => {
+        if (!this.sistemasSelecionadosLocal.some(local => local.codigo === sistema.codigo)) {
+          this.sistemasSelecionadosLocal.push(sistema);
+        }
+      });
+  
+      console.log("Sistemas Selecionados Local:", this.sistemasSelecionadosLocal);
+      // Faça o que desejar após o fechamento do diálogo
+    });
   }
 }
