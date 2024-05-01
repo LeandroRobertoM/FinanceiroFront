@@ -72,7 +72,7 @@ export const navbarData: INavbarData[] = [
         expanded: true,
         items: [
             {
-                routeLink: 'Usuario/formulario',
+                routeLink: 'Usuario/tabela',
                 label: 'Usuarios'
             },
             {

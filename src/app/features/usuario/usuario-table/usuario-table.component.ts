@@ -14,7 +14,8 @@ import { MatPaginator } from '@angular/material/paginator'
 })
 export class UsuarioTableComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['id', 'UserName','Email', 'action']
+  public userData: any[] = [];
+  displayedColumns = ['id', 'userName','Email', 'action']
   usuarioModel: UsuarioModel;
   dataSource = new MatTableDataSource<UsuarioModel>
 
@@ -28,10 +29,11 @@ export class UsuarioTableComponent implements OnInit, AfterViewInit {
 
 
     /// lista despesa Usuarios
-    this.UserService.ListaUsuarioSistema((this.authService.getEmailUser())).subscribe(data => {
+    this.UserService.getUserObterVinculados(this.authService.getEmailUser()).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.userData = data;
     });
 
   }
@@ -42,7 +44,7 @@ export class UsuarioTableComponent implements OnInit, AfterViewInit {
   }
 
   navigateToSistemaFinanceiroCreate(): void {
-    this.router.navigate(['/Despesa/formulario'])
+    this.router.navigate(['/Usuario/formulario'])
     console.log("console")
   }
 

@@ -20,6 +20,8 @@ import { CategoriaFormComponent } from './features/categoria/categoria-form/cate
 import { DespesaFormComponent } from './features/despesa-form/despesa-form.component';
 import { CategoriaTableComponent } from './features/categoria/categoria-table/categoria-table.component';
 import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-form.component';
+import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
+import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-update/usuario-form-update.component';
 
 
 const routes: Routes = [
@@ -114,12 +116,12 @@ const routes: Routes = [
       },
       {
         path: 'tabela',
-        component: UsuarioFormComponent,
+        component: UsuarioTableComponent,
         canActivate:[AuthGuard]
       },
       {
         path: 'update/:idCategoria',
-        component: DespesaFormUpdateComponent,
+        component: UsuarioFormUpdateComponent,
         canActivate:[AuthGuard]
       },
       {

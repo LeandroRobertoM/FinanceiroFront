@@ -57,6 +57,16 @@ export class AuthService {
   setEmailUser(email: string) {
     localStorage.setItem('emailUser', email);
   }
+
+  getUserId(): string {
+    // Aqui você pode implementar a lógica para obter o ID do usuário logado
+    // Pode ser a partir de dados armazenados no localStorage, ou uma requisição HTTP para obter os detalhes do usuário do servidor
+    // Por exemplo, se você armazenou o ID do usuário no localStorage quando ele fez login, você pode retorná-lo diretamente daqui
+    return localStorage.getItem('userId');
+  }
+
+  
+
   getEmailUser() {
     var emailUserLogado = localStorage.getItem('emailUser');
     if (emailUserLogado) {

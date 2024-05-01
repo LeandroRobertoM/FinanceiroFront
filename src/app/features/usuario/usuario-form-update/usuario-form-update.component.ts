@@ -17,11 +17,12 @@ import { UsuarioSistemaModel } from 'src/app/models/UsuarioSistemaModel';
 
 
 @Component({
-  selector: 'app-usuario-form',
-  templateUrl: './usuario-form.component.html',
-  styleUrls: ['./usuario-form.component.scss']
+  selector: 'app-usuario-form-update',
+  templateUrl: './usuario-form-update.component.html',
+  styleUrls: ['./usuario-form-update.component.scss']
 })
-export class UsuarioFormComponent implements OnInit, AfterViewInit {
+export class UsuarioFormUpdateComponent implements OnInit, AfterViewInit {
+
   public form!: FormGroup;
   exibirGridSistemas: boolean = false;
   exibirGridSistemasAdicionados: boolean = false;

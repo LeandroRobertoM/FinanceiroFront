@@ -22,6 +22,11 @@ export class SistemaService {
             sistemaFinanceiro)
     }
 
+    AdicionarListaSistemaFinanceiro(sistemaFinanceiro: SistemaFinanceiro) {
+        return this.httpClient.post<SistemaFinanceiro>(`${this.baseURL}/AdicionarSistemaFinanceiro`,
+            sistemaFinanceiro)
+    }
+
     ListaSistemaUsuario(emailUsuario: string) {
         return this.httpClient.get(`${this.baseURL}/ListaSistemaUsuario?emailUsuario=${emailUsuario}`
         )
