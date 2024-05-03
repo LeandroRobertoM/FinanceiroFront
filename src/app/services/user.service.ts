@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environment";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Observable, subscribeOn, tap, EMPTY, ObservedValueOf } from "rxjs";
+import { Observable, subscribeOn, tap, EMPTY, ObservedValueOf, catchError, map } from "rxjs";
 import { UsuarioModel } from "../models/UsuarioModel";
 import { UsuarioModelCreate } from "../models/UsuarioModelCreate";
 
@@ -47,19 +47,29 @@ export class UserService {
           );
       }
 
-      getUserIdByEmail(email: string): Observable<string> {
-        const url = `${this.baseURL}/ObterUserID`;
-        return this.httpClient.get<string>(url, { params: { email } });
+      getUserIdByEmail(idUser: string): Observable<string> {
+        const url = `${this.baseURL}/ListaSistemaUsuario`;
+        return this.httpClient.get<string>(url, { params: { idUser } });
       }
+
+      getUserId(idUser: string): Observable<UsuarioModel> {
+        const url = `${this.baseURL}/GetUserid`;
+        return this.httpClient.get<UsuarioModel>(url, { params: { idUser } });
+      }
+      
 
       getUserObterVinculados(email: string): Observable<UsuarioModel[]> {
         const url = `${this.baseURL}/ObterUserVinculados`;
         return this.httpClient.get<UsuarioModel[]>(url, { params: { email } });
       }
-
-      getIDUserSistemasVinculados(email: string): Observable<UsuarioModel[]> {
-        const url = `${this.baseURL}/getIDUserSistemasVinculados`;
-        return this.httpClient.get<UsuarioModel[]>(url, { params: { email } });
+      
+      getIDUserSistemasVinculados(idUser: string): Observable<UsuarioModel[]> {
+        const url = `${this.baseURL}/getIDUserSistemasVinculados?idUser=${idUser}`;
+      
+        return this.httpClient.get<UsuarioModel[]>(url)
+          .pipe(
+            tap(usuarioSistemas => console.log(usuarioSistemas))
+          );
       }
 
      

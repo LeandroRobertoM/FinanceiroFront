@@ -120,7 +120,7 @@ const routes: Routes = [
         canActivate:[AuthGuard]
       },
       {
-        path: 'update/:idCategoria',
+        path: 'update/:id',
         component: UsuarioFormUpdateComponent,
         canActivate:[AuthGuard]
       },

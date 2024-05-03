@@ -3,4 +3,6 @@ export interface UsuarioModel {
     Email: string;
     CPF: string;
     Senha: string;
+    id?: string;
+    cpf?: string;
   }

@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { UsuarioSistemaService } from 'src/app/services/usuariosistema.Service';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { SistemaService } from 'src/app/services/sistema.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UsuarioTableSistemaDialogComponent } from '../usuario-table-sistema-dialog/usuario-table-sistema-dialog.component';
 import { SistemaFinanceiroModel } from 'src/app/models/SistemaFinanceiroModel';
 import { UsuarioSistemaModel } from 'src/app/models/UsuarioSistemaModel';
+import { UsuarioModel } from 'src/app/models/UsuarioModel';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { UsuarioSistemaModel } from 'src/app/models/UsuarioSistemaModel';
   styleUrls: ['./usuario-form-update.component.scss']
 })
 export class UsuarioFormUpdateComponent implements OnInit, AfterViewInit {
-
+  usuario: UsuarioModel;
   public form!: FormGroup;
   exibirGridSistemas: boolean = false;
   exibirGridSistemasAdicionados: boolean = false;
@@ -50,20 +51,36 @@ export class UsuarioFormUpdateComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
+    private route: ActivatedRoute,
     public dialog:MatDialog
     
 
   ) {}
 
   ngOnInit(): void {
-    const userId = this.authService.getUserId();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.form = this.formBuilder.group({
-      cpf: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      senha: ['', [Validators.required]]
+
+       const userId = this.route.snapshot.paramMap.get("id"); // Obtenha o ID do parâmetro da rota
+       if (userId !== null) {
+  
+        this.userService.getUserId(userId.toString()).subscribe((usuario) =>{ // Converta userId para string, se necessário
+        this.usuario = usuario; // Atribua o ID de usuário retornado ao atributo correspondente no objeto usuario
+        console.log(this.usuario);
+        this.exibirListaSistemasbadge(userId); // Imprima o ID do usuário no console para verificação
     });
+        } else {
+    console.log("Parâmetro 'id' não encontrado na rota.");
+}
+
+this.form = new FormGroup({
+      
+  // idCliente: new FormControl({value: new Date(), disabled: true}, [Validators.required]),
+  UserId: new FormControl({value: 15, disabled: true}, [Validators.required]),
+  CPF: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+  Email: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+   Senha: new FormControl(null, [Validators.required, Validators.maxLength(11)]),
+
+ });
+
   }
 
   salvar(): void {
@@ -132,6 +149,13 @@ export class UsuarioFormUpdateComponent implements OnInit, AfterViewInit {
 
     this.paginator.page.subscribe((event: PageEvent) => {
       this.atualizarGrid();
+    });
+  }
+
+  exibirListaSistemasbadge(userId: string): void {
+    this.sistemaService.ListaSistemaUsuarioIdUser(userId).subscribe(data => {
+      // Converta os objetos SistemaFinanceiroResponse para o formato esperado
+      this.sistemasSelecionadosLocal = data.map(sistema => ({ codigo: sistema.id, nome: sistema.nome }));
     });
   }
 
