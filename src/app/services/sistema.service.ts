@@ -3,7 +3,9 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environment";
 import { SistemaFinanceiro } from "../models/SistemaFinanceiro";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Observable, subscribeOn, tap, EMPTY, ObservedValueOf } from "rxjs";
+import { Observable, subscribeOn, tap, EMPTY, ObservedValueOf, catchError, map } from "rxjs";
+import { UsuarioModel } from "../models/UsuarioModel";
+import { SistemaFinanceiroModel } from "../models/SistemaFinanceiroModel";
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +20,11 @@ export class SistemaService {
     private readonly baseURL = environment["endPoint"]
 
     AdicionarSistemaFinanceiro(sistemaFinanceiro: SistemaFinanceiro) {
+        return this.httpClient.post<SistemaFinanceiro>(`${this.baseURL}/AdicionarSistemaFinanceiro`,
+            sistemaFinanceiro)
+    }
+
+    AdicionarListaSistemaFinanceiro(sistemaFinanceiro: SistemaFinanceiro) {
         return this.httpClient.post<SistemaFinanceiro>(`${this.baseURL}/AdicionarSistemaFinanceiro`,
             sistemaFinanceiro)
     }
@@ -37,6 +44,28 @@ export class SistemaService {
           .pipe(
             tap(sistemasfinanceiros => console.log(sistemasfinanceiros))
           );
+      }
+     
+      getUserIdByEmail(idUser: string): Observable<UsuarioModel> {
+        const url = `${this.baseURL}/ListaSistemaUsuario`;
+        return this.httpClient.get<UsuarioModel>(url).pipe(
+          map((obj) => obj),
+          catchError((e) => this.errorHandler(e))
+        );
+      } 
+
+      ListaSistemaUsuarioIdUsers(idUser: string): Observable<SistemaFinanceiro[]> {
+        const url = `${this.baseURL}/ListaUsuarioSistema?${idUser}`;
+        
+        return this.httpClient.get<SistemaFinanceiro[]>(url)
+        .pipe(
+          tap(sistemasfinanceiros => console.log(sistemasfinanceiros))
+        );
+      }
+
+      ListaSistemaUsuarioIdUser(userId: string): Observable<SistemaFinanceiroModel[]> {
+        const url = `${this.baseURL}/ListaUsuarioSistema`;
+        return this.httpClient.get<SistemaFinanceiroModel[]>(url, { params: { idUser: userId } });
       }
 
 
