@@ -3,4 +3,6 @@ export interface UserForRegistrationDto {
     password: string;
     confirmPassword: string;
     clientURI: string;
+    CPF: string;
+
 }

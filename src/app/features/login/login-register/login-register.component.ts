@@ -33,7 +33,8 @@ export class LoginRegisterComponent {
       lastName: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      confirm: new FormControl('')
+      CPF: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('')
     });
   }
 
@@ -49,7 +50,8 @@ export class LoginRegisterComponent {
     const user: UserForRegistrationDto = {
       email: formValues.email,
       password: formValues.password,
-      confirmPassword: formValues.confirm,
+      confirmPassword: formValues.confirmPassword,
+      CPF:formValues.CPF,
       clientURI: 'http://localhost:4200/authentication/emailconfirmation'
     };
 
