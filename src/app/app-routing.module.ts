@@ -23,6 +23,7 @@ import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-fo
 import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
 import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-update/usuario-form-update.component';
 import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
+import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'coupens', component: CoupensComponent,canActivate: [AuthGuard]  },
   { path: 'settings', component: SettingsComponent,canActivate: [AuthGuard]  },
   { path: 'login', component: LoginComponent,canActivate: [AuthGuard]  },
+  { path: 'emailconfirmation', component: EmailConfirmationComponent },
 
   {
     path: 'login',

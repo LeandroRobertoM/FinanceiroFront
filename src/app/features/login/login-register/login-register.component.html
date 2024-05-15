@@ -1,6 +1,6 @@
 <body class="login-page">
     <div class="page">
-      <form class="formLogin" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+      <form class="formLogin" [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
         <h1>Criar Usuario</h1>
         <p>Digite os seus dados de acesso no campo abaixo.</p>
         <label for="email">E-mail</label>
@@ -11,6 +11,12 @@
 
         <label for="cpf">CPF</label>
         <input type="cpf" placeholder="Digite o seu CPF" formControlName="Cpf">
+
+        <label for="password">Senha</label>
+        <input type="password" placeholder="Digite a senha" formControlName="password">
+
+        <label for="confirmPassword">Confirmar Senha</label>
+        <input type="confirmPassword" placeholder="Digite o confirma Password" formControlName="confirmPassword">
 
         <div class="additional-links">
           <a href="/registrar-conta">Esqueci minha senha</a>

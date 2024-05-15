@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { navbarData } from 'src/app/sidenav/nav-data';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UserForRegistrationDto } from 'src/app/models/user/UserForRegistrationDto';
 import { AuthService } from 'src/app/services/auth.service';
+import { authenticationservice } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login-register',
@@ -11,60 +14,52 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login-register.component.scss']
 })
 export class LoginRegisterComponent {
-  loginForm: FormGroup;
+  registerForm: FormGroup;
   navbarData = navbarData;
+  errorMessage: string = '';
+  showError: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private loginService: LoginService,
-    public authService: AuthService
+    public authService: AuthService,
+    public authenticationservice: authenticationservice,
   ) { }
 
   ngOnInit(): void {
-    console.log('O componente LoginRegisterComponent foi carregado.sss');
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required]]
+    this.registerForm = new FormGroup({
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      confirm: new FormControl('')
     });
   }
 
-  get dadosForm() {
-    return this.loginForm.controls;
+
+  public hasError = (controlName: string, errorName: string) => {
+    return this.registerForm.get(controlName).hasError(errorName)
   }
 
-  async loginUser() {
-    console.log('EntrouLoginUser');
+  public registerUser = (registerFormValue) => {
+    this.showError = false;
+    const formValues = { ...registerFormValue };
 
-    try {
-      const token = await this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).toPromise();
-      console.log('Entrou no Token:', token);
+    const user: UserForRegistrationDto = {
+      email: formValues.email,
+      password: formValues.password,
+      confirmPassword: formValues.confirm,
+      clientURI: 'http://localhost:4200/authentication/emailconfirmation'
+    };
 
-      //Difine o valor settar o token 
-      this.authService.setToken(token);
-      this.authService.setEmailUser(this.loginForm.value.email);
-
-      // Defina isAuthenticated como true após um login bem-sucedido
-      this.authService.UsuarioAutenticado(true);
-
-      console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
-
-      // testess
-      this.router.navigate(['dashboard']);
-    } catch (err) {
-      console.error('Erro ao fazer login:', err);
-
-      if (err.error && err.error.message) {
-        console.error('Mensagem de erro:', err.error.message);
+    this.authenticationservice.registerUser("Users/Registration", user)
+    .subscribe({
+      next: (_) => this.router.navigate(["authentication/login"]),
+      error: (err: HttpErrorResponse) => {
+        this.errorMessage = err.message;
+        this.showError = true;
       }
-
-      if (err.status === 401) {
-        alert('Credenciais inválidas. Verifique seu e-mail e senha.');
-      } else if (err.status === 500) {
-        alert('Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.');
-      } else {
-        alert('Ocorreu um erro desconhecido. Por favor, entre em contato com o suporte.');
-      }
-    }
+    })
   }
 }
