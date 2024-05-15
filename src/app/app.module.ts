@@ -56,6 +56,7 @@ import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-fo
 import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
 import { UsuarioTableSistemaDialogComponent } from './features/usuario/usuario-table-sistema-dialog/usuario-table-sistema-dialog.component';
 import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-update/usuario-form-update.component';
+import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
 
 
 
@@ -91,6 +92,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     UsuarioTableComponent,
     UsuarioTableSistemaDialogComponent,
     UsuarioFormUpdateComponent,
+    LoginRegisterComponent,
     
  
     

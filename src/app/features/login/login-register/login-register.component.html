@@ -1,0 +1,23 @@
+<body class="login-page">
+    <div class="page">
+      <form class="formLogin" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+        <h1>Criar Usuario</h1>
+        <p>Digite os seus dados de acesso no campo abaixo.</p>
+        <label for="email">E-mail</label>
+        <input type="email" placeholder="Digite seu e-mail" autofocus="true" formControlName="email">
+
+        <label for="username">Nome do Usuario</label>
+        <input type="username" placeholder="Digite o seu Nome" formControlName="Nome">
+
+        <label for="cpf">CPF</label>
+        <input type="cpf" placeholder="Digite o seu CPF" formControlName="Cpf">
+
+        <div class="additional-links">
+          <a href="/registrar-conta">Esqueci minha senha</a>
+          <a routerLink="/registrar-contas">Registrar conta</a>
+        </div>
+        <button type="submit" class="btn">Registrar</button>
+      </form>
+    </div>
+  </body>
+  

@@ -18,15 +18,26 @@ export class AppComponent implements OnInit {
   screenWidth = 0;
   isAuthenticated = false;
   isLoggedIn = false;
+  isRegisteringUserin = false;
+  isForgotPassword: boolean = false;
+
+
 
   constructor(private router: Router, public authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn$.subscribe((loggedIn) => {
+    this.authService.isLoggedIn$.subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
     });
-    //this.checkAuthenticationStatus();
-  //  this.checkTokenOnRefresh();
+  
+    // Subscrever apenas para receber atualizações de registro de usuário uma vez
+    this.authService.isRegisteringUserIn$.subscribe(registering => {
+      this.isRegisteringUserin = registering;
+      if (registering) {
+        console.log('isRegisteringUserin:', registering);
+        // Aqui você pode fazer qualquer outra coisa que precise quando isRegisteringUserin for verdadeiro
+      }
+    });
   }
 
   onToggleSideNav(data: SideNavToggle): void {
@@ -42,6 +53,7 @@ export class AppComponent implements OnInit {
   }
 
   checkTokenOnRefresh(): void {
+
     console.log('Usuario Entrou antes do F5:');
     this.authService.getToken().subscribe((token) => {
       if (token) {
@@ -58,5 +70,10 @@ export class AppComponent implements OnInit {
   onLoginSuccess() {
     this.authService.UsuarioEstaAutenticado()
     this.router.navigate(['/dashboard']);
+  }
+
+  Verificar() {
+
+    this.router.navigate(['login/register']);
   }
 }

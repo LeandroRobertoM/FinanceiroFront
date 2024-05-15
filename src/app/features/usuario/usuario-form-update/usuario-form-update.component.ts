@@ -65,7 +65,7 @@ export class UsuarioFormUpdateComponent implements OnInit, AfterViewInit {
         this.userService.getUserId(userId.toString()).subscribe((usuario) =>{ // Converta userId para string, se necessário
         this.usuario = usuario; // Atribua o ID de usuário retornado ao atributo correspondente no objeto usuario
         console.log(this.usuario);
-        this.exibirListaSistemasbadge(userId); // Imprima o ID do usuário no console para verificação
+        this.exibirListaSistemasbadge(this.usuario.email); // Imprima o ID do usuário no console para verificação
     });
         } else {
     console.log("Parâmetro 'id' não encontrado na rota.");
@@ -74,9 +74,9 @@ export class UsuarioFormUpdateComponent implements OnInit, AfterViewInit {
 this.form = new FormGroup({
       
   // idCliente: new FormControl({value: new Date(), disabled: true}, [Validators.required]),
-  UserId: new FormControl({value: 15, disabled: true}, [Validators.required]),
-  CPF: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-  Email: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+  id: new FormControl({value: 15, disabled: true}, [Validators.required]),
+  cpf: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+  username: new FormControl(null, [Validators.required, Validators.minLength(3)]),
    Senha: new FormControl(null, [Validators.required, Validators.maxLength(11)]),
 
  });
@@ -152,8 +152,8 @@ this.form = new FormGroup({
     });
   }
 
-  exibirListaSistemasbadge(userId: string): void {
-    this.sistemaService.ListaSistemaUsuarioIdUser(userId).subscribe(data => {
+  exibirListaSistemasbadge(emailUsuario: string): void {
+    this.sistemaService.ListaSistemaUsuarioIdUser(emailUsuario).subscribe(data => {
       // Converta os objetos SistemaFinanceiroResponse para o formato esperado
       this.sistemasSelecionadosLocal = data.map(sistema => ({ codigo: sistema.id, nome: sistema.nome }));
     });

@@ -6,11 +6,11 @@ import { navbarData } from 'src/app/sidenav/nav-data';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-login-register',
+  templateUrl: './login-register.component.html',
+  styleUrls: ['./login-register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginRegisterComponent {
   loginForm: FormGroup;
   navbarData = navbarData;
 
@@ -22,34 +22,16 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('O componente LoginRegisterComponent foi carregado.sss');
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required]]
     });
   }
 
-  esqueceuSenha() {
-    // Redirecionar para a página de "Esqueceu a senha"
-    this.router.navigate(['/esqueceu-senha']);
-  }
-
-  registrar() {
-    // Adicione um log para verificar se o método está sendo chamado corretamente
-    console.log('Método registrar() foi chamado.');
-  
-    this.authService.registerUser(true);
-    this.router.navigate(['login/registrar']);
-
-   
-  }
-
-
   get dadosForm() {
     return this.loginForm.controls;
-
   }
-
-
 
   async loginUser() {
     console.log('EntrouLoginUser');

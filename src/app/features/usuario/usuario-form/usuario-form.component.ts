@@ -34,6 +34,8 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
   dataSources = new MatTableDataSource<string>();
 
   userId: string = '';
+  useremail: string = '';
+  emailUsuarioLogado: string = '';
   sistemasSelecionados: string[] = [];
   sistemasSelecionadosLocal: { codigo: number, nome: string }[] = [];
 
@@ -55,7 +57,9 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    const userId = this.authService.getUserId();
+    
+    this.BuscarIDuser();
+    console.log('ID do usuário:',  this.userId);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.form = this.formBuilder.group({
@@ -141,6 +145,16 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
       this.exibirGridSistemas = true; 
     });
   }
+
+  
+  public BuscarIDuser(): void {
+    this.userService.getObterUserId(this.authService.getUserEmaillogin()).subscribe(data => {
+      this.userId=data.id
+      console.log("Usuario dentro local buscarId:", this.userId=data.id);
+    
+    });
+  }
+  
 
   exibirListaSistemasAdicionadosUsuario(): void {
     this.dataSources = new MatTableDataSource<string>(this.sistemasSelecionados);

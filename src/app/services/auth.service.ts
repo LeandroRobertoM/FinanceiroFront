@@ -7,8 +7,16 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   private usuarioAutenticadoPortal: boolean = false;
+  private emailUser: string;
   public isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  public isRegisteringUserInSubject = new BehaviorSubject<boolean>(false);
+
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  isRegisteringUserIn$ = this.isRegisteringUserInSubject.asObservable();
+
+  isRegisteringUser: boolean = false;
+  isForgotPassword: boolean = false;
+  
   private token: any;
   private user: any;
 
@@ -24,11 +32,22 @@ export class AuthService {
     this.isLoggedInSubject.next(true);
   }
 
+  registerUser(status: boolean) {
+    this.isRegisteringUserInSubject.next(true);
+  }
+
+  forgotPassword() {
+    // Lógica de esqueceu a senha...
+    this.isForgotPassword = true;
+  }
+
   UsuarioEstaAutenticado(): Promise<boolean> {
     this.usuarioAutenticadoPortal = localStorage.getItem('usuarioAutenticadoPortal') == 'true';
     this.isLoggedInSubject.next(true);
     return Promise.resolve(this.usuarioAutenticadoPortal);
   }
+
+
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -36,7 +55,6 @@ export class AuthService {
   }
 
   get getToken() {
-    
     this.token = localStorage.getItem('token');
     console.log('GETTOKEN:', this.token);
     return this.token;
@@ -54,21 +72,25 @@ export class AuthService {
     sessionStorage.clear();
   }
 
+  setRegisteringUser(value: boolean) {
+    this.isRegisteringUser = value;
+  }
+
   setEmailUser(email: string) {
     localStorage.setItem('emailUser', email);
   }
 
   getUserId(): string {
-    // Aqui você pode implementar a lógica para obter o ID do usuário logado
-    // Pode ser a partir de dados armazenados no localStorage, ou uma requisição HTTP para obter os detalhes do usuário do servidor
-    // Por exemplo, se você armazenou o ID do usuário no localStorage quando ele fez login, você pode retorná-lo diretamente daqui
     return localStorage.getItem('userId');
   }
 
-  
+  getUserEmaillogin(): string {
+    return this.emailUser;
+  }
 
   getEmailUser() {
     var emailUserLogado = localStorage.getItem('emailUser');
+     this.emailUser = localStorage.getItem('emailUser');
     if (emailUserLogado) {
         return emailUserLogado;
     }

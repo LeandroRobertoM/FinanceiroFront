@@ -22,17 +22,33 @@ import { CategoriaTableComponent } from './features/categoria/categoria-table/ca
 import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-form.component';
 import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
 import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-update/usuario-form-update.component';
+import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
 
 
 const routes: Routes = [
  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path:'login',component:LoginComponent}, 
+  { path: 'registrar', component: LoginRegisterComponent },
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
   { path: 'products', component: ProductsComponent,canActivate: [AuthGuard]  },
   { path: 'statistics', component: StatisticsComponent,canActivate: [AuthGuard]  },
   { path: 'coupens', component: CoupensComponent,canActivate: [AuthGuard]  },
   { path: 'settings', component: SettingsComponent,canActivate: [AuthGuard]  },
   { path: 'login', component: LoginComponent,canActivate: [AuthGuard]  },
+
+  {
+    path: 'login',
+    children: [
+      {
+        path: 'registrar',
+        component: LoginRegisterComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'home', pathMatch: 'full'
+      },
+    ],
+  },
   {
     path: 'Categoria',
     children: [

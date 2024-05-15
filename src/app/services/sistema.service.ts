@@ -63,9 +63,9 @@ export class SistemaService {
         );
       }
 
-      ListaSistemaUsuarioIdUser(userId: string): Observable<SistemaFinanceiroModel[]> {
-        const url = `${this.baseURL}/ListaUsuarioSistema`;
-        return this.httpClient.get<SistemaFinanceiroModel[]>(url, { params: { idUser: userId } });
+      ListaSistemaUsuarioIdUser(emailUsuario: string): Observable<SistemaFinanceiroModel[]> {
+        const url = `${this.baseURL}/ListaSistemaUsuario`;
+        return this.httpClient.get<SistemaFinanceiroModel[]>(url, { params: { emailUsuario: emailUsuario } });
       }
 
 

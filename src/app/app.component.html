@@ -1,13 +1,21 @@
-<ng-container *ngIf="isLoggedIn; else loginScreen">
- <!-- <div>
-    Usuário autenticado
-  </div> -->
+<ng-container *ngIf="isLoggedIn; else loggedInContent">
+  <!-- Conteúdo para usuários autenticados -->
   <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
   <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth">
     <router-outlet></router-outlet> <!-- Aqui está o router-outlet -->
   </app-body>
 </ng-container>
-<ng-template #loginScreen>
-  <div>Usuário não autenticado</div>
-  <app-login></app-login>
+
+<ng-template #loggedInContent>
+  <!-- Condição para mostrar o componente de login -->
+  <ng-container *ngIf="!isRegisteringUserin; else registerScreen">
+    <!-- Conteúdo para usuários não autenticados -->
+    <div>Usuário não autenticado</div>
+    <app-login></app-login>
+  </ng-container>
+  <ng-template #registerScreen>
+    <!-- Conteúdo para usuários no processo de registro -->
+    <div>Registrando um novo usuário</div>
+    <app-login-register></app-login-register>
+  </ng-template>
 </ng-template>
