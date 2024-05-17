@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 interface SideNavToggle {
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   isLoggedIn = false;
   isRegisteringUserin = false;
   isForgotPassword: boolean = false;
+  isEmailConfirming: boolean = false;
 
 
 
@@ -30,12 +31,17 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = loggedIn;
     });
   
-    // Subscrever apenas para receber atualizações de registro de usuário uma vez
     this.authService.isRegisteringUserIn$.subscribe(registering => {
       this.isRegisteringUserin = registering;
-      if (registering) {
-        console.log('isRegisteringUserin:', registering);
-        // Aqui você pode fazer qualquer outra coisa que precise quando isRegisteringUserin for verdadeiro
+    });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/emailconfirmation') {
+          this.isEmailConfirming = true;
+        } else {
+          this.isEmailConfirming = false;
+        }
       }
     });
   }

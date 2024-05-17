@@ -46,6 +46,10 @@ const routes: Routes = [
         component: LoginRegisterComponent,
       },
       {
+        path: 'emailconfirmation',
+        component: EmailConfirmationComponent,canActivate: [AuthGuard]
+      },
+      {
         path: '',
         redirectTo: 'home', pathMatch: 'full'
       },

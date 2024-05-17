@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,15 @@ export class AuthService {
   private emailUser: string;
   public isLoggedInSubject = new BehaviorSubject<boolean>(false);
   public isRegisteringUserInSubject = new BehaviorSubject<boolean>(false);
+  public isEmailConfirmingSubject = new BehaviorSubject<boolean>(false);
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   isRegisteringUserIn$ = this.isRegisteringUserInSubject.asObservable();
+  isEmailConfirmingIn$ = this.isEmailConfirmingSubject.asObservable();
 
   isRegisteringUser: boolean = false;
   isForgotPassword: boolean = false;
+  isEmailConfirming: boolean = false;
   
   private token: any;
   private user: any;
@@ -35,6 +38,14 @@ export class AuthService {
   registerUser(status: boolean) {
     this.isRegisteringUserInSubject.next(true);
   }
+
+  confirmEmail(token: string, email: string): Observable<boolean> {
+    // Simular uma chamada de API para confirmação de email
+    console.log(`Confirmação de email com token: ${token} e email: ${email}`);
+    this.isEmailConfirmingSubject.next(false);
+    return of (true);
+  }
+
 
   forgotPassword() {
     // Lógica de esqueceu a senha...
