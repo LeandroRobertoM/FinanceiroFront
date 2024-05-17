@@ -18,4 +18,8 @@
     <div *ngIf="!isEmailConfirming">Registrando um novo usuário</div>
     <app-login-register></app-login-register>
   </ng-template>
+  <ng-template *ngIf="isEmailConfirming">
+    <!-- Conteúdo para confirmação de email -->
+    <app-login-register></app-login-register>
+  </ng-template>
 </ng-template>

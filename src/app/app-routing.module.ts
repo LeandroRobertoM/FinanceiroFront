@@ -6,13 +6,10 @@ import { ProductsComponent } from './products/products.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CoupensComponent } from './coupens/coupens.component';
 import { SettingsComponent } from './settings/settings.component';
-
 import { AuthGuard } from './guards/auth-guard.service';
-
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
 import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-table.component';
 import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
-
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 import { PagesComponent } from './pages/pages.component';
@@ -25,33 +22,27 @@ import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-upda
 import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
 import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
 
-
 const routes: Routes = [
- // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path:'login',component:LoginComponent}, 
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'registrar', component: LoginRegisterComponent },
-  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
-  { path: 'products', component: ProductsComponent,canActivate: [AuthGuard]  },
-  { path: 'statistics', component: StatisticsComponent,canActivate: [AuthGuard]  },
-  { path: 'coupens', component: CoupensComponent,canActivate: [AuthGuard]  },
-  { path: 'settings', component: SettingsComponent,canActivate: [AuthGuard]  },
-  { path: 'login', component: LoginComponent,canActivate: [AuthGuard]  },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+  { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
+  { path: 'coupens', component: CoupensComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'emailconfirmation', component: EmailConfirmationComponent },
-
   {
-    path: 'login',
+    path: 'authentication',
     children: [
       {
-        path: 'registrar',
-        component: LoginRegisterComponent,
-      },
-      {
         path: 'emailconfirmation',
-        component: EmailConfirmationComponent,canActivate: [AuthGuard]
+        component: EmailConfirmationComponent,
       },
       {
         path: '',
-        redirectTo: 'home', pathMatch: 'full'
+        redirectTo: 'emailconfirmation',
+        pathMatch: 'full'
       },
     ],
   },
@@ -61,17 +52,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: CategoriaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: CategoriaTableComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:idCategoria',
         component: CategoriaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
@@ -85,22 +76,21 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: SistemaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: SistemaTableComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:idSistema',
         component: SistemaFormUpdateComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
         redirectTo: 'home', pathMatch: 'full'
-        
       },
     ],
   },
@@ -110,17 +100,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: DespesaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: DespesaTableComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:idCategoria',
         component: DespesaFormUpdateComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
@@ -134,17 +124,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: UsuarioFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: UsuarioTableComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:id',
         component: UsuarioFormUpdateComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',

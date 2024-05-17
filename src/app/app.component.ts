@@ -37,9 +37,13 @@ export class AppComponent implements OnInit {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (event.url === '/emailconfirmation') {
+        console.log('NavigationEnd Event URL:', event.url);
+        if (event.url.includes('/authentication/emailconfirmation')) {
+          console.log('URL matches emailconfirmation');
           this.isEmailConfirming = true;
+          console.log('URL matches emailconfirmation'+this.isEmailConfirming);
         } else {
+          console.log('URL does not match emailconfirmation');
           this.isEmailConfirming = false;
         }
       }
