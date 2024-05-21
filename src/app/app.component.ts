@@ -22,8 +22,6 @@ export class AppComponent implements OnInit {
   isForgotPassword: boolean = false;
   isEmailConfirming: boolean = false;
 
-
-
   constructor(private router: Router, public authService: AuthService) {}
 
   ngOnInit() {
@@ -38,14 +36,14 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         console.log('NavigationEnd Event URL:', event.url);
-        if (event.url.includes('/authentication/emailconfirmation')) {
+        if (event.url.includes('authentication/emailconfirmation')) {
           console.log('URL matches emailconfirmation');
           this.isEmailConfirming = true;
-          console.log('URL matches emailconfirmation'+this.isEmailConfirming);
         } else {
           console.log('URL does not match emailconfirmation');
           this.isEmailConfirming = false;
         }
+        console.log('URL matches emailconfirmation: ' + this.isEmailConfirming);
       }
     });
   }
@@ -63,7 +61,6 @@ export class AppComponent implements OnInit {
   }
 
   checkTokenOnRefresh(): void {
-
     console.log('Usuario Entrou antes do F5:');
     this.authService.getToken().subscribe((token) => {
       if (token) {
@@ -83,7 +80,6 @@ export class AppComponent implements OnInit {
   }
 
   Verificar() {
-
     this.router.navigate(['login/register']);
   }
 }
