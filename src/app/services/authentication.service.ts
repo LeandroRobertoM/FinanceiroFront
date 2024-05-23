@@ -7,6 +7,8 @@ import { Categoria } from "../models/Categoria";
 import { CustomEncoder } from "../shared/custom-encoder";
 import { UserForRegistrationDto } from "../models/user/UserForRegistrationDto";
 import { RegistrationResponseDto } from "../models/response/RegistrationResponseDto";
+import { ResetPasswordDto } from "../models/user/ResetPasswordDto";
+import { ForgotPasswordDto } from "../models/user/ForgotPasswordDto";
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +26,13 @@ export class authenticationservice {
         return this.httpClient.post<RegistrationResponseDto> (this.createCompleteRoute(route, this.baseURL), body);
     }
     
+    public forgotPassword = (route: string, body: ForgotPasswordDto) => {
+        return this.httpClient.post(this.createCompleteRoute(route, this.baseURL), body);
+      }
+    
+      public resetPassword = (route: string, body: ResetPasswordDto) => {
+        return this.httpClient.post(this.createCompleteRoute(route, this.baseURL), body);
+      }
    
     public confirmEmail = (route: string, token: string, email: string) => {
         let params = new HttpParams({ encoder: new CustomEncoder() })
@@ -35,6 +44,8 @@ export class authenticationservice {
 
     private createCompleteRoute = (route: string, envAddress: string) => {
         return `${envAddress}/${route}`;
-      }
+    }
+
+
 
 }

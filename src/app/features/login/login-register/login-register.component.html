@@ -1,29 +1,48 @@
 <body class="login-page">
-    <div class="page">
-      <form class="formLogin" [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
-        <h1>Criar Usuario</h1>
-        <p>Digite os seus dados de acesso no campo abaixo.</p>
-        <label for="email">E-mail</label>
-        <input type="email" placeholder="Digite seu e-mail" autofocus="true" formControlName="email">
+  <div class="page">
+    <form class="formLogin" [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
+      <h1>Criar Usuario</h1>
+      <p>Digite os seus dados de acesso no campo abaixo.</p>
 
-        <label for="username">Nome do Usuario</label>
-        <input type="username" placeholder="Digite o seu Nome" formControlName="Nome">
-
-        <label for="CPF">CPF</label>
-        <input type="CPF" placeholder="Digite o seu CPF" formControlName="CPF">
-
-        <label for="password">Senha</label>
-        <input type="password" placeholder="Digite a senha" formControlName="password">
-
-        <label for="confirmPassword">Confirmar Senha</label>
-        <input type="confirmPassword" placeholder="Digite o confirma Password" formControlName="confirmPassword">
-
-        <div class="additional-links">
-          <a href="/registrar-conta">Esqueci minha senha</a>
-          <a routerLink="/registrar-contas">Registrar conta</a>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" placeholder="Digite seu e-mail" autofocus="true" formControlName="email">
         </div>
-        <button type="submit" class="btn">Registrar</button>
-      </form>
-    </div>
-  </body>
-  
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="username">Nome do Usuario</label>
+          <input type="text" class="form-control" placeholder="Digite o seu Nome" formControlName="Nome">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="CPF">CPF</label>
+          <input type="text" class="form-control" placeholder="Digite o seu CPF" formControlName="CPF">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="password">Senha</label>
+          <input type="password" class="form-control" placeholder="Digite a senha" formControlName="password">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="confirmPassword">Confirmar Senha</label>
+          <input type="password" class="form-control" placeholder="Digite o confirma Password" formControlName="confirmPassword">
+        </div>
+      </div>
+
+      <div class="additional-links">
+        <a href="/esqueci-minha-senha">Esqueci minha senha</a>
+        <a routerLink="/login">Voltar ao Login</a>
+      </div>
+    </form>
+  </div>
+</body>
