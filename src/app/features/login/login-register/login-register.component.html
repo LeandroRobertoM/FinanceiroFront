@@ -1,9 +1,8 @@
 <body class="login-page">
   <div class="page">
     <form class="formLogin" [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
-      <h1>Criar Usuario</h1>
+      <h2>Cadastrar Usuario</h2>
       <p>Digite os seus dados de acesso no campo abaixo.</p>
-
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="email">E-mail</label>
@@ -17,7 +16,12 @@
           <input type="text" class="form-control" placeholder="Digite o seu Nome" formControlName="Nome">
         </div>
       </div>
-
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="username">Sobre do Usuario</label>
+          <input type="text" class="form-control" placeholder="Digite o seu Nome" formControlName="Nome">
+        </div>
+      </div>
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="CPF">CPF</label>
@@ -43,6 +47,7 @@
         <a href="/esqueci-minha-senha">Esqueci minha senha</a>
         <a routerLink="/login">Voltar ao Login</a>
       </div>
+      <button type="submit" class="btn">Registrar</button>
     </form>
   </div>
 </body>

@@ -9,6 +9,9 @@ import { UserForRegistrationDto } from "../models/user/UserForRegistrationDto";
 import { RegistrationResponseDto } from "../models/response/RegistrationResponseDto";
 import { ResetPasswordDto } from "../models/user/ResetPasswordDto";
 import { ForgotPasswordDto } from "../models/user/ForgotPasswordDto";
+import { Subject } from 'rxjs';
+import { UserForAuthenticationDto } from "../models/user/UserForAuthenticationDto";
+import { AuthResponseDto } from "../models/response/AuthResponseDto";
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +19,8 @@ import { ForgotPasswordDto } from "../models/user/ForgotPasswordDto";
 
 export class authenticationservice {
 
+    private authChangeSub = new Subject<boolean>()
+    public authChanged = this.authChangeSub.asObservable();
     constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
 
     }
@@ -25,6 +30,10 @@ export class authenticationservice {
     public registerUser = (route: string, body: UserForRegistrationDto) => {
         return this.httpClient.post<RegistrationResponseDto> (this.createCompleteRoute(route, this.baseURL), body);
     }
+
+    public loginUser = (route: string, body: UserForAuthenticationDto) => {
+        return this.httpClient.post<AuthResponseDto>(this.createCompleteRoute(route, this.baseURL), body);
+      }
     
     public forgotPassword = (route: string, body: ForgotPasswordDto) => {
         return this.httpClient.post(this.createCompleteRoute(route, this.baseURL), body);
@@ -41,6 +50,17 @@ export class authenticationservice {
         
         return this.httpClient.get(this.createCompleteRoute(route, this.baseURL), { params: params });
     }
+
+    public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
+        this.authChangeSub.next(isAuthenticated);
+    }
+    
+    public logout = () => {
+        localStorage.removeItem("token");
+        this.sendAuthStateChangeNotification(false);
+      }
+
+
 
     private createCompleteRoute = (route: string, envAddress: string) => {
         return `${envAddress}/${route}`;

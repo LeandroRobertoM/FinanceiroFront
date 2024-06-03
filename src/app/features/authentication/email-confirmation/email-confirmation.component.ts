@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { authenticationservice } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -17,7 +18,7 @@ export class EmailConfirmationComponent implements OnInit {
     this.confirmEmail();
   }
   
-  constructor(public authenticationservice: authenticationservice, private _route: ActivatedRoute) { }
+  constructor(private router: Router,public authenticationservice: authenticationservice, private _route: ActivatedRoute) { }
 
   private confirmEmail = () => {
     this.showError = this.showSuccess = false;
@@ -33,5 +34,10 @@ export class EmailConfirmationComponent implements OnInit {
         this.errorMessage = err.message;
       }
     })
+  }
+
+  goToLogin() {
+
+    this.router.navigate(['/authentication/login']);
   }
 }

@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { navbarData } from 'src/app/sidenav/nav-data';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserForAuthenticationDto } from 'src/app/models/user/UserForAuthenticationDto';
+import { AuthResponseDto } from 'src/app/models/response/AuthResponseDto';
+import { authenticationservice } from 'src/app/services/authentication.service'; // Corrigido para a nomenclatura correta
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +17,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   navbarData = navbarData;
+  private returnUrl: string;
+  errorMessage: string = '';
+  showError: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private loginService: LoginService,
-    public authService: AuthService
+    public authService: AuthService,
+    private authenticationservice: authenticationservice,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +35,7 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required]]
     });
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   esqueceuSenha() {
@@ -39,17 +49,34 @@ export class LoginComponent implements OnInit {
   
     this.authService.registerUser(true);
     this.router.navigate(['login/registrar']);
-
-   
   }
-
 
   get dadosForm() {
     return this.loginForm.controls;
-
   }
 
-
+  loginUser2 = (loginFormValue) => {
+    this.showError = false;
+    const login = { ...loginFormValue };
+  
+    const userForAuth: UserForAuthenticationDto = {
+      email: login.email,
+      password: login.senha
+    }
+  
+    this.authenticationservice.loginUser('UsuarioLogin', userForAuth)
+    .subscribe({
+      next: (res: AuthResponseDto) => {
+        localStorage.setItem("token", res.token);
+        this.authenticationservice.sendAuthStateChangeNotification(res.isAuthSuccessful);
+        this.router.navigate([this.returnUrl]);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.errorMessage = err.message;
+        this.showError = true;
+      }
+    });
+  }
 
   async loginUser() {
     console.log('EntrouLoginUser');

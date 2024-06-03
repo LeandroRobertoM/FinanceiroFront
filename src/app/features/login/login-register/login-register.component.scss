@@ -7,7 +7,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .page {
@@ -16,12 +15,6 @@ body {
   padding: 20px;
 }
 
-.formLogin {
-  background-color: #fff;
-  border-radius: 7px;
-  padding: 40px;
-  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
-}
 
 .formLogin h1 {
   padding: 0;
@@ -96,4 +89,21 @@ body {
   .btn-primary {
     padding: 10px 14px;
   }
+}
+
+.btn {
+  background-color: #3f22d1;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none !important;
+  transition: all linear 160ms;
+  cursor: pointer;
+  margin: 0 !important;
+  padding: 8px 16px;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background-color: #1706ff;
 }

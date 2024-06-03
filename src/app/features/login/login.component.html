@@ -1,6 +1,9 @@
 <body class="login-page">
   <div class="page">
-    <form class="formLogin" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{errorMessage}}
+    </div>
+    <form class="formLogin" [formGroup]="loginForm" (ngSubmit)="loginUser2(loginForm.value)">
       <h1>Login</h1>
       <p>Digite os seus dados de acesso no campo abaixo.</p>
       <label for="email">E-mail</label>
@@ -10,7 +13,7 @@
       <input type="password" placeholder="Digite sua senha" formControlName="senha">
       <div class="additional-links">
         <a href="#" (click)="esqueceuSenha()">Esqueceu a senha?</a>
-        <a href="javascript:void(0)" (click)="registrar()">Registra teste</a>
+        <a href="javascript:void(0)" (click)="registrar()">Registrar</a>
       </div>
       <button type="submit" class="btn">Acessar</button>
     </form>

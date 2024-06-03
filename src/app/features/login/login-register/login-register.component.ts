@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { UserForRegistrationDto } from 'src/app/models/user/UserForRegistrationDto';
 import { AuthService } from 'src/app/services/auth.service';
 import { authenticationservice } from 'src/app/services/authentication.service';
+import { RegistrationResponseDto } from 'src/app/models/response/RegistrationResponseDto';
 
 @Component({
   selector: 'app-login-register',
@@ -55,13 +56,18 @@ export class LoginRegisterComponent {
       clientURI: 'http://localhost:4200/authentication/emailconfirmation'
     };
 
-    this.authenticationservice.registerUser("Users/Registration", user)
-    .subscribe({
-      next: (_) => this.router.navigate(["authentication/login"]),
+
+    this.authenticationservice.registerUser('Users/Registration', user).subscribe({
+      next: (res: RegistrationResponseDto) => {
+        if (res.status === 200) {
+          alert('Confirme seu usuário para efetuar login.');
+          this.router.navigate(['login']);
+        }
+      },
       error: (err: HttpErrorResponse) => {
         this.errorMessage = err.message;
         this.showError = true;
       }
-    })
+    });
   }
 }
