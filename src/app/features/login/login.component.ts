@@ -40,7 +40,10 @@ export class LoginComponent implements OnInit {
 
   esqueceuSenha() {
     // Redirecionar para a página de "Esqueceu a senha"
-    this.router.navigate(['/esqueceu-senha']);
+    console.log('Método esqueceuSenha() foi chamado agora.');
+    this.authService.forgotPassword(true);
+    this.router.navigate(['authentication/ForgotPassword']);
+   
   }
 
   registrar() {
@@ -55,28 +58,58 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  loginUser2 = (loginFormValue) => {
+  loginUser2 = async (loginFormValue) => {
     this.showError = false;
     const login = { ...loginFormValue };
-  
+
     const userForAuth: UserForAuthenticationDto = {
-      email: login.email,
-      password: login.senha
-    }
-  
-    this.authenticationservice.loginUser('UsuarioLogin', userForAuth)
-    .subscribe({
-      next: (res: AuthResponseDto) => {
-        localStorage.setItem("token", res.token);
-        this.authenticationservice.sendAuthStateChangeNotification(res.isAuthSuccessful);
-        this.router.navigate([this.returnUrl]);
-      },
-      error: (err: HttpErrorResponse) => {
+        email: login.email,
+        password: login.senha
+    };
+
+    try {
+        const res: AuthResponseDto = await this.authenticationservice.loginUser('UsuarioLogin', userForAuth).toPromise();
+
+        if (res.isAuthSuccessful) {
+            localStorage.setItem("token", res.token);
+            this.authService.setToken(res.token);
+            this.authService.setEmailUser(this.loginForm.value.email);
+
+            // Define isAuthenticated como true após um login bem-sucedido
+            this.authService.UsuarioAutenticado(true);
+
+            console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
+
+            // Navega para o dashboard
+            this.router.navigate(['dashboard']);
+        } else {
+            // Lida com o caso onde isAuthSuccessful é false
+            this.errorMessage = res.errorMessage;
+            this.showError = true;
+            console.log('Erro na autenticação:', this.errorMessage);
+        }
+    } catch (err) {
+        // Caso realmente seja um erro HTTP, trate-o aqui
+        console.error('Erro ao fazer login:', err);
+
+        if (err.error && err.error.message) {
+            console.error('Mensagem de erro:', err.error.message);
+        }
+
+        if (err.status === 401) {
+            alert('Credenciais inválidas. Verifique seu e-mail e senha.');
+        } else if (err.status === 500) {
+            alert('Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.');
+        } else {
+            alert('Ocorreu um erro desconhecido. Por favor, entre em contato com o suporte.');
+        }
+
         this.errorMessage = err.message;
         this.showError = true;
-      }
-    });
-  }
+        console.log('Erro HTTP:', this.errorMessage);
+    }
+}
+  
 
   async loginUser() {
     console.log('EntrouLoginUser');

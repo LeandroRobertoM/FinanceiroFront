@@ -1,28 +1,41 @@
-<ng-container *ngIf="isEmailConfirming; else notEmailConfirming">
+<ng-container *ngIf="isEmailConfirming; else resetPasswordOrLoggedInContent">
   <!-- Conteúdo para confirmação de email -->
   <div>Usuário Confirmation</div>
   <app-email-confirmation></app-email-confirmation>
 </ng-container>
 
-<ng-template #notEmailConfirming>
-  <ng-container *ngIf="isLoggedIn; else loggedInContent">
-    <!-- Conteúdo para usuários autenticados -->
-    <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
-    <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth">
-      <router-outlet></router-outlet> <!-- Aqui está o router-outlet -->
-    </app-body>
+<ng-template #resetPasswordOrLoggedInContent>
+  <ng-container *ngIf="isResetPassword; else loggedInContent">
+    <!-- Conteúdo para redefinição de senha -->
+    <div>Resetar Senha</div>
+    <app-reset-password></app-reset-password>
   </ng-container>
 
   <ng-template #loggedInContent>
-    <!-- Condição para mostrar o componente de login -->
-    <ng-container *ngIf="!isRegisteringUserin; else registerScreen">
-      <!-- Conteúdo para usuários não autenticados -->
-      <div>Usuário não autenticado Aqui</div>
-      <app-login></app-login>
+    <ng-container *ngIf="isLoggedIn; else notLoggedInContent">
+      <!-- Conteúdo para usuários autenticados -->
+      <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+      <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth">
+        <router-outlet></router-outlet>
+      </app-body>
     </ng-container>
-    <ng-template #registerScreen>
-      <!-- Conteúdo para usuários no processo de registro -->
-      <app-login-register></app-login-register>
+
+    <ng-template #notLoggedInContent>
+      <ng-container *ngIf="!isRegisteringUserin; else registerScreen">
+        <ng-container *ngIf="!isForgotPassword; else forgotPasswordScreen">
+          <!-- Conteúdo para usuários não autenticados -->
+          <div>Usuário não autenticado Aqui</div>
+          <app-login></app-login>
+        </ng-container>
+        <ng-template #forgotPasswordScreen>
+          <!-- Conteúdo para redefinição de senha -->
+          <app-forgot-password></app-forgot-password>
+        </ng-template>
+      </ng-container>
+      <ng-template #registerScreen>
+        <!-- Conteúdo para usuários no processo de registro -->
+        <app-login-register></app-login-register>
+      </ng-template>
     </ng-template>
   </ng-template>
 </ng-template>

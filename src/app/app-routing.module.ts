@@ -21,6 +21,8 @@ import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-
 import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-update/usuario-form-update.component';
 import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
 import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
+import { ResetPasswordComponent } from './features/authentication/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,6 +34,7 @@ const routes: Routes = [
   { path: 'coupens', component: CoupensComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'emailconfirmation', component: EmailConfirmationComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
   {
     path: 'authentication',
     children: [
@@ -42,6 +45,34 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'emailconfirmation',
+        pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: 'resetpassword',
+        component: ResetPasswordComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'resetpassword',
+        pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: 'ForgotPassword',
+        component: ForgotPasswordComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'ForgotPassword',
         pathMatch: 'full'
       },
     ],

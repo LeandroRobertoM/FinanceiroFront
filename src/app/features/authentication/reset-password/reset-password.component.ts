@@ -56,7 +56,7 @@ export class ResetPasswordComponent implements OnInit {
       email: this.email
     }
 
-    this.authService.resetPassword('api/accounts/resetpassword', resetPassDto)
+    this.authService.resetPassword('users/resetpassword', resetPassDto)
       .subscribe({
         next: (_) => this.showSuccess = true,
         error: (err: HttpErrorResponse) => {

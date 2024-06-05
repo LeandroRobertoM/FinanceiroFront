@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
@@ -11,14 +11,16 @@ export class AuthService {
   public isLoggedInSubject = new BehaviorSubject<boolean>(false);
   public isRegisteringUserInSubject = new BehaviorSubject<boolean>(false);
   public isEmailConfirmingSubject = new BehaviorSubject<boolean>(false);
+  public isForgotPasswordInSubject = new BehaviorSubject<boolean>(false);
 
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   isRegisteringUserIn$ = this.isRegisteringUserInSubject.asObservable();
   isEmailConfirmingIn$ = this.isEmailConfirmingSubject.asObservable();
+  isForgotPasswordIn$ = this.isForgotPasswordInSubject.asObservable();
 
   isRegisteringUser: boolean = false;
-  isForgotPassword: boolean = false;
   isEmailConfirming: boolean = false;
+  isForgotPassword: boolean = false;
   
   private token: any;
   private user: any;
@@ -32,33 +34,29 @@ export class AuthService {
   UsuarioAutenticado(status: boolean) {
     localStorage.setItem('usuarioAutenticadoPortal', JSON.stringify(status));
     this.usuarioAutenticadoPortal = status;
-    this.isLoggedInSubject.next(true);
+    this.isLoggedInSubject.next(status);
   }
 
   registerUser(status: boolean) {
-    this.isRegisteringUserInSubject.next(true);
+    this.isRegisteringUserInSubject.next(status);
   }
 
   confirmEmail(token: string, email: string): Observable<boolean> {
-    // Simular uma chamada de API para confirmação de email
     console.log(`Confirmação de email com token: ${token} e email: ${email}`);
     this.isEmailConfirmingSubject.next(false);
-    return of (true);
+    return of(true);
   }
 
-
-  forgotPassword() {
-    // Lógica de esqueceu a senha...
-    this.isForgotPassword = true;
+  forgotPassword(status: boolean) {
+    this.isForgotPasswordInSubject.next(status);
+    console.log(`RESET de email com token: e email:`);
   }
 
   UsuarioEstaAutenticado(): Promise<boolean> {
-    this.usuarioAutenticadoPortal = localStorage.getItem('usuarioAutenticadoPortal') == 'true';
-    this.isLoggedInSubject.next(true);
+    this.usuarioAutenticadoPortal = localStorage.getItem('usuarioAutenticadoPortal') === 'true';
+    this.isLoggedInSubject.next(this.usuarioAutenticadoPortal);
     return Promise.resolve(this.usuarioAutenticadoPortal);
   }
-
-
 
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -101,11 +99,10 @@ export class AuthService {
 
   getEmailUser() {
     var emailUserLogado = localStorage.getItem('emailUser');
-     this.emailUser = localStorage.getItem('emailUser');
+    this.emailUser = localStorage.getItem('emailUser');
     if (emailUserLogado) {
         return emailUserLogado;
-    }
-    else {
+    } else {
         this.limparDadosUsuario();
         return "";
     }

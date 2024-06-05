@@ -59,6 +59,7 @@ import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-upda
 import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
 import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
 import { ResetPasswordComponent } from './features/authentication/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
 
 
 
@@ -97,6 +98,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     LoginRegisterComponent,
     EmailConfirmationComponent,
     ResetPasswordComponent,
+    ForgotPasswordComponent,
     
  
     
