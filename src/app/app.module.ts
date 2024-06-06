@@ -60,6 +60,7 @@ import { LoginRegisterComponent } from './features/login/login-register/login-re
 import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
 import { ResetPasswordComponent } from './features/authentication/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -99,6 +100,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     EmailConfirmationComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
+    HeaderComponent,
     
  
     

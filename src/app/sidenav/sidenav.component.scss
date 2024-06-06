@@ -199,3 +199,10 @@
     scrollbar-width: thin;
     scrollbar-color: #556268 transparent;
 }
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    background-color: #f8f9fa;
+  }
