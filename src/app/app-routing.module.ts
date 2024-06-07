@@ -103,15 +103,18 @@ const routes: Routes = [
   },
   {
     path: 'Sistema',
+    data: { breadcrumb: 'Financeiro' },
     children: [
       {
         path: 'formulario',
+        data: { breadcrumb: 'formulario' },
         component: SistemaFormComponent,
         canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: SistemaTableComponent,
+        data: { breadcrumb: 'tabela' },
         canActivate: [AuthGuard]
       },
       {

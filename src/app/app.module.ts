@@ -61,6 +61,7 @@ import { EmailConfirmationComponent } from './features/authentication/email-conf
 import { ResetPasswordComponent } from './features/authentication/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
 import { HeaderComponent } from './header/header.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 
 
@@ -101,6 +102,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     ResetPasswordComponent,
     ForgotPasswordComponent,
     HeaderComponent,
+    BreadcrumbComponent,
     
  
     
