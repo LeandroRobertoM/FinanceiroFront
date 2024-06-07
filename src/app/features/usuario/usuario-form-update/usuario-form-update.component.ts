@@ -73,29 +73,27 @@ export class UsuarioFormUpdateComponent implements OnInit, AfterViewInit {
 
 this.form = new FormGroup({
       
-  // idCliente: new FormControl({value: new Date(), disabled: true}, [Validators.required]),
+
   id: new FormControl({value: 15, disabled: true}, [Validators.required]),
   cpf: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-  username: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-   Senha: new FormControl(null, [Validators.required, Validators.maxLength(11)]),
-
+  email: new FormControl({value: 15, disabled: true}, [Validators.required])
  });
 
   }
 
   salvar(): void {
     if (this.form.valid) {
-      const novoUsuario = {
-        Email: this.form.value.email,
+      const updatesuario = {
+        email: this.form.value.email,
         CPF: this.form.value.cpf,
         Senha: this.form.value.senha,
         IdUsuarioLogado:this.userId
       };
   
-      this.userService.adicionarUsuarioCreate(novoUsuario).subscribe(
+      this.userService.atualizarUsuario(updatesuario).subscribe(
         (response: any) => {
           const usuarioModel: any = response.dados;
-          this.userService.showMessage('Usuário criado com sucesso!');
+          this.userService.showMessage('Usuário atualizado com sucesso!');
           
           // Obtendo o email do usuário logado
           const emailUsuarioLogado = this.authService.getEmailUser();
@@ -234,9 +232,11 @@ this.form = new FormGroup({
   }
 
   getUserIdByEmail(email: string): void {
-    this.userService.getUserIdByEmail(email).subscribe(
+
+    console.log('email na pesquisa:', email);
+    this.userService.getUserByEmail(email).subscribe(
       (userId: string) => {
-        console.log('ID do usuário obtido:', userId);
+        console.log('email do usuário obtido:', email);
         this.userId=userId;
       },
       (error) => {

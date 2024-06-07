@@ -1,51 +1,54 @@
 <div class="container-base">
-    <div class="DivTitlebar">
-      <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">  
-      <h1>Editar Usuario</h1>
-    </div>
-    <div class="row">
-      <!-- Inputs do formulário -->
-      <div class="DivFormGroup">
-        <form [formGroup]="form" (submit)="salvar()">
-          <div class="group-label-row">
-            <label for="CPF">CPF</label>
-            <input type="text" class="form-control custom-input" formControlName="cpf" name="cpf" id="cpf" placeholder="cpf" 
+  <div class="DivTitlebar">
+    <img src="../../../../assets/icones/sistema-form/sistemafinanceiroIcon.jpg" alt="Funciona">
+    <h1>Editar Usuario</h1>
+  </div>
+  <div class="row">
+    <!-- Inputs do formulário -->
+    <div class="DivFormGroup">
+      <form [formGroup]="form" (ngSubmit)="salvar()">
+        <div class="group-label-row">
+          <label for="CPF">CPF.:</label>
+          <input type="text" class="form-control custom-input" formControlName="cpf" name="cpf" id="cpf" placeholder="cpf"
             [(ngModel)]="usuario.cpf" autocomplete="off" required />
-            
-          </div>
-          <div class="group-label-row">
-            <label for="id">Codigo</label>
-            <input type="text" class="form-control custom-input" formControlName="id" name="id" id="id" placeholder="id" 
+        </div>
+        <div class="group-label-row">
+          <label for="email">E-mail.:</label>
+          <input type="text" class="form-control custom-input" formControlName="email" name="email" id="email" placeholder="email"
+            [(ngModel)]="usuario.email" autocomplete="off" required />
+        </div>
+        <div class="group-label-row">
+          <label for="id">Codigo</label>
+          <input type="text" class="form-control custom-input" formControlName="id" name="id" id="id" placeholder="id"
             [(ngModel)]="usuario.id" autocomplete="off" required />
+        </div>
+        <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
+          <span *ngIf="form.get('cpf')?.errors?.['required']">O CPF do Usuario é obrigatório!<br></span>
+          <span *ngIf="form.get('email')?.errors?.['required']">O email do Usuario é obrigatório!<br></span>
+        </div>
+        <div class="group-label-row">
+          <div class="link-container">
+            <a href="javascript:void(0)" (click)="openDialog()">Vincular Sistemas Financeiro</a>
           </div>
-          <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
-            <span *ngIf="form.get('cpf')?.errors?.['required']">O CPF do Usuario é obrigatório!<br></span>
-            <span *ngIf="form.get('email')?.errors?.['requred']">O email do Usuario é obrigatório!<br></span>
+        </div>
+        <div *ngIf="sistemasSelecionadosLocal.length > 0">
+          <label for="SistemasVinculados">Sistemas associados..:</label>
+          <div class="badge-container">
+            <span *ngFor="let sistema of sistemasSelecionadosLocal" class="badge-sistema-usuario">
+              {{ sistema.nome }}
+              <mat-icon class="close-icon" (click)="removerSistema(sistema)">close</mat-icon>
+            </span>
           </div>
-          <div class="group-label-row">
-            <div class="link-container">
-              <a href="javascript:void(0)" (click)="openDialog()">Vincular Sistemas Financeiro</a>
-            </div>
+        </div>
+        <div class="ViewFooter">
+          <br>
+          <div class="group-btn-row">
+            <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;" />
+            <input type="button" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
+            <input type="reset" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
           </div>
-          <div *ngIf="sistemasSelecionadosLocal.length > 0">
-            <label for="SistemasVinculados">Sistemas associados..:</label>
-            <div class="badge-container">
-              <span *ngFor="let sistema of sistemasSelecionadosLocal" class="badge-sistema-usuario">
-                {{ sistema.nome }}
-                <mat-icon class="close-icon" (click)="removerSistema(sistema)">close</mat-icon>
-              </span>
-            </div>
-          </div>
-          <div class="ViewFooter">
-            <br>
-            <div class="group-btn-row">
-              <input type="submit" value="Salvar" class="btn-primary" style="margin-right: 10px;" />
-              <input type="submit" value="Cancelar" class="btn-cancelar" style="margin-right: 10px;" />
-              <input type="submit" value="Limpar" class="btn-limpar" style="margin-right: 10px;" />
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
-  
+</div>

@@ -29,10 +29,10 @@ export class UserService {
       usuariomodel)
   }
 
-      atualizarUsuario(id: string, email: string, senha: string, cpf: string) {
-        return this.httpClient.put<any>(`${this.baseURL}/AtualizaUsuario/${id}`, { email, senha, cpf });
-      }
-    
+     atualizarUsuario(usuariomodel: UsuarioModel) {
+      return this.httpClient.put<UsuarioModel>(`${this.baseURL}/AtualizarUsuario`, usuariomodel);
+    }
+
       deletarUsuario(id: string) {
         return this.httpClient.delete<any>(`${this.baseURL}/DeletaUsuario/${id}`);
       }
@@ -51,6 +51,12 @@ export class UserService {
         const url = `${this.baseURL}/ListaSistemaUsuario`;
         return this.httpClient.get<string>(url, { params: { idUser } });
       }
+
+      getUserByEmail(emailUsuario: string): Observable<string> {
+        const url = `${this.baseURL}/ListaSistemaUsuario`;
+        return this.httpClient.get<string>(url, { params: { emailUsuario } });
+      }
+
 
       getUserId(idUser: string): Observable<UsuarioModel> {
         const url = `${this.baseURL}/GetUserid`;

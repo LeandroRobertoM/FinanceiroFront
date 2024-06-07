@@ -223,7 +223,7 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
   }
 
   getUserIdByEmail(email: string): void {
-    this.userService.getUserIdByEmail(email).subscribe(
+    this.userService.getUserByEmail(email).subscribe(
       (userId: string) => {
         console.log('ID do usuário obtido:', userId);
         this.userId=userId;
