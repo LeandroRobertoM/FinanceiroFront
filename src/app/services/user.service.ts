@@ -56,6 +56,12 @@ export class UserService {
         const url = `${this.baseURL}/GetUserid`;
         return this.httpClient.get<UsuarioModel>(url, { params: { idUser } });
       }
+
+      getObterUserId(email: string): Observable<UsuarioModel> {
+        const url = `${this.baseURL}/ObterUserID`;
+        return this.httpClient.get<UsuarioModel>(url, { params: { email } });
+      }
+      
       
 
       getUserObterVinculados(email: string): Observable<UsuarioModel[]> {

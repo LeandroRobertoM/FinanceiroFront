@@ -5,4 +5,6 @@ export interface UsuarioModel {
     Senha: string;
     id?: string;
     cpf?: string;
+    email?: string;
+    username?: string;
   }

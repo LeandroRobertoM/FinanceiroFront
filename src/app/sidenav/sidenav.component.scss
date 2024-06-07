@@ -6,7 +6,6 @@
     top: 0;
     width: 5rem;
     height: 100vh;
-    box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
 
     .logo-container {
         display: flex;
@@ -199,3 +198,10 @@
     scrollbar-width: thin;
     scrollbar-color: #556268 transparent;
 }
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    background-color: #f8f9fa;
+  }

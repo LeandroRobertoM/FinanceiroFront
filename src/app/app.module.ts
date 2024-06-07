@@ -56,6 +56,12 @@ import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-fo
 import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
 import { UsuarioTableSistemaDialogComponent } from './features/usuario/usuario-table-sistema-dialog/usuario-table-sistema-dialog.component';
 import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-update/usuario-form-update.component';
+import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
+import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
+import { ResetPasswordComponent } from './features/authentication/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
+import { HeaderComponent } from './header/header.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 
 
@@ -91,6 +97,12 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     UsuarioTableComponent,
     UsuarioTableSistemaDialogComponent,
     UsuarioFormUpdateComponent,
+    LoginRegisterComponent,
+    EmailConfirmationComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
+    HeaderComponent,
+    BreadcrumbComponent,
     
  
     

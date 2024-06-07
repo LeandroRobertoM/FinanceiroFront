@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 interface SideNavToggle {
@@ -18,15 +18,50 @@ export class AppComponent implements OnInit {
   screenWidth = 0;
   isAuthenticated = false;
   isLoggedIn = false;
+  isRegisteringUserin = false;
+
+  isResetPassword = false;
+  isForgotPassword = false;
+  isEmailConfirming = false;
 
   constructor(private router: Router, public authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn$.subscribe((loggedIn) => {
+    this.authService.isLoggedIn$.subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
+      console.log('isLoggedIn:', loggedIn);
     });
-    //this.checkAuthenticationStatus();
-  //  this.checkTokenOnRefresh();
+
+    this.authService.isRegisteringUserIn$.subscribe(registering => {
+      this.isRegisteringUserin = registering;
+      console.log('isRegisteringUserin:', registering);
+    });
+
+    this.authService.isForgotPasswordIn$.subscribe(forgotPassword => {
+      this.isForgotPassword = forgotPassword;
+      console.log('isForgotPassword:', forgotPassword);
+    });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        console.log('NavigationEnd Event URL:', event.url);
+        
+        if (event.url.includes('authentication/emailconfirmation')) {
+          this.isEmailConfirming = true;
+        } else {
+          this.isEmailConfirming = false;
+        }
+
+        if (event.url.includes('authentication/resetpassword')) {
+          this.isResetPassword = true;
+        } else {
+          this.isResetPassword = false;
+        }
+
+        console.log('URL matches emailconfirmation: ' + this.isEmailConfirming);
+        console.log('URL matches reset-password: ' + this.isResetPassword);
+      }
+    });
   }
 
   onToggleSideNav(data: SideNavToggle): void {
@@ -35,20 +70,18 @@ export class AppComponent implements OnInit {
   }
 
   checkAuthenticationStatus(): void {
-    this.authService.UsuarioEstaAutenticado().then((isAuthenticated) => {
+    this.authService.UsuarioEstaAutenticado().then(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
-      console.log('Valor Variavel checkstatus:' + this.isAuthenticated);
+      console.log('Valor Variavel checkstatus:', this.isAuthenticated);
     });
   }
 
   checkTokenOnRefresh(): void {
-    console.log('Usuario Entrou antes do F5:');
-    this.authService.getToken().subscribe((token) => {
+    this.authService.getToken().subscribe(token => {
       if (token) {
         this.isAuthenticated = true;
         console.log('Usuário autenticado. Token recebido:', token);
       } else {
-        console.log('Usuário não autenticado. Redirecionando para a página de login.');
         this.isAuthenticated = false;
         this.router.navigate(['/login']);
       }
@@ -56,7 +89,11 @@ export class AppComponent implements OnInit {
   }
 
   onLoginSuccess() {
-    this.authService.UsuarioEstaAutenticado()
+    this.authService.UsuarioEstaAutenticado();
     this.router.navigate(['/dashboard']);
+  }
+
+  Verificar() {
+    this.router.navigate(['login/register']);
   }
 }

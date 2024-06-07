@@ -1,0 +1,109 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #023047;
+  background-color: #263238;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+
+.formLogin h1 {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 2.3em;
+}
+
+.formLogin p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.additional-links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.additional-links a {
+  font-size: 13px;
+  color: #555;
+  transition: all linear 160ms;
+  text-decoration: none;
+}
+
+.additional-links a:hover {
+  color: #462c37;
+  text-decoration: underline;
+}
+
+.btn-primary {
+  background-color: #3f22d1;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  transition: all linear 160ms;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background-color: #1706ff;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .page {
+    padding: 10px;
+  }
+
+  .formLogin {
+    padding: 20px;
+  }
+
+  .formLogin h1 {
+    font-size: 1.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .formLogin {
+    padding: 15px;
+  }
+
+  .formLogin h1 {
+    font-size: 1.5em;
+  }
+
+  .btn-primary {
+    padding: 10px 14px;
+  }
+}
+
+.btn {
+  background-color: #3f22d1;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none !important;
+  transition: all linear 160ms;
+  cursor: pointer;
+  margin: 0 !important;
+  padding: 8px 16px;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background-color: #1706ff;
+}

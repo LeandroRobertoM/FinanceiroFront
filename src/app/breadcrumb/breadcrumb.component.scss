@@ -1,0 +1,24 @@
+.breadcrumb {
+  background: none;
+  margin-left: 260px;
+
+  .breadcrumb-item {
+    font-size: 14px;
+    color: #fff;
+
+    a {
+      color: #f3f3f3;
+      text-decoration: none;
+    }
+
+    &::after {
+      content: '>';
+      margin: 0 8px;
+      color: #d6d8da;
+    }
+
+    &:last-child::after {
+      content: '';
+    }
+  }
+}

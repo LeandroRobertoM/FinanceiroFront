@@ -18,19 +18,9 @@
             <input type="text" class="form-control custom-input" formControlName="id" name="id" id="id" placeholder="id" 
             [(ngModel)]="usuario.id" autocomplete="off" required />
           </div>
-          <div class="group-label-row">
-            <label for="UserId">Codigo</label>
-            <input type="text" class="form-control custom-input" formControlName="UserId" name="UserId" id="UserId" placeholder="UserId" 
-            [(ngModel)]="usuario.UserId" autocomplete="off" required />
-          </div>
-          <div class="group-label-row">
-            <label for="senha">Senha:</label>
-            <input type="text" name="senha" id="senha" placeholder="senha" formControlName="senha" required />
-          </div>
           <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
             <span *ngIf="form.get('cpf')?.errors?.['required']">O CPF do Usuario é obrigatório!<br></span>
             <span *ngIf="form.get('email')?.errors?.['requred']">O email do Usuario é obrigatório!<br></span>
-            <span *ngIf="form.get('senha')?.errors?.['required']">A senha do Usuario é obrigatória!<br></span>
           </div>
           <div class="group-label-row">
             <div class="link-container">

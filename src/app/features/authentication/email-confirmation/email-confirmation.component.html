@@ -1,0 +1,13 @@
+<body class="login-page">
+    <div class="page">
+      <form class="formLogin">
+        <h1>E-mail Confirmation</h1>
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div>
+        <div *ngIf="showSuccess" class="alert alert-success" role="alert">
+          E-mail Confirmado com sucesso <a [routerLink]="['/login']">Faça o seu Login.</a>
+        </div>
+      </form>
+    </div>
+  </body>

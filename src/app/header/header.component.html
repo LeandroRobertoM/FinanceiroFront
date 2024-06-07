@@ -1,0 +1,9 @@
+<div class="header-container">
+  <div class="caminho-rota" [ngClass]="{ 'collapsed': collapsed }">
+    <app-breadcrumb></app-breadcrumb>
+  </div>
+  <div class="user-info">
+    <span class="user-email">{{ userName }}</span>
+    <button class="logout-button" (click)="logout()">Sair</button>
+  </div>
+</div>

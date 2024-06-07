@@ -6,13 +6,10 @@ import { ProductsComponent } from './products/products.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CoupensComponent } from './coupens/coupens.component';
 import { SettingsComponent } from './settings/settings.component';
-
 import { AuthGuard } from './guards/auth-guard.service';
-
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
 import { SistemaTableComponent } from './features/sistema/sistema-table/sistema-table.component';
 import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
-
 import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-table.component';
 import { DespesaFormUpdateComponent } from './features/despesa/despesa-form-update/despesa-form-update.component';
 import { PagesComponent } from './pages/pages.component';
@@ -22,34 +19,81 @@ import { CategoriaTableComponent } from './features/categoria/categoria-table/ca
 import { UsuarioFormComponent } from './features/usuario/usuario-form/usuario-form.component';
 import { UsuarioTableComponent } from './features/usuario/usuario-table/usuario-table.component';
 import { UsuarioFormUpdateComponent } from './features/usuario/usuario-form-update/usuario-form-update.component';
-
+import { LoginRegisterComponent } from './features/login/login-register/login-register.component';
+import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
+import { ResetPasswordComponent } from './features/authentication/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
 
 const routes: Routes = [
- // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path:'login',component:LoginComponent}, 
-  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
-  { path: 'products', component: ProductsComponent,canActivate: [AuthGuard]  },
-  { path: 'statistics', component: StatisticsComponent,canActivate: [AuthGuard]  },
-  { path: 'coupens', component: CoupensComponent,canActivate: [AuthGuard]  },
-  { path: 'settings', component: SettingsComponent,canActivate: [AuthGuard]  },
-  { path: 'login', component: LoginComponent,canActivate: [AuthGuard]  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'registrar', component: LoginRegisterComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+  { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
+  { path: 'coupens', component: CoupensComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'emailconfirmation', component: EmailConfirmationComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: 'emailconfirmation',
+        component: EmailConfirmationComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'emailconfirmation',
+        pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: 'resetpassword',
+        component: ResetPasswordComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'resetpassword',
+        pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: 'ForgotPassword',
+        component: ForgotPasswordComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'ForgotPassword',
+        pathMatch: 'full'
+      },
+    ],
+  },
   {
     path: 'Categoria',
     children: [
       {
         path: 'formulario',
         component: CategoriaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: CategoriaTableComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:idCategoria',
         component: CategoriaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
@@ -59,26 +103,28 @@ const routes: Routes = [
   },
   {
     path: 'Sistema',
+    data: { breadcrumb: 'Financeiro' },
     children: [
       {
         path: 'formulario',
+        data: { breadcrumb: 'formulario' },
         component: SistemaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: SistemaTableComponent,
-        canActivate:[AuthGuard]
+        data: { breadcrumb: 'tabela' },
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:idSistema',
         component: SistemaFormUpdateComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
         redirectTo: 'home', pathMatch: 'full'
-        
       },
     ],
   },
@@ -88,17 +134,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: DespesaFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: DespesaTableComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:idCategoria',
         component: DespesaFormUpdateComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
@@ -112,17 +158,17 @@ const routes: Routes = [
       {
         path: 'formulario',
         component: UsuarioFormComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'tabela',
         component: UsuarioTableComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'update/:id',
         component: UsuarioFormUpdateComponent,
-        canActivate:[AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: '',
