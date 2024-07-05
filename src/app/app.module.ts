@@ -16,6 +16,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -36,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { AuthGuard } from './guards/auth-guard.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
 import { SistemaFormUpdateComponent } from './features/sistema/sistema-form-update/sistema-form-update.component';
@@ -130,6 +133,9 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatSlideToggleModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
   
     
   ],
