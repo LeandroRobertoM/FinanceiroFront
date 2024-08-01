@@ -18,7 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-
+import { NgxMaskModule } from 'ngx-mask';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -112,7 +112,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
 
   ],
   imports: [
-    
+    NgxMaskModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
