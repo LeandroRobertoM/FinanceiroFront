@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { authenticationservice } from 'src/app/services/authentication.service';
 import { RegistrationResponseDto } from 'src/app/models/response/RegistrationResponseDto';
 import { debounceTime } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 
 @Component({
   selector: 'app-login-register',
@@ -19,13 +21,16 @@ export class LoginRegisterComponent implements OnInit {
   showError: boolean = false;
   showSuccess: boolean = false;
   passwordMismatch: boolean = false;
-  private doneTypingInterval = 5000; // Tempo para aguardar após a última digitação
+  private doneTypingInterval = 500; // Tempo para aguardar após a última digitação
 
   constructor(
+    private location: Location,
+    
     private formBuilder: FormBuilder,
     private router: Router,
     public authService: AuthService,
-    public authenticationservice: authenticationservice
+    public authenticationservice: authenticationservice,
+    public customSnackbarService: CustomSnackbarService,
   ) { }
 
   ngOnInit(): void {
@@ -46,8 +51,22 @@ export class LoginRegisterComponent implements OnInit {
     });
   }
 
-  hasError(controlName: string, errorName: string) {
-    return this.registerForm.controls[controlName].hasError(errorName);
+  login() {
+    this.authService.registerUser(false);
+    this.authService.UsuarioAutenticado(false);
+    this.location.back();
+  }
+
+  esqueceuSenha() {
+    console.log('Método esqueceuSenha() foi chamado agora.');
+    this.authService.forgotPassword(true);
+    this.authService.registerUser(false);
+    this.router.navigate(['authentication/ForgotPassword']);
+  }
+
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.registerForm.get(controlName);
+    return control?.hasError(errorName) && (control.touched || control.dirty);
   }
 
   cleanCpfCnpj(value: string): string {
@@ -99,14 +118,14 @@ export class LoginRegisterComponent implements OnInit {
       this.showError = true;
       return;
     }
-  
+
     const formValues = this.registerForm.value;
     if (formValues.password !== formValues.confirmPassword) {
       this.errorMessage = 'As senhas não são iguais.';
       this.showError = true;
       return;
     }
-  
+
     const user: UserForRegistrationDto = {
       email: formValues.email,
       password: formValues.password,
@@ -114,29 +133,30 @@ export class LoginRegisterComponent implements OnInit {
       CPF: this.cleanCpfCnpj(formValues.CPF),
       clientURI: 'http://localhost:4200/authentication/emailconfirmation'
     };
-  
+
     this.authenticationservice.registerUser('Users/Registration', user).subscribe({
       next: (res: RegistrationResponseDto) => {
         if (res.status === 200) {
-          this.showSuccess = true;
-          this.errorMessage = 'Por favor, confirme seu e-mail.';
+          this.customSnackbarService.openSnackBar('Registro realizado com sucesso!\n Verifique seu email para confirmar o cadastro.', 'success');
           this.authService.registerUser(false);
           this.authService.UsuarioAutenticado(false);
 
+          // Redireciona após 10 segundos
           setTimeout(() => {
             this.router.navigate(['login'], { replaceUrl: true });
-          }, 3000); // Redireciona após 3 segundos
-            // Atualize o estado global se necessário
-                 // ou conforme necessário
+          }, 10000); // 10 segundos
         } else {
-          this.errorMessage = res.mensagem || 'Ocorreu um erro durante o registro.';
-          this.showError = true;
+          // Exibe mensagem de erro no Snackbar
+          this.customSnackbarService.openSnackBar(res.mensagem || 'Ocorreu um erro durante o registro.', 'error');
+
         }
       },
       error: (err: HttpErrorResponse) => {
-        this.errorMessage = err.error.errors?.join(' ') || 'Erro ao registrar usuário.';
-        this.showError = true;
+        // Exibe mensagem de erro no Snackbar
+        this.customSnackbarService.openSnackBar(err.error.errors?.join(' ') || 'Erro ao registrar usuário.', 'error');
       }
     });
   }
 }
+
+

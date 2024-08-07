@@ -4,7 +4,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ForgotPasswordDto } from 'src/app/models/user/ForgotPasswordDto';
 import { authenticationservice } from 'src/app/services/authentication.service';
-
+import { Location } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { ForgotResponseDto } from 'src/app/models/response/ForgotResponseDto';
+import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 
 
 @Component({
@@ -20,11 +23,17 @@ export class ForgotPasswordComponent  implements OnInit {
   showSuccess: boolean;
   showError: boolean;
 
-  constructor(private router: Router,public authenticationservice: authenticationservice) { }
+  constructor(public customSnackbarService: CustomSnackbarService,public authService: AuthService,private location: Location,private router: Router,public authenticationservice: authenticationservice) { }
   ngOnInit(): void {
     this.forgotPasswordForm = new FormGroup({
       email: new FormControl("", [Validators.required])
     })
+  }
+  
+  login() {
+    this.authService.registerUser(false);
+    this.authService.UsuarioAutenticado(false);
+    this.location.back();
   }
 
   public validateControl = (controlName: string) => {
@@ -46,13 +55,22 @@ export class ForgotPasswordComponent  implements OnInit {
 
     this.authenticationservice.forgotPassword('users/ForgotPassword', forgotPassDto)
     .subscribe({
-      next: (_) => {
-      this.showSuccess = true;
-      this.successMessage = 'The link has been sent, please check your email to reset your password.'
-    },
-    error: (err: HttpErrorResponse) => {
-      this.showError = true;
-      this.errorMessage = err.message;
-    }})
+      next: (res: ForgotResponseDto) => {
+        if (res.IsSuccess) {
+          this.customSnackbarService.openSnackBar('Registro realizado com sucesso! Verifique seu email para confirmar o cadastro.', 'success');
+          this.authService.registerUser(false);
+          this.authService.UsuarioAutenticado(false);
+          // Redireciona após 10 segundos
+          setTimeout(() => {
+            this.router.navigate(['login'], { replaceUrl: true });
+          }, 10000); // 10 segundos
+        } else {
+          this.customSnackbarService.openSnackBar(res.ErrorMessage || 'Ocorreu um erro durante o registro.', 'error');
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        this.customSnackbarService.openSnackBar(err.error.errors?.join(' ') || 'Erro ao registrar usuário.', 'error');
+      }
+    })
   }
 }
