@@ -26,7 +26,13 @@ import { ForgotPasswordComponent } from './features/authentication/forgot-passwo
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    children: [
+      { path: 'registrar', component: LoginRegisterComponent }
+    ]
+  },
   { path: 'registrar', component: LoginRegisterComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
