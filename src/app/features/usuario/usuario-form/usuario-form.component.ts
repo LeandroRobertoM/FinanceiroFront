@@ -77,7 +77,8 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
           email: this.form.value.email,
           CPF: this.form.value.cpf,
           Senha: this.form.value.senha,
-          IdUsuarioLogado: this.userId
+          IdUsuarioLogado: this.userId,
+          clientURI: 'http://localhost:4200/authentication/ResetConfirmation'
        };
  
        this.userService.adicionarUsuarioCreate(salvarUsuario).subscribe(

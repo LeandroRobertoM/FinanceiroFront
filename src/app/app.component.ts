@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
   isResetPassword = false;
   isForgotPassword = false;
   isEmailConfirming = false;
+  isResetEmailConfirming = false;
+
 
   constructor(private router: Router, private location: Location, public authService: AuthService) {}
 
@@ -54,12 +56,14 @@ export class AppComponent implements OnInit {
   }
 
   updateStateBasedOnUrl(url: string) {
-    this.isEmailConfirming = url.includes('authentication/emailconfirmation');
+    this.isEmailConfirming = url.includes('authentication/ResetConfirmation');
+    this.isResetEmailConfirming = url.includes('authentication/emailconfirmation');
     this.isResetPassword = url.includes('authentication/resetpassword');
     this.isForgotPassword = url.includes('authentication/ForgotPassword');
     this.isRegisteringUserin = url.includes('login/registrar');
 
     console.log('URL matches emailconfirmation: ' + this.isEmailConfirming);
+    console.log('URL matches isEmailResetConfirming: ' + this.isResetEmailConfirming);
     console.log('URL matches reset-password: ' + this.isResetPassword);
     console.log('URL matches forgot-password: ' + this.isForgotPassword);
     console.log('URL matches isLoggedIn: ' + this.isLoggedIn);

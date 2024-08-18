@@ -23,6 +23,7 @@ import { LoginRegisterComponent } from './features/login/login-register/login-re
 import { EmailConfirmationComponent } from './features/authentication/email-confirmation/email-confirmation.component';
 import { ResetPasswordComponent } from './features/authentication/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
+import { ResetConfirmationComponent } from './features/authentication/reset-confirmation/reset-confirmation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -79,6 +80,20 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'ForgotPassword',
+        pathMatch: 'full'
+      },
+    ],
+  },
+  {
+    path: 'authentication',
+    children: [
+      {
+        path: 'ResetConfirmation',
+        component: ResetConfirmationComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'c',
         pathMatch: 'full'
       },
     ],

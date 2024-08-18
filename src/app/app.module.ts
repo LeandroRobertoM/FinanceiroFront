@@ -69,6 +69,7 @@ import { CustomSnackbarComponent } from './components/CustomSnackbarService/cust
 
 //servicos
 import { CustomSnackbarService } from './components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
+import { ResetConfirmationComponent } from './features/authentication/reset-confirmation/reset-confirmation.component';
 
 
 
@@ -109,6 +110,7 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     HeaderComponent,
     BreadcrumbComponent,
     CustomSnackbarComponent,
+    ResetConfirmationComponent,
     
  
     
