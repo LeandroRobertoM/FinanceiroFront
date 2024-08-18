@@ -1,6 +1,5 @@
 export interface ForgotResponseDto {
-    IsSuccess: boolean;
+  isSuccess: boolean;
     Message: string;
-    ErrorMessage?: string;
-    status: number;
-}
+    ErrorMessage: string | null;
+  }

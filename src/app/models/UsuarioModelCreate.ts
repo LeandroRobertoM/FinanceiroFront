@@ -1,6 +1,6 @@
 export interface UsuarioModelCreate {
     UserId?: string;
-    Email: string;
+    email: string;
     CPF: string;
     Senha: string;
     IdUsuarioLogado: string;
