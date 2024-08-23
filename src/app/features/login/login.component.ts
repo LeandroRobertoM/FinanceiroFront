@@ -8,6 +8,7 @@ import { UserForAuthenticationDto } from 'src/app/models/user/UserForAuthenticat
 import { AuthResponseDto } from 'src/app/models/response/AuthResponseDto';
 import { authenticationservice } from 'src/app/services/authentication.service'; // Corrigido para a nomenclatura correta
 import { HttpErrorResponse } from '@angular/common/http';
+import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     public authService: AuthService,
     private authenticationservice: authenticationservice,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private customSnackbarService: CustomSnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -84,9 +86,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['dashboard']);
         } else {
             // Lida com o caso onde isAuthSuccessful é false
-            this.errorMessage = res.errorMessage;
-            this.showError = true;
-            console.log('Erro na autenticação:', this.errorMessage);
+           
+            this.customSnackbarService.openSnackBar(res.errorMessage || 'Erro na autenticação.', 'error');
         }
     } catch (err) {
         // Caso realmente seja um erro HTTP, trate-o aqui

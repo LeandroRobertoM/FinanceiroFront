@@ -1,53 +1,56 @@
 <body class="login-page">
   <div class="page">
-    <form class="formLogin" [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
+    <form class="formLogin" [formGroup]="registerForm" (ngSubmit)="registerUser()">
       <h2>Cadastrar Usuario</h2>
       <p>Digite os seus dados de acesso no campo abaixo.</p>
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="email">E-mail</label>
-          <input type="email" class="form-control" placeholder="Digite seu e-mail" autofocus="true" formControlName="email">
-        </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" class="form-control" placeholder="Digite seu e-mail" formControlName="email">
+        <div *ngIf="hasError('email', 'required') && (registerForm.get('email').touched || registerForm.get('email').dirty)" class="text-danger">Email é obrigatório</div>
+        <div *ngIf="hasError('email', 'email') && (registerForm.get('email').touched || registerForm.get('email').dirty)" class="text-danger">Email inválido</div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="username">Nome do Usuario</label>
-          <input type="text" class="form-control" placeholder="Digite o seu Nome" formControlName="Nome">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="username">Sobre do Usuario</label>
-          <input type="text" class="form-control" placeholder="Digite o seu Nome" formControlName="Nome">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="CPF">CPF</label>
-          <input type="text" class="form-control" placeholder="Digite o seu CPF" formControlName="CPF">
-        </div>
+      <div class="form-group">
+        <label for="firstName">Nome do Usuario</label>
+        <input type="text" class="form-control" placeholder="Digite o seu Nome" formControlName="firstName">
+        <div *ngIf="hasError('firstName', 'required') && (registerForm.get('firstName').touched || registerForm.get('firstName').dirty)" class="text-danger">Nome é obrigatório</div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="password">Senha</label>
-          <input type="password" class="form-control" placeholder="Digite a senha" formControlName="password">
-        </div>
+      <div class="form-group">
+        <label for="aboutUser">Sobre do Usuario</label>
+        <input type="text" class="form-control" placeholder="Digite o sobre do Usuário" formControlName="aboutUser">
+        <div *ngIf="hasError('aboutUser', 'required') && (registerForm.get('aboutUser').touched || registerForm.get('aboutUser').dirty)" class="text-danger">Sobre é obrigatório</div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="confirmPassword">Confirmar Senha</label>
-          <input type="password" class="form-control" placeholder="Digite o confirma Password" formControlName="confirmPassword">
-        </div>
+      <div class="form-group">
+        <label for="CPF">CPF/CNPJ</label>
+        <input type="text" class="form-control" placeholder="Digite o seu CPF/CNPJ" formControlName="CPF">
+        <div *ngIf="hasError('CPF', 'required') && (registerForm.get('CPF').touched || registerForm.get('CPF').dirty)" class="text-danger">CPF/CNPJ é obrigatório</div>
+        <div *ngIf="hasError('CPF', 'invalidCpfCnpj') && (registerForm.get('CPF').touched || registerForm.get('CPF').dirty)" class="text-danger">CPF/CNPJ inválido</div>
       </div>
 
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" class="form-control" placeholder="Digite a senha" formControlName="password">
+        <div *ngIf="hasError('password', 'required') && (registerForm.get('password').touched || registerForm.get('password').dirty)" class="text-danger">Senha é obrigatória</div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Senha</label>
+        <input type="password" class="form-control" placeholder="Digite a confirmação da senha" formControlName="confirmPassword">
+        <div *ngIf="hasError('confirmPassword', 'required') && (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty)" class="text-danger">Confirmação de senha é obrigatória</div>
+        <div *ngIf="passwordMismatch && (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty)" class="text-danger">As senhas não são iguais</div>
+      </div>
+      
       <div class="additional-links">
-        <a href="/esqueci-minha-senha">Esqueci minha senha</a>
-        <a routerLink="/login">Voltar ao Login</a>
+        <a href="javascript:void(0)" (click)="esqueceuSenha()">Esqueceu a senha?</a>
+        <a href="javascript:void(0)" (click)="login()">Voltar Login</a>
       </div>
-      <button type="submit" class="btn">Registrar</button>
+
+      <button type="submit" class="btn btn-primary">Registrar</button>
+      <div *ngIf="showError" class="text-danger">{{ errorMessage }}</div>
+      <div *ngIf="showSuccess" class="text-success">Registro realizado com sucesso! Verifique seu email para confirmar o cadastro.</div>
     </form>
   </div>
 </body>

@@ -1,0 +1,130 @@
+/* Estilos globais */
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap");
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background: #f4f7f9;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+h1 {
+  font-weight: 800;
+  color: #36515f;
+}
+
+.container-base {
+  padding: 40px;  /* Aumentei o padding para mais espaço interno */
+  background: #ffffff;
+  border-radius: 12px;  /* Aumentei o border-radius para cantos mais arredondados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Aumentei o shadow para destaque */
+  max-width: 1200px;  /* Aumentei o max-width para mais largura */
+  margin: 20px auto;  /* Adicionei margem superior para espaço entre o topo e o formulário */
+}
+
+.DivTitlebar {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ccd4db;  /* Aumentei a espessura da borda */
+  padding-bottom: 20px;  /* Aumentei o padding inferior */
+  margin-bottom: 30px;  /* Aumentei a margem inferior */
+}
+
+.DivTitlebar img {
+  width: 60px;  /* Aumentei o tamanho da imagem */
+  height: 60px;
+  margin-right: 20px;  /* Aumentei a margem direita */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 20px;  /* Aumentei a margem inferior */
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;  /* Aumentei a margem inferior */
+  color: #6e778b;
+}
+
+input, select {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #ccd4db;
+  border-radius: 4px;
+  padding: 8px;
+  color: #6e778b;
+}
+
+.mat-slide-toggle {
+  margin-top: 15px;
+}
+
+.alert {
+  font-size: 14px;
+  color: red;
+}
+
+.ViewFooter {
+  border-top: 2px solid #ccd4db;  /* Aumentei a espessura da borda */
+  padding-top: 20px;  /* Aumentei o padding superior */
+  margin-top: 30px;  /* Aumentei a margem superior */
+}
+
+.group-btn-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-primary, .btn-cancelar, .btn-limpar {
+  min-width: 120px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #36515f;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1706ff;
+}
+
+.btn-cancelar {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-cancelar:hover {
+  background-color: #d32f2f;
+}
+
+.btn-limpar {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+.btn-limpar:hover {
+  background-color: #fb8c00;
+}
+
+.error-message {
+  font-size: 14px;
+  color: red;
+}

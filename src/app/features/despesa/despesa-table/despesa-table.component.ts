@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { DespesaService } from 'src/app/services/despesa.service';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table'
+import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { DespesaService } from 'src/app/services/despesa.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Despesa } from 'src/app/models/Despesa';
-import { MatPaginator } from '@angular/material/paginator'
 
 @Component({
   selector: 'app-despesa-table',
@@ -14,39 +14,41 @@ import { MatPaginator } from '@angular/material/paginator'
 })
 export class DespesaTableComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['idDespesa', 'nome','valor', 'action']
-  despesa: Despesa;
-  dataSource = new MatTableDataSource<Despesa>
+  displayedColumns: string[] = ['idDespesa', 'nome', 'valor', 'action'];
+  dataSource = new MatTableDataSource<Despesa>();
 
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  constructor(public authService: AuthService,private DespesaService: DespesaService, private router: Router) {
-
-
-    /// lista despesa Usuarios
-    this.DespesaService.ListaDespesaUsuarioTable((this.authService.getEmailUser())).subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
-
-  }
+  constructor(
+    private authService: AuthService,
+    private despesaService: DespesaService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.loadDespesas();
+  }
+
+  ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  loadDespesas(): void {
+    const userEmail = this.authService.getEmailUser();
+    this.despesaService.ListaDespesaUsuarioTable(userEmail).subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   navigateToSistemaFinanceiroCreate(): void {
-    this.router.navigate(['/Despesa/formulario'])
-    console.log("console")
+    this.router.navigate(['/Despesa/formulario']);
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -54,13 +56,10 @@ export class DespesaTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-
-  }
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
   }
-
+  
   public excluirSistemaFinanceiro(despesa: Despesa) {
     if (confirm(`Você Deseja Excluir o Sistema ${despesa.idDespesa}? sendo Excluindo todos os pedidos seram excluido`)) {
       //this.SistemaService.ListaSistemaUsuario(sistema).subscribe//

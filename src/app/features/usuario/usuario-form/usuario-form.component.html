@@ -8,8 +8,10 @@
     <div class="DivFormGroup">
       <form [formGroup]="form" (submit)="salvar()">
         <div class="group-label-row">
-          <label for="cpf">CPF</label>
-          <input type="text" name="cpf" id="cpf" placeholder="cpf" formControlName="cpf" required />
+          <label for="cpf">CPF:</label>
+          <input type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf" required />
+          <div *ngIf="hasError('cpf', 'required')" class="text-danger">O CPF do Usuario é obrigatório!</div>
+          <div *ngIf="hasError('cpf', 'invalidCpfCnpj')" class="text-danger">CPF inválido!</div>
         </div>
         <div class="group-label-row">
           <label for="email">E-mail:</label>

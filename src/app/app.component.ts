@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 
 interface SideNavToggle {
@@ -19,17 +20,18 @@ export class AppComponent implements OnInit {
   isAuthenticated = false;
   isLoggedIn = false;
   isRegisteringUserin = false;
-
   isResetPassword = false;
   isForgotPassword = false;
   isEmailConfirming = false;
+  isResetEmailConfirming = false;
 
-  constructor(private router: Router, public authService: AuthService) {}
+
+  constructor(private router: Router, private location: Location, public authService: AuthService) {}
 
   ngOnInit() {
     this.authService.isLoggedIn$.subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
-      console.log('isLoggedIn:', loggedIn);
+      console.log('isLoggedIn ok:', loggedIn);
     });
 
     this.authService.isRegisteringUserIn$.subscribe(registering => {
@@ -44,24 +46,28 @@ export class AppComponent implements OnInit {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd Event URL:', event.url);
-        
-        if (event.url.includes('authentication/emailconfirmation')) {
-          this.isEmailConfirming = true;
-        } else {
-          this.isEmailConfirming = false;
-        }
-
-        if (event.url.includes('authentication/resetpassword')) {
-          this.isResetPassword = true;
-        } else {
-          this.isResetPassword = false;
-        }
-
-        console.log('URL matches emailconfirmation: ' + this.isEmailConfirming);
-        console.log('URL matches reset-password: ' + this.isResetPassword);
+        this.updateStateBasedOnUrl(event.url);
       }
     });
+
+    this.location.subscribe(() => {
+      this.updateStateBasedOnUrl(this.router.url);
+    });
+  }
+
+  updateStateBasedOnUrl(url: string) {
+    this.isEmailConfirming = url.includes('authentication/emailconfirmation');
+    this.isResetEmailConfirming = url.includes('authentication/ResetConfirmation');
+    this.isResetPassword = url.includes('authentication/resetpassword');
+    this.isForgotPassword = url.includes('authentication/ForgotPassword');
+    this.isRegisteringUserin = url.includes('login/registrar');
+
+    console.log('URL matches emailconfirmation: ' + this.isEmailConfirming);
+    console.log('URL matches isEmailResetConfirming: ' + this.isResetEmailConfirming);
+    console.log('URL matches reset-password: ' + this.isResetPassword);
+    console.log('URL matches forgot-password: ' + this.isForgotPassword);
+    console.log('URL matches isLoggedIn: ' + this.isLoggedIn);
+    console.log('URL matches isLoggedRegistert: ' + this.isRegisteringUserin);
   }
 
   onToggleSideNav(data: SideNavToggle): void {

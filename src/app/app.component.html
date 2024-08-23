@@ -1,8 +1,16 @@
-<ng-container *ngIf="isEmailConfirming; else resetPasswordOrLoggedInContent">
+<ng-container *ngIf="isEmailConfirming; else resetEmailContent">
   <!-- Conteúdo para confirmação de email -->
   <div>Usuário Confirmation</div>
   <app-email-confirmation></app-email-confirmation>
 </ng-container>
+
+<ng-template #resetEmailContent>
+  <ng-container *ngIf="isResetEmailConfirming; else resetPasswordOrLoggedInContent">
+    <!-- Conteúdo para confirmação de reset de email -->
+    <div>Usuário Confirmation</div>
+    <app-reset-confirmation></app-reset-confirmation>
+  </ng-container>
+</ng-template>
 
 <ng-template #resetPasswordOrLoggedInContent>
   <ng-container *ngIf="isResetPassword; else loggedInContent">

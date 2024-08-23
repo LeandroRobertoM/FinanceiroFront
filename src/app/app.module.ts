@@ -18,7 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-
+import { NgxMaskModule } from 'ngx-mask';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -65,8 +65,11 @@ import { ResetPasswordComponent } from './features/authentication/reset-password
 import { ForgotPasswordComponent } from './features/authentication/forgot-password/forgot-password.component';
 import { HeaderComponent } from './header/header.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { CustomSnackbarComponent } from './components/CustomSnackbarService/custom-snackbar/custom-snackbar.component';
 
-
+//servicos
+import { CustomSnackbarService } from './components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
+import { ResetConfirmationComponent } from './features/authentication/reset-confirmation/reset-confirmation.component';
 
 
 
@@ -106,20 +109,21 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     ForgotPasswordComponent,
     HeaderComponent,
     BreadcrumbComponent,
+    CustomSnackbarComponent,
+    ResetConfirmationComponent,
     
  
     
 
   ],
   imports: [
-    
+    NgxMaskModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
     NgSelectModule,
     MatIconModule,
     MatProgressSpinnerModule,
@@ -136,10 +140,12 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSnackBarModule, 
   
     
   ],
   providers: [
+    CustomSnackbarService,
     AuthGuard,
     RxJS,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },

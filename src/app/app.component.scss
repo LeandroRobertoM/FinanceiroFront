@@ -1,0 +1,19 @@
+/* Estilos para mensagens de sucesso */
+.custom-snackbar-success {
+    background-color: #4caf50; /* Cor verde */
+    color: #fff; /* Cor da fonte branca */
+  }
+  
+  /* Estilos para mensagens de erro */
+  .custom-snackbar-error {
+    background-color: #f44336; /* Cor vermelha */
+    color: #fff; /* Cor da fonte branca */
+  }
+  
+  .mat-snack-bar-container {
+    /* Alinha o snack-bar no canto direito da tela */
+    right: 0 !important;
+    left: auto !important;
+    bottom: 0 !important;
+  }
+  

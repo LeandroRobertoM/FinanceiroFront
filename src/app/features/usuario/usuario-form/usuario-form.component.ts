@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { UsuarioSistemaService } from 'src/app/services/usuariosistema.Service';
 import { Router } from '@angular/router';
@@ -14,7 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { UsuarioTableSistemaDialogComponent } from '../usuario-table-sistema-dialog/usuario-table-sistema-dialog.component';
 import { SistemaFinanceiroModel } from 'src/app/models/SistemaFinanceiroModel';
 import { UsuarioSistemaModel } from 'src/app/models/UsuarioSistemaModel';
-
+import { debounceTime } from 'rxjs/operators';
+import { UsuarioModel } from 'src/app/models/UsuarioModel';
 
 @Component({
   selector: 'app-usuario-form',
@@ -25,80 +26,75 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
   public form!: FormGroup;
   exibirGridSistemas: boolean = false;
   exibirGridSistemasAdicionados: boolean = false;
-
   displayedColumns = ['select', 'id', 'nome'];
   dataSource = new MatTableDataSource<SistemaFinanceiro>();
-
-  //GridSistemasAdicionadosUsuarios
   displayedColumnss = ['select', 'id', 'nome'];
   dataSources = new MatTableDataSource<string>();
-
   userId: string = '';
   useremail: string = '';
   emailUsuarioLogado: string = '';
   sistemasSelecionados: string[] = [];
   sistemasSelecionadosLocal: { codigo: number, nome: string }[] = [];
-
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   selection = new SelectionModel<SistemaFinanceiro>(true, []);
+  private doneTypingInterval = 500; // Tempo para aguardar após a última digitação
 
   constructor(
     public authService: AuthService,
     private sistemaService: SistemaService,
-    private usuariosistemaService:UsuarioSistemaService,
+    private usuariosistemaService: UsuarioSistemaService,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
-    public dialog:MatDialog
-    
-
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    
     this.BuscarIDuser();
-    console.log('ID do usuário:',  this.userId);
+    console.log('ID do usuário:', this.userId);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    
     this.form = this.formBuilder.group({
-      cpf: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      senha: ['', [Validators.required]]
+      cpf: ['', [Validators.required, this.cpfValidator]],
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', Validators.required]
+    });
+
+    // Adiciona o listener para o campo CPF com debounce
+    this.form.get('cpf')?.valueChanges.pipe(
+      debounceTime(this.doneTypingInterval)
+    ).subscribe(value => {
+      this.applyMask(value);
     });
   }
 
   salvar(): void {
     if (this.form.valid) {
-      const novoUsuario = {
-        Email: this.form.value.email,
-        CPF: this.form.value.cpf,
-        Senha: this.form.value.senha,
-        IdUsuarioLogado:this.userId
-      };
-  
-      this.userService.adicionarUsuarioCreate(novoUsuario).subscribe(
-        (response: any) => {
-          const usuarioModel: any = response.dados;
-          this.userService.showMessage('Usuário criado com sucesso!');
-          
-          // Obtendo o email do usuário logado
-          const emailUsuarioLogado = this.authService.getEmailUser();
-
-          
-          // Vinculando usuário aos sistemas financeiros
-          this.vincularUsuarioSistema();
-          this.router.navigate(['/products']);
-        },
-        (error) => {
-          console.error(error);
-          this.userService.showMessage('Erro ao criar o usuário.', true);
-        }
-      );
+       console.log("Usuario logado lista"+this.userId); // Verificar o valor de this.userId
+       const salvarUsuario = {
+          email: this.form.value.email,
+          CPF: this.form.value.cpf,
+          Senha: this.form.value.senha,
+          IdUsuarioLogado: this.userId,
+          clientURI: 'http://localhost:4200/authentication/ResetConfirmation'
+       };
+ 
+       this.userService.adicionarUsuarioCreate(salvarUsuario).subscribe(
+          (response: any) => {
+             const usuarioModel: any = response.dados;
+             this.userService.showMessage('Usuário atualizado com sucesso!');
+             this.vincularUsuarioSistema();
+             this.router.navigate(['/products']);
+          },
+          (error) => {
+             console.error(error);
+             this.userService.showMessage('Erro ao criar o usuário.', true);
+          }
+       );
     }
-  }
-
+ }
   vincularUsuarioSistema(): void {
     if (this.form.valid) {
       const usuarioSistema: UsuarioSistemaModel = {
@@ -129,6 +125,7 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
   }
 }
 
+
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -142,25 +139,22 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
     this.sistemaService.ListaSistemaUsuarioTable(this.authService.getEmailUser()).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.atualizarGrid();
-      this.exibirGridSistemas = true; 
+      this.exibirGridSistemas = true;
     });
   }
 
-  
   public BuscarIDuser(): void {
     this.userService.getObterUserId(this.authService.getUserEmaillogin()).subscribe(data => {
-      this.userId=data.id
-      console.log("Usuario dentro local buscarId:", this.userId=data.id);
-    
+      this.userId = data.id;
+      console.log("Usuario dentro local buscarId:", this.userId);
     });
   }
-  
 
   exibirListaSistemasAdicionadosUsuario(): void {
     this.dataSources = new MatTableDataSource<string>(this.sistemasSelecionados);
     this.atualizarGrid();
-    this.exibirGridSistemasAdicionados = true; 
-    this.exibirGridSistemas = false; 
+    this.exibirGridSistemasAdicionados = true;
+    this.exibirGridSistemas = false;
   }
 
   atualizarGrid(): void {
@@ -183,21 +177,15 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
   }
 
   getSelectedIds(): void {
-    // Adiciona os sistemas selecionados à lista existente
     const sistemasSelecionadosAtuais = this.dataSource.data
         .filter(item => this.selection.isSelected(item))
         .map(item => item.nome);
 
-    // Mantém os sistemas selecionados anteriores, se houver
     this.sistemasSelecionados = [...this.sistemasSelecionados, ...sistemasSelecionadosAtuais];
-
-    // Exibe os sistemas selecionados no console
     console.log("Sistemas Selecionados:", this.sistemasSelecionados);
-   
-    // Mantém os grids de exibição conforme necessário
     this.exibirGridSistemas = false;
     this.exibirGridSistemasAdicionados = true;
-}
+  }
 
   removerSistemass(sistema: string): void {
     this.sistemasSelecionados = this.sistemasSelecionados.filter(item => item !== sistema);
@@ -221,22 +209,21 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
       this.sistemasSelecionadosLocal.splice(index, 1);
     }
   }
+// este metodo busca os sistemas financeiros que usuario pegou
+getUserIdByEmail(email: string): void {
+  this.userService.getObterUserId(email).subscribe(
+    (usuario: UsuarioModel) => {
+      this.userId = usuario.id; // Supondo que o ID esteja na propriedade 'id' do objeto retornado
+      console.log('ID do usuário obtido: linha 215', this.userId);
+    },
+    (error) => {
+      console.error('Erro ao obter o ID do usuário por email:', error);
+    }
+  );
+}
 
-  getUserIdByEmail(email: string): void {
-    this.userService.getUserByEmail(email).subscribe(
-      (userId: string) => {
-        console.log('ID do usuário obtido:', userId);
-        this.userId=userId;
-      },
-      (error) => {
-        console.error('Erro ao obter o ID do usuário por email:', error);
-      }
-    );
-  }
-  
   openDialog(): void {
     const dialogRef = this.dialog.open(UsuarioTableSistemaDialogComponent, {
-      // Defina as configurações do dialog conforme necessário
       maxWidth: '100vw',
       maxHeight: '100h',
       position: {
@@ -244,27 +231,79 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
         top: '100'
       }
     });
-  
-    let sistemasSelecionadosDialog: { codigo: number, nome: string }[] = []; // Variável temporária para armazenar os sistemas selecionados do diálogo
 
-    // Obtém a referência do dialogRef e acessa a variável sistemasSelecionados
+    let sistemasSelecionadosDialog: { codigo: number, nome: string }[] = [];
+
     dialogRef.afterOpened().subscribe(() => {
       sistemasSelecionadosDialog = dialogRef.componentInstance.sistemasSelecionados;
       console.log("Sistemas Selecionados do diálogo:", sistemasSelecionadosDialog);
     });
-  
+
     dialogRef.afterClosed().subscribe(result => {
-      // Adicione os novos sistemas selecionados do diálogo à variável local this.sistemasSelecionadosLocal
       sistemasSelecionadosDialog.forEach(sistema => {
         if (!this.sistemasSelecionadosLocal.some(local => local.codigo === sistema.codigo)) {
           this.sistemasSelecionadosLocal.push(sistema);
         }
       });
-  
-      console.log("Sistemas Selecionados Local:", this.sistemasSelecionadosLocal);
+
       this.getUserIdByEmail(this.authService.getEmailUser());
-      console.log("Sistemas Selecionados Local:", this.userId);
-      // Faça o que desejar após o fechamento do diálogo
+      console.log("Sistemas Selecionados Local:", this.sistemasSelecionadosLocal);
     });
+  }
+
+  applyMask(value: string): void {
+    if (value) {
+      // Remove todos os caracteres não numéricos
+      let maskedValue = value.replace(/\D/g, '');
+      
+      // Limita a 11 caracteres
+      if (maskedValue.length > 11) {
+        maskedValue = maskedValue.slice(0, 11);
+      }
+      
+      // Aplica a máscara no formato XXX.XXX.XXX-XX
+      maskedValue = maskedValue.replace(/^(\d{3})(\d)/, '$1.$2');
+      maskedValue = maskedValue.replace(/\.(\d{3})(\d)/, '.$1.$2');
+      maskedValue = maskedValue.replace(/\.(\d{3})(\d{1,2})$/, '.$1-$2');
+      
+      // Atualiza o valor do campo sem disparar eventos
+      this.form.get('cpf')?.setValue(maskedValue, { emitEvent: false });
+    }
+  }
+
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.form.get(controlName);
+    return control?.hasError(errorName) && (control.touched || control.dirty);
+  }
+  // Validador de CPF
+  cpfValidator(control: FormControl) {
+    const cpf = control.value.replace(/\D/g, '');
+    if (!cpf || cpf.length !== 11 || /^(.)\1{10}$/.test(cpf)) {
+      return { invalidCpf: true };
+    }
+    let sum = 0;
+    let remainder;
+    for (let i = 1; i <= 9; i++) {
+      sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) {
+      remainder = 0;
+    }
+    if (remainder !== parseInt(cpf.substring(9, 10))) {
+      return { invalidCpf: true };
+    }
+    sum = 0;
+    for (let i = 1; i <= 10; i++) {
+      sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+    remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) {
+      remainder = 0;
+    }
+    if (remainder !== parseInt(cpf.substring(10, 11))) {
+      return { invalidCpf: true };
+    }
+    return null;
   }
 }

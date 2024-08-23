@@ -1,0 +1,33 @@
+<body class="login-page">
+    <div class="page">
+      <form class="formLogin" *ngIf="!isPasswordReset" (ngSubmit)="confirmEmail()">
+        <h1>Confirmarsss E-mail</h1>
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+          {{errorMessage}}
+        </div>
+        <div *ngIf="showSuccess" class="alert alert-success" role="alert">
+          E-mail confirmado com sucesso! <button (click)="showPasswordResetForm()">Redefinir Senha</button>
+        </div>
+      </form>
+      
+      <form class="formLogin" *ngIf="isPasswordReset" [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword(resetPasswordForm.value)">
+        <h1>Redefinir Senha</h1>
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+          <span [innerHTML]="errorMessage"></span>
+        </div>
+        <div *ngIf="showSuccess" class="alert alert-success" role="alert">
+          Sua senha foi redefinida. Por favor, <a [routerLink]="['/login']">clique aqui para fazer login</a>.
+        </div>
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input type="password" class="form-control" id="password" formControlName="password">
+        </div>
+        <div class="form-group">
+          <label for="confirm">Confirmar Senha:</label>
+          <input type="password" class="form-control" id="confirm" formControlName="confirm">
+        </div>
+        <button type="submit" class="btn" [disabled]="!resetPasswordForm.valid">Enviar</button>
+      </form>
+    </div>
+  </body>
+  
