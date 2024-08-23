@@ -28,23 +28,35 @@ export class ResetConfirmationComponent implements OnInit {
   constructor(private router: Router,public authenticationservice: authenticationservice, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.token = this._route.snapshot.queryParams['token'];
+    this.email = this._route.snapshot.queryParams['email'];
     this.confirmEmail();
+
+    this.resetPasswordForm = new FormGroup({
+      password: new FormControl('', [Validators.required]),
+      confirm: new FormControl('', [Validators.required])
+    });
   }
 
-  public confirmEmail = () => {
+  public confirmEmail(): void {
     this.showError = this.showSuccess = false;
-
-    const token = this._route.snapshot.queryParams['token'];
-    const email = this._route.snapshot.queryParams['email'];
-    
-    this.authenticationservice.confirmEmail('Users/EmailConfirmation', token, email)
+  
+    this.authenticationservice.confirmEmail('Users/ResetEmailConfirmation', this.token, this.email)
     .subscribe({
-      next: (_) => this.showSuccess = true,
+      next: (response: any) => {
+        this.showSuccess = true;
+   
+        this.token = response.passwordResetToken; 
+        this.email = response.email;
+  
+        console.log('Token armazenado:', this.token);
+  
+      },
       error: (err: HttpErrorResponse) => {
         this.showError = true;
         this.errorMessage = err.message;
       }
-    })
+    });
   }
 
   public showPasswordResetForm(): void {
@@ -55,14 +67,21 @@ export class ResetConfirmationComponent implements OnInit {
     const resetPassDto = {
       password: resetPasswordFormValue.password,
       confirmPassword: resetPasswordFormValue.confirm,
-      token: this.token,
-      email: this.email
+      token: this.token, // Agora este token é para reset de senha
+      email: this.email,
+      enumTipo: 1
     };
-
+  
+    console.log('Enviando para resetPassword:', resetPassDto);
+  
     this.authenticationservice.resetPassword('users/resetpassword', resetPassDto).subscribe({
-      next: () => this.showSuccess = true,
+      next: () => {
+        this.showSuccess = true;
+        this.showError = false;
+      },
       error: (err) => {
         this.showError = true;
+        this.showSuccess = false;
         this.errorMessage = err.message;
       }
     });

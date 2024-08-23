@@ -56,8 +56,8 @@ export class AppComponent implements OnInit {
   }
 
   updateStateBasedOnUrl(url: string) {
-    this.isEmailConfirming = url.includes('authentication/ResetConfirmation');
-    this.isResetEmailConfirming = url.includes('authentication/emailconfirmation');
+    this.isEmailConfirming = url.includes('authentication/emailconfirmation');
+    this.isResetEmailConfirming = url.includes('authentication/ResetConfirmation');
     this.isResetPassword = url.includes('authentication/resetpassword');
     this.isForgotPassword = url.includes('authentication/ForgotPassword');
     this.isRegisteringUserin = url.includes('login/registrar');
