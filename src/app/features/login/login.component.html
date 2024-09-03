@@ -1,20 +1,26 @@
 <body class="login-page">
   <div class="page">
     <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-      {{errorMessage}}
+      {{ errorMessage }}
     </div>
     <form class="formLogin" [formGroup]="loginForm" (ngSubmit)="loginUser2(loginForm.value)">
       <h1>Login</h1>
       <p>Digite os seus dados de acesso no campo abaixo.</p>
+
       <label for="email">E-mail</label>
-      <!-- Use formControlName para vincular o controle de email -->
       <input type="email" placeholder="Digite seu e-mail" autofocus="true" formControlName="email">
+      <div *ngIf="hasError('email', 'required') && (loginForm.get('email').touched || loginForm.get('email').dirty)" class="text-danger">Email é obrigatório</div>
+      <div *ngIf="hasError('email', 'email') && (loginForm.get('email').touched || loginForm.get('email').dirty)" class="text-danger">Email inválido</div>
+
       <label for="password">Senha</label>
       <input type="password" placeholder="Digite sua senha" formControlName="senha">
+      <div *ngIf="hasError('senha', 'required') && (loginForm.get('senha').touched || loginForm.get('senha').dirty)" class="text-danger">Senha é obrigatória</div>
+
       <div class="additional-links">
         <a href="javascript:void(0)" (click)="esqueceuSenha()">Esqueceu a senha?</a>
         <a href="javascript:void(0)" (click)="registrar()">Registrar</a>
       </div>
+      
       <button type="submit" class="btn">Acessar</button>
     </form>
   </div>

@@ -6,7 +6,7 @@ import { navbarData } from 'src/app/sidenav/nav-data';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserForAuthenticationDto } from 'src/app/models/user/UserForAuthenticationDto';
 import { AuthResponseDto } from 'src/app/models/response/AuthResponseDto';
-import { authenticationservice } from 'src/app/services/authentication.service'; // Corrigido para a nomenclatura correta
+import { authenticationservice } from 'src/app/services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 
@@ -41,95 +41,52 @@ export class LoginComponent implements OnInit {
   }
 
   esqueceuSenha() {
-    // Redirecionar para a página de "Esqueceu a senha"
-    console.log('Método esqueceuSenha() foi chamado agora.');
     this.authService.forgotPassword(true);
     this.router.navigate(['authentication/ForgotPassword']);
-   
   }
 
   registrar() {
-    // Adicione um log para verificar se o método está sendo chamado corretamente
-    console.log('Método registrar() foi chamado.');
-  
     this.authService.registerUser(true);
     this.router.navigate(['login/registrar']);
   }
 
-  get dadosForm() {
-    return this.loginForm.controls;
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return control?.hasError(errorName) && (control.touched || control.dirty);
   }
 
-  loginUser2 = async (loginFormValue) => {
+  async loginUser2(loginFormValue) {
     this.showError = false;
+
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
+      this.showError = true;
+      return;
+    }
+
     const login = { ...loginFormValue };
 
     const userForAuth: UserForAuthenticationDto = {
-        email: login.email,
-        password: login.senha
+      email: login.email,
+      password: login.senha
     };
 
     try {
-        const res: AuthResponseDto = await this.authenticationservice.loginUser('UsuarioLogin', userForAuth).toPromise();
+      const res: AuthResponseDto = await this.authenticationservice.loginUser('UsuarioLogin', userForAuth).toPromise();
 
-        if (res.isAuthSuccessful) {
-            localStorage.setItem("token", res.token);
-            this.authService.setToken(res.token);
-            this.authService.setEmailUser(this.loginForm.value.email);
+      if (res.isAuthSuccessful) {
+        localStorage.setItem("token", res.token);
+        this.authService.setToken(res.token);
+        this.authService.setEmailUser(this.loginForm.value.email);
 
-            // Define isAuthenticated como true após um login bem-sucedido
-            this.authService.UsuarioAutenticado(true);
+        this.authService.UsuarioAutenticado(true);
 
-            console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
+        console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
 
-            // Navega para o dashboard
-            this.router.navigate(['dashboard']);
-        } else {
-            // Lida com o caso onde isAuthSuccessful é false
-           
-            this.customSnackbarService.openSnackBar(res.errorMessage || 'Erro na autenticação.', 'error');
-        }
-    } catch (err) {
-        // Caso realmente seja um erro HTTP, trate-o aqui
-        console.error('Erro ao fazer login:', err);
-
-        if (err.error && err.error.message) {
-            console.error('Mensagem de erro:', err.error.message);
-        }
-
-        if (err.status === 401) {
-            alert('Credenciais inválidas. Verifique seu e-mail e senha.');
-        } else if (err.status === 500) {
-            alert('Ocorreu um erro no servidor. Por favor, tente novamente mais tarde.');
-        } else {
-            alert('Ocorreu um erro desconhecido. Por favor, entre em contato com o suporte.');
-        }
-
-        this.errorMessage = err.message;
-        this.showError = true;
-        console.log('Erro HTTP:', this.errorMessage);
-    }
-}
-  
-
-  async loginUser() {
-    console.log('EntrouLoginUser');
-
-    try {
-      const token = await this.loginService.login(this.loginForm.value.email, this.loginForm.value.senha).toPromise();
-      console.log('Entrou no Token:', token);
-
-      //Difine o valor settar o token 
-      this.authService.setToken(token);
-      this.authService.setEmailUser(this.loginForm.value.email);
-
-      // Defina isAuthenticated como true após um login bem-sucedido
-      this.authService.UsuarioAutenticado(true);
-
-      console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
-
-      // testess
-      this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard']);
+      } else {
+        this.customSnackbarService.openSnackBar(res.errorMessage || 'Erro na autenticação.', 'error');
+      }
     } catch (err) {
       console.error('Erro ao fazer login:', err);
 
@@ -144,6 +101,10 @@ export class LoginComponent implements OnInit {
       } else {
         alert('Ocorreu um erro desconhecido. Por favor, entre em contato com o suporte.');
       }
+
+      this.errorMessage = err.message;
+      this.showError = true;
+      console.log('Erro HTTP:', this.errorMessage);
     }
   }
 }

@@ -15,6 +15,8 @@ export class EmailConfirmationComponent implements OnInit {
   errorMessage: string;
 
   ngOnInit(): void {
+    console.log('Rota atual:', this.router.url);
+    console.log('Query Params:', this._route.snapshot.queryParams);
     this.confirmEmail();
   }
   

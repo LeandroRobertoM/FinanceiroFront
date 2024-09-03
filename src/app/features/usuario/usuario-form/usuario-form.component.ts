@@ -78,7 +78,7 @@ export class UsuarioFormComponent implements OnInit, AfterViewInit {
           CPF: this.form.value.cpf,
           Senha: this.form.value.senha,
           IdUsuarioLogado: this.userId,
-          clientURI: 'http://localhost:4200/authentication/ResetConfirmation'
+          clientURI: 'http://164.163.10.101:8080/authentication/ResetConfirmation'
        };
  
        this.userService.adicionarUsuarioCreate(salvarUsuario).subscribe(

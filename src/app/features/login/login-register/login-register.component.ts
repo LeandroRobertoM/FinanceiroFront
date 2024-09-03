@@ -131,7 +131,7 @@ export class LoginRegisterComponent implements OnInit {
       password: formValues.password,
       confirmPassword: formValues.confirmPassword,
       CPF: this.cleanCpfCnpj(formValues.CPF),
-      clientURI: 'http://localhost:4200/authentication/emailconfirmation'
+      clientURI: 'http://164.163.10.101:8080/authentication/emailconfirmation'
     };
 
     this.authenticationservice.registerUser('Users/Registration', user).subscribe({

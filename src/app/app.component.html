@@ -1,13 +1,13 @@
 <ng-container *ngIf="isEmailConfirming; else resetEmailContent">
   <!-- Conteúdo para confirmação de email -->
-  <div>Usuário Confirmation</div>
+ <!-- <div>Usuário Confirmation</div>-->
   <app-email-confirmation></app-email-confirmation>
 </ng-container>
 
 <ng-template #resetEmailContent>
   <ng-container *ngIf="isResetEmailConfirming; else resetPasswordOrLoggedInContent">
     <!-- Conteúdo para confirmação de reset de email -->
-    <div>Usuário Confirmation</div>
+   <!-- <div>Usuário Confirmation</div>-->
     <app-reset-confirmation></app-reset-confirmation>
   </ng-container>
 </ng-template>
@@ -15,7 +15,7 @@
 <ng-template #resetPasswordOrLoggedInContent>
   <ng-container *ngIf="isResetPassword; else loggedInContent">
     <!-- Conteúdo para redefinição de senha -->
-    <div>Resetar Senha</div>
+   <!-- <div>Resetar Senha</div>-->
     <app-reset-password></app-reset-password>
   </ng-container>
 
@@ -33,7 +33,7 @@
       <ng-container *ngIf="!isRegisteringUserin; else registerScreen">
         <ng-container *ngIf="!isForgotPassword; else forgotPasswordScreen">
           <!-- Conteúdo para usuários não autenticados -->
-          <div>Usuário não autenticado Aqui</div>
+           <!--<div>Usuário não autenticado Aqui</div>-->
           <app-login></app-login>
         </ng-container>
         <ng-template #forgotPasswordScreen>
