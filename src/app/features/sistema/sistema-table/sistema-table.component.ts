@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'; 
 import { Router } from '@angular/router';
-import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table'
+import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator'
+import { MatPaginator } from '@angular/material/paginator';
+import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
 import { SistemaService } from 'src/app/services/sistema.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,36 +13,36 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sistema-table.component.scss']
 })
 export class SistemaTableComponent implements OnInit, AfterViewInit {
+  displayedColumns = ['id', 'nome', 'actions']; // Colunas a serem exibidas na tabela
+  dataSource = new MatTableDataSource<SistemaFinanceiro>();
+  selectedRow: SistemaFinanceiro | null = null; // Para armazenar a linha selecionada
 
-  displayedColumns = ['id', 'nome', 'action']
-  sistemafinanceiro: SistemaFinanceiro;
-  dataSource = new MatTableDataSource<SistemaFinanceiro>
+  @ViewChild(MatSort) sort!: MatSort; // Referência para MatSort
+  @ViewChild(MatPaginator) paginator!: MatPaginator; // Referência para MatPaginator
 
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  constructor(
+    private authService: AuthService,
+    private sistemaService: SistemaService,
+    private router: Router
+  ) {}
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  constructor(public authService: AuthService,private SistemaService: SistemaService, private router: Router) {
-
-//ajustado passando o email que está logado 
-    this.SistemaService.ListaSistemaUsuarioTable((this.authService.getEmailUser())).subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
+  ngOnInit(): void {
+    // Carregar os dados do sistema no inicializar
+    this.sistemaService.ListaSistemaUsuarioTable(this.authService.getEmailUser()).subscribe(data => {
+      this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    // Configurar o paginator e o sort após a inicialização da visão
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  navigateToSistemaFinanceiroCreate(): void {
-    this.router.navigate(['/Sistema/formulario'])
-    console.log("console")
+  getValue(event: Event): string {
+    return (event.target as HTMLInputElement).value;
   }
 
   applyFilter(filterValue: string) {
@@ -53,22 +53,27 @@ export class SistemaTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-
+  navigateToSistemaFinanceiroCreate(): void {
+    // Navegar para o formulário de criação de um novo sistema
+    this.router.navigate(['/Sistema/formulario']);
   }
 
-
-  getValue(event: Event): string {
-    return (event.target as HTMLInputElement).value;
+  selectRow(row: SistemaFinanceiro): void {
+    // Selecionar uma linha na tabela
+    this.selectedRow = row;
   }
 
-  public excluirSistemaFinanceiro(sistema: SistemaFinanceiro) {
-    if (confirm(`Você Deseja Excluir o Sistema ${sistema.id}? sendo Excluindo todos os pedidos seram excluido`)) {
-      //this.SistemaService.ListaSistemaUsuario(sistema).subscribe//
-      (() => {
-       // this.clienteservice.showMessage("Cliente excluido com sucesso!");
-
-      });
+  excluirSistemaFinanceiro(sistema: SistemaFinanceiro): void {
+    // Confirmar exclusão do sistema
+    if (confirm(`Você deseja excluir o sistema ${sistema.nome}? Todos os registros associados serão removidos.`)) {
+      // Implementar lógica de exclusão aqui
+      console.log("Sistema excluído: ", sistema);
+      // Chamar um método do serviço para excluir o sistema, se necessário
     }
+  }
+
+  editSistemaFinanceiro(sistema: SistemaFinanceiro): void {
+    // Navegar para o formulário de edição de um sistema
+    this.router.navigate(['/Sistema/formulario'], { state: { sistema } });
   }
 }

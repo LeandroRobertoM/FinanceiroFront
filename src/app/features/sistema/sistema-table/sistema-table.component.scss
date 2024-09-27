@@ -2,25 +2,85 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap");
-
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-
-.row {
-  display: block; /* Ou display: initial; ou display: inline-block; - dependendo do layout desejado */
-  /* Outros estilos que você já tem para a classe .row */
+/* Estilos globais */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f4f7f9;
+  font-size: 14px;
 }
 
-/// implementado o padrão 
+.container-base {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Centraliza o container na página */
+}
+
+.DivTitlebar {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ccd4db;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.DivTitlebar h1 {
+  font-weight: 600;
+  color: #36515f;
+}
+
+.Opcaonovo {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.Opcaonovo button {
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.Opcaofiltro {
+  margin-bottom: 20px;
+}
+
+.Opcaofiltro .md-12 {
+  display: flex;
+  justify-content: center;
+}
+
+.Opcaofiltro input[type="text"] {
+  padding: 10px 15px;
+  font-size: 14px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.GridView {
+  overflow-x: auto;
+}
+
+.full-width-table {
+  width: 100%;
+}
 
 table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid #ccc;
+  margin-bottom: 20px;
 }
 
-/* Estilos para cabeçalhos de coluna */
 th,
 td {
   padding: 12px;
@@ -28,56 +88,66 @@ td {
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
-.center{
-  text-align: center;
-} 
 
 tr:nth-child(even) {
-  background-color: #cac6c6fa;
+  background-color: #f9f9f9;
 }
 
 tr:hover {
-  background-color: #cac6c6fa;
+  background-color: #f1f1f1;
 }
 
-/* Estilos para a célula de ação */
 .action-cell {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   justify-content: flex-start;
 }
 
-
-.Opcaonovo{
-  height: auto;
-  display: flex;
-  align-items: right;
-  justify-content: right;
-}
-
-.Opcaofiltro {
-  .md-12 {
-    .mt-12 {
-      input[type="text"] {
-        padding: 10px 15px; /* Ajuste o padding conforme necessário */
-        font-size: 16px; /* Tamanho da fonte */
-        width: 30%; /* Largura da caixa de filtro */
-        box-sizing: border-box; /* Inclui o padding no tamanho total */
-        border: 1px solid #ccc; /* Adiciona uma borda para destacar a caixa de filtro */
-        border-radius: 5px; /* Adiciona bordas arredondadas */
-      }
-    }
-  }
-}
-
-.action-cell a, .action-cell button {
+.action-cell a,
+.action-cell button {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 18px;
   color: #333;
+  font-size: 18px;
 }
 
-.action-cell a:hover, .action-cell button:hover {
+.action-cell a:hover,
+.action-cell button:hover {
   color: #777;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Customização do select de itens por página */
+.mat-paginator-page-size-select {
+  font-size: 12px; /* Ajuste o tamanho da fonte */
+  width: 60px; /* Ajuste a largura do seletor */
+}
+
+.mat-paginator-range-label {
+  font-size: 12px; /* Tamanho do texto da paginação */
+}
+
+/* Ajuste dos botões de navegação */
+.mat-paginator-navigation-button {
+  font-size: 12px;
+}
+
+/*
+.mat-paginator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-paginator .mat-form-field {
+  margin: 0;
+}
+*/
+
+.spacing {
+  margin-top: 40px; /* Ajuste o valor conforme necessário */
 }

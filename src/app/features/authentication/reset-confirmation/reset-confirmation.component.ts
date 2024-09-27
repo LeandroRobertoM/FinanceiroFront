@@ -25,7 +25,7 @@ export class ResetConfirmationComponent implements OnInit {
   private token: string;
   private email: string;
 
-  constructor(private router: Router,public authenticationservice: authenticationservice, private _route: ActivatedRoute) { }
+  constructor(public customSnackbarService: CustomSnackbarService,private router: Router,public authenticationservice: authenticationservice, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.token = this._route.snapshot.queryParams['token'];
@@ -46,12 +46,8 @@ export class ResetConfirmationComponent implements OnInit {
     .subscribe({
       next: (response: any) => {
         this.showSuccess = true;
-   
         this.token = response.passwordResetToken; 
-        this.email = response.email;
-  
-        console.log('Token armazenado:', this.token);
-  
+        this.email = response.email
       },
       error: (err: HttpErrorResponse) => {
         this.showError = true;
@@ -68,12 +64,11 @@ export class ResetConfirmationComponent implements OnInit {
     const resetPassDto = {
       password: resetPasswordFormValue.password,
       confirmPassword: resetPasswordFormValue.confirm,
-      token: this.token, // Agora este token é para reset de senha
+      token: this.token, 
       email: this.email,
       enumTipo: 1
     };
-  
-    console.log('Enviando para resetPassword:', resetPassDto);
+
   
     this.authenticationservice.resetPassword('users/resetpassword', resetPassDto).subscribe({
       next: () => {
@@ -87,7 +82,6 @@ export class ResetConfirmationComponent implements OnInit {
       }
     });
   }
-
   goToLogin() {
     this.router.navigate(['/authentication/login']);
   }

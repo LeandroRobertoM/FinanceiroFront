@@ -19,7 +19,9 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getPortuguesePaginatorIntl } from './Util/paginator-intl'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,7 +39,7 @@ import { LoginComponent } from './features/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { AuthGuard } from './guards/auth-guard.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 
 import { SistemaFormComponent } from './features/sistema/sistema-form/sistema-form.component';
@@ -109,12 +111,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     ForgotPasswordComponent,
     HeaderComponent,
     BreadcrumbComponent,
-    CustomSnackbarComponent,
     ResetConfirmationComponent,
     
- 
-    
-
   ],
   imports: [
     NgxMaskModule.forRoot(),
@@ -141,6 +139,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatFormFieldModule,
     MatSelectModule,
     MatSnackBarModule, 
+    MatMenuModule,
+    FormsModule
   
     
   ],
@@ -148,7 +148,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     CustomSnackbarService,
     AuthGuard,
     RxJS,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true, },
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() },
   ],
   bootstrap: [AppComponent]
 })

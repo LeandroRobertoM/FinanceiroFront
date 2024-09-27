@@ -70,6 +70,18 @@ tr:hover {
   }
 }
 
+.Opcaosfiltro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap; // Mantém todos os elementos na mesma linha
+  gap: 10px; // Espaçamento entre elementos
+}
+
+.Opcaosfiltro .filter-container {
+  flex: 1;
+}
+
 .action-cell a, .action-cell button {
   background: none;
   border: none;
