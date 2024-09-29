@@ -13,9 +13,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sistema-table.component.scss']
 })
 export class SistemaTableComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['id', 'nome', 'actions']; // Colunas a serem exibidas na tabela
+  displayedColumns = ['id', 'nome', 'action']; // Colunas a serem exibidas na tabela
   dataSource = new MatTableDataSource<SistemaFinanceiro>();
   selectedRow: SistemaFinanceiro | null = null; // Para armazenar a linha selecionada
+  dataInicio: string = '';
+  dataFim: string = '';
+  situacao: string = '';
 
   @ViewChild(MatSort) sort!: MatSort; // Referência para MatSort
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referência para MatPaginator
@@ -52,6 +55,22 @@ export class SistemaTableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+   apagarFiltro() {
+    this.dataInicio = '';
+    this.dataFim = '';
+    this.situacao = '';
+    this.applyFilter(''); // Para resetar outros filtros se necessário
+  }
+  filterByDateRange() {
+    // Lógica para filtrar os dados pela data de início e data de fim
+}
+
+// Método para filtrar por situação
+filterBySituacao() {
+    // Lógica para filtrar os dados pela situação
+  }  
+
 
   navigateToSistemaFinanceiroCreate(): void {
     // Navegar para o formulário de criação de um novo sistema
