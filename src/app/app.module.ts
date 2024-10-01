@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 
+
 //Desing components terceiros
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -72,6 +73,7 @@ import { CustomSnackbarComponent } from './components/CustomSnackbarService/cust
 //servicos
 import { CustomSnackbarService } from './components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 import { ResetConfirmationComponent } from './features/authentication/reset-confirmation/reset-confirmation.component';
+import { DespesaRecorrenteDialogComponent } from './features/despesa/despesa-recorrente-dialog/despesa-recorrente-dialog.component';
 
 
 
@@ -112,6 +114,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     HeaderComponent,
     BreadcrumbComponent,
     ResetConfirmationComponent,
+    DespesaRecorrenteDialogComponent
+
     
   ],
   imports: [
@@ -140,7 +144,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatSelectModule,
     MatSnackBarModule, 
     MatMenuModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   
     
   ],

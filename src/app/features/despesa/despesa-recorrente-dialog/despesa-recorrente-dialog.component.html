@@ -1,0 +1,72 @@
+<form id="expenseForm" class="form-container">
+  <h2>Cadastro de Despesas</h2>
+
+  <div class="form-group">
+    <label for="parcelQuantity">Quantidade de Parcelas</label>
+    <input type="number" id="parcelQuantity" name="parcelQuantity" value="1" required>
+  </div>
+
+  <div class="form-group">
+    <label for="frequency">Frequência</label>
+    <select id="frequency" name="frequency">
+      <option value="monthly">Mensal</option>
+      <option value="weekly">Semanal</option>
+      <!-- Adicione mais opções conforme necessário -->
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="installmentValue">Valor da Parcela</label>
+    <input type="number" id="installmentValue" name="installmentValue" value="0" required>
+  </div>
+
+  <div class="form-group">
+    <label for="startDate">Data de Início</label>
+    <input type="date" id="startDate" name="startDate" value="2024-09-30" required>
+  </div>
+
+  <div class="form-group">
+    <label for="dueDate">Data de Vencimento</label>
+    <input type="date" id="dueDate" name="dueDate" required>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Descrição</label>
+    <textarea id="description" name="description" rows="3" required></textarea>
+  </div>
+
+<div class="form-group">
+  <label for="category">Categoria</label>
+  <select id="category" name="category" required>
+    <option value="">Selecione uma categoria</option>
+    <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label for="paymentMethod">Método de Pagamento</label>
+  <select id="paymentMethod" name="paymentMethod" required>
+    <option value="">Selecione um método de pagamento</option>
+    <option *ngFor="let metodo of metodosPagamento" [value]="metodo">{{ metodo }}</option>
+  </select>
+</div>
+
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select id="status" name="status">
+      <option value="active">Ativa</option>
+      <option value="inactive">Inativa</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="notes">Observação</label>
+    <textarea id="notes" name="notes" rows="3"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" (click)="salvar()">Salvar</button>
+    <button type="button" onclick="cancel()">Cancelar</button>
+    <button type="button" onclick="clearForm()">Limpar</button>
+  </div>
+</form>
