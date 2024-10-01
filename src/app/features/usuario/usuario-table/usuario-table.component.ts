@@ -18,6 +18,10 @@ export class UsuarioTableComponent implements OnInit, AfterViewInit {
   displayedColumns = ['id', 'userName','Email', 'action']
   usuarioModel: UsuarioModel;
   dataSource = new MatTableDataSource<UsuarioModel>
+  dataInicio: string = '';
+  dataFim: string = '';
+  situacao: string = '';
+  selectedRow: UsuarioModel | null = null; 
 
   @ViewChild(MatSort)
   sort!: MatSort;
@@ -55,6 +59,21 @@ export class UsuarioTableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  
+  apagarFiltro() {
+    this.dataInicio = '';
+    this.dataFim = '';
+    this.situacao = '';
+    this.applyFilter(''); // Para resetar outros filtros se necessário
+  }
+  filterByDateRange() {
+    // Lógica para filtrar os dados pela data de início e data de fim
+}
+
+// Método para filtrar por situação
+filterBySituacao() {
+    // Lógica para filtrar os dados pela situação
+  }  
 
   ngAfterViewInit(): void {
 
@@ -71,5 +90,8 @@ export class UsuarioTableComponent implements OnInit, AfterViewInit {
 
       });
     }
+  }
+  editarUsuario(usuario: UsuarioModel) {
+    this.router.navigate(['/Usuario/update', usuario.id], { state: { usuario } });
   }
 }

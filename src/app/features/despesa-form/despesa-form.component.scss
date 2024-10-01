@@ -1,130 +1,102 @@
-/* Estilos globais */
-@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap");
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
-body {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  background: #f4f7f9;
-  font-size: 14px;
-  line-height: 21px;
+/* Estilo do formulário no DespesaForm */
+.form-container {
+  width: 100%; /* Largura total da tela */
+  height: 100%; /* Altura total da tela */
+  max-width: none; /* Remove a largura máxima */
+  max-height: none; /* Remove a altura máxima */
+  overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+  padding: 20px; /* Adiciona preenchimento interno */
+  background-color: #f9f9f9; /* Cor de fundo clara */
+  border-radius: 8px; /* Bordas arredondadas do formulário */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra leve para o formulário */
+  font-size: 12px; /* Tamanho da fonte reduzido para o formulário */
+  display: flex; /* Usar flexbox para layout */
+  flex-direction: column; /* Direção do layout vertical */
 }
 
-h1 {
-  font-weight: 800;
-  color: #36515f;
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 10px; /* Reduz o preenchimento em telas pequenas */
+  }
+
+  .form-group {
+    flex: 1 1 100%; /* Cada grupo de formulário ocupa 100% da largura em telas pequenas */
+  }
 }
 
-.container-base {
-  padding: 40px;  /* Aumentei o padding para mais espaço interno */
-  background: #ffffff;
-  border-radius: 12px;  /* Aumentei o border-radius para cantos mais arredondados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Aumentei o shadow para destaque */
-  max-width: 1200px;  /* Aumentei o max-width para mais largura */
-  margin: 20px auto;  /* Adicionei margem superior para espaço entre o topo e o formulário */
+/* Estilo dos inputs e selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%; /* Faz os inputs ocuparem a largura total do grupo */
+  height: 44px; /* Altura dos inputs */
+  border: 1px solid #ccd4db; /* Borda leve */
+  border-radius: 4px; /* Bordas arredondadas */
+  padding: 8px; /* Preenchimento interno para os inputs */
+  color: #6e778b; /* Cor do texto dos inputs */
+  font-size: 14px; /* Tamanho da fonte */
 }
 
-.DivTitlebar {
-  display: flex;
-  align-items: center;
-  border-bottom: 2px solid #ccd4db;  /* Aumentei a espessura da borda */
-  padding-bottom: 20px;  /* Aumentei o padding inferior */
-  margin-bottom: 30px;  /* Aumentei a margem inferior */
-}
-
-.DivTitlebar img {
-  width: 60px;  /* Aumentei o tamanho da imagem */
-  height: 60px;
-  margin-right: 20px;  /* Aumentei a margem direita */
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
-  margin-bottom: 20px;  /* Aumentei a margem inferior */
-}
-
+/* Estilo dos rótulos (labels) */
 label {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 10px;  /* Aumentei a margem inferior */
-  color: #6e778b;
+  font-size: 14px; /* Tamanho da fonte dos rótulos */
+  font-weight: 600; /* Peso da fonte dos rótulos */
+  margin-bottom: 10px; /* Margem inferior dos rótulos */
+  color: #6e778b; /* Cor do texto dos rótulos */
 }
 
-input, select {
-  width: 100%;
-  height: 44px;
-  border: 1px solid #ccd4db;
-  border-radius: 4px;
-  padding: 8px;
-  color: #6e778b;
-}
-
-.mat-slide-toggle {
-  margin-top: 15px;
-}
-
-.alert {
-  font-size: 14px;
-  color: red;
-}
-
-.ViewFooter {
-  border-top: 2px solid #ccd4db;  /* Aumentei a espessura da borda */
-  padding-top: 20px;  /* Aumentei o padding superior */
-  margin-top: 30px;  /* Aumentei a margem superior */
-}
-
-.group-btn-row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.btn-primary, .btn-cancelar, .btn-limpar {
-  min-width: 120px;
-  padding: 10px 15px;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* Estilo dos botões */
+.form-actions button {
+  min-width: 120px; /* Largura mínima do botão */
+  padding: 10px 15px; /* Preenchimento do botão */
+  font-size: 14px; /* Tamanho da fonte dos botões */
+  font-weight: 600; /* Peso da fonte dos botões */
+  border: none; /* Remove a borda padrão */
+  border-radius: 4px; /* Bordas arredondadas do botão */
+  cursor: pointer; /* Muda o cursor ao passar sobre o botão */
+  margin-right: 8px; /* Espaçamento entre os botões */
+  transition: background-color 0.3s ease; /* Transição para efeitos de hover */
 }
 
 .btn-primary {
-  background-color: #36515f;
-  color: #fff;
+  background-color: #36515f; /* Cor de fundo do botão primário */
+  color: white; /* Cor do texto do botão primário */
 }
 
 .btn-primary:hover {
-  background-color: #1706ff;
+  background-color: #1706ff; /* Cor do botão primário ao passar o mouse */
 }
 
 .btn-cancelar {
-  background-color: #f44336;
-  color: #fff;
+  background-color: #f44336; /* Cor de fundo do botão cancelar */
+  color: white; /* Cor do texto do botão cancelar */
 }
 
 .btn-cancelar:hover {
-  background-color: #d32f2f;
+  background-color: #d32f2f; /* Cor do botão cancelar ao passar o mouse */
 }
 
 .btn-limpar {
-  background-color: #ff9800;
-  color: #fff;
+  background-color: #ff9800; /* Cor de fundo do botão limpar */
+  color: white; /* Cor do texto do botão limpar */
 }
 
 .btn-limpar:hover {
-  background-color: #fb8c00;
+  background-color: #fb8c00; /* Cor do botão limpar ao passar o mouse */
 }
 
+/* Estilo das mensagens de erro */
 .error-message {
-  font-size: 14px;
-  color: red;
+  font-size: 14px; /* Tamanho da fonte para mensagens de erro */
+  color: red; /* Cor do texto para mensagens de erro */
+}
+
+/* Estilo para o footer */
+.ViewFooter {
+  display: flex;
+  justify-content: space-between; /* Espaça os botões no footer */
+  margin-top: 20px; /* Margem superior no footer */
 }

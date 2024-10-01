@@ -1,19 +1,52 @@
+
+
+
 .custom-snackbar {
-    padding: 16px !important;
-    border-radius: 4px !important;
-    color: #fff !important;
-    font-size: 16px !important;
-    position: fixed !important;
-    right: 16px !important;
-    bottom: 16px !important;
-    z-index: 1000 !important;
-  }
-  
-  .custom-snackbar-success {
-    background-color: #4caf50 !important; 
-  }
-  
-  .custom-snackbar-error {
-    background-color: #f44336 !important; 
-  }
-  
+  display: flex; 
+  align-items: center; 
+}
+
+.snackbar-icon {
+  margin-right: 8px; 
+}
+
+
+::ng-deep .success-snackbar {
+  color: white !important; 
+  font-family: 'Arial', sans-serif !important; 
+}
+
+
+::ng-deep .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled):not([color]) {
+  color: #40ff59 !important; 
+}
+
+::ng-deep .mat-mdc-snack-bar-container.success-snackbar {
+  margin: 14px !important; 
+  --mdc-snackbar-container-color: #1acf84 !important; 
+  --mdc-snackbar-supporting-text-color: white !important; 
+}
+
+
+::ng-deep .error-snackbar {
+  color: white !important; 
+  font-family: 'Arial', sans-serif !important; 
+}
+
+::ng-deep .mat-mdc-snack-bar-container.error-snackbar {
+  margin: 14px !important; 
+  --mdc-snackbar-container-color: #cf1a1a !important;
+  --mdc-snackbar-supporting-text-color: white !important; 
+}
+
+
+::ng-deep .warning-snackbar {
+  color: white !important; 
+  font-family: 'Arial', sans-serif !important; 
+}
+
+::ng-deep .mat-mdc-snack-bar-container.warning-snackbar {
+  margin: 14px !important; 
+  --mdc-snackbar-container-color: #e9e50e !important; 
+  --mdc-snackbar-supporting-text-color: white !important;
+}

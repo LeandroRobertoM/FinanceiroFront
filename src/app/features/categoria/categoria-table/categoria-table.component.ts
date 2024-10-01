@@ -18,6 +18,10 @@ export class CategoriaTableComponent implements OnInit, AfterViewInit {
   categoria: Categoria;
   dataSource = new MatTableDataSource<Categoria>
 
+  dataInicio: string = '';
+  dataFim: string = '';
+  situacao: string = '';
+
   constructor(public authService: AuthService,private CategoriaService: CategoriaService, private router: Router) {
 
 
@@ -60,6 +64,20 @@ export class CategoriaTableComponent implements OnInit, AfterViewInit {
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
   }
+  apagarFiltro() {
+    this.dataInicio = '';
+    this.dataFim = '';
+    this.situacao = '';
+    this.applyFilter(''); // Para resetar outros filtros se necessário
+  }
+  filterByDateRange() {
+    // Lógica para filtrar os dados pela data de início e data de fim
+}
+
+// Método para filtrar por situação
+filterBySituacao() {
+    // Lógica para filtrar os dados pela situação
+  }  
 
   public excluirCategoria(categoria: Categoria) {
     if (confirm(`Você Deseja Excluir o Sistema ${categoria.Id}? sendo Excluindo todos os pedidos seram excluido`)) {

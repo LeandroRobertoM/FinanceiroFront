@@ -82,10 +82,11 @@ export class LoginComponent implements OnInit {
         this.authService.UsuarioAutenticado(true);
 
         console.log('Valor da variável UsuarioAutenticado:', await this.authService.UsuarioEstaAutenticado());
-
+        this.customSnackbarService.openSnackBar('Seja bem-vindo! Você está agora logado no sistema.', 'success');
         this.router.navigate(['dashboard']);
       } else {
-        this.customSnackbarService.openSnackBar(res.errorMessage || 'Erro na autenticação.', 'error');
+      
+        this.customSnackbarService.openSnackBar(res.errorMessage || 'Erro ao acessar o sistema.', 'error');
       }
     } catch (err) {
       console.error('Erro ao fazer login:', err);
