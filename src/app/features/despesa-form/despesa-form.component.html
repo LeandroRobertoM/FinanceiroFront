@@ -1,38 +1,43 @@
 <div class="container-base">
   <form id="expenseForm" class="form-container" [formGroup]="form" (submit)="salvar()">
-    <h2>Cadastro de Despesas</h2>
-    <br>
+    <h2 class="form-title">Cadastro de Despesas</h2>
+    <br />
     <div class="DivFormGroup">
       <div class="row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-4 col-sm-12">
           <div class="group-label-row">
-            <label for="name">Nome</label>
+            <label for="Nome">Nome</label>
             <input type="text" name="name" id="Nome" placeholder="Nome" formControlName="nome" required />
           </div>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3 col-sm-12">
           <div class="group-label-row">
             <label for="data">Data de Vencimento</label>
             <input type="date" name="data" id="data" placeholder="data" formControlName="data" required />
           </div>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3 col-sm-12">
           <div class="group-row">
-            <mat-slide-toggle class="group-slide" [color]="color" [checked]="checked" [disabled]="disabled"
-              (change)="handleChangePago($event)">
+            <mat-slide-toggle
+              class="group-slide"
+              [color]="color"
+              [checked]="checked"
+              [disabled]="disabled"
+              (change)="handleChangePago($event)"
+            >
               Pago?
             </mat-slide-toggle>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3 col-sm-12">
           <div class="group-label-row">
             <label for="valor">Valor:</label>
             <input type="text" name="valor" id="valor" placeholder="valor" formControlName="valor" required />
           </div>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-4 col-sm-12">
           <div class="group-label-row">
             <label for="categoria" class="control-label">Categoria</label>
             <select class="form-select" id="categoria" formControlName="categoria">
@@ -41,29 +46,72 @@
           </div>
         </div>
       </div>
-
-      <!-- Despesa Recorrente Checkbox -->
       <div class="row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-4 col-sm-12">
           <mat-checkbox formControlName="despesaRecorrente" (change)="openDespesaRecorrenteDialog($event.checked)">
             Despesa Recorrente
           </mat-checkbox>
         </div>
       </div>
-
-      <div class="alert alert-danger mt-1" *ngIf="form.invalid && !form.pristine">
-        <span *ngIf="form.get('nome')?.errors?.['required']">O Nome é obrigatório!<br></span>
-        <span *ngIf="form.get('valor')?.errors?.['required']">O Valor é obrigatório!<br></span>
-        <span *ngIf="form.get('categoria')?.errors?.['required']" class="error-message">A Categoria é obrigatória!</span>
-        <span *ngIf="form.get('data')?.errors?.['required']" class="error-message">A Data é obrigatória!</span>
+      <br>
+      <div *ngIf="despesaRecorrenteLista.length > 0">
+        <h6 class="form-title">Lista de Despesas Recorrentes</h6>
+        <div class="scrollable-container">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="idDespesa">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Parcelas </th>
+            <td mat-cell *matCellDef="let despesa"> {{ despesa.idDespesa }} </td>
+          </ng-container>
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+            <td mat-cell *matCellDef="let despesa"> {{ despesa.nome }} </td>
+          </ng-container>
+          <ng-container matColumnDef="dataInicio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Vencimento </th>
+            <td mat-cell *matCellDef="let despesa"> {{ despesa.dataInicio | date }} </td>
+          </ng-container>
+          <ng-container matColumnDef="frequencia">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Frequência </th>
+            <td mat-cell *matCellDef="let despesa"> {{ despesa.frequencia }} </td>
+          </ng-container>
+          <ng-container matColumnDef="valorParcela">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor R$</th>
+            <td mat-cell *matCellDef="let despesa"> {{ despesa.valorParcela }} </td>
+          </ng-container>
+          <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoria </th>
+            <td mat-cell *matCellDef="let despesa"> {{ despesa.categoria }} </td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let despesa"> {{ despesa.status }} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Ações </th>
+            <td mat-cell *matCellDef="let despesa">
+              <button mat-button (click)="excluirDespesaRecorrente(despesa)">Editar</button>
+              <button mat-button (click)="excluirDespesaRecorrente(despesa)">Excluir</button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+       </div>
+        <mat-paginator
+          [length]="despesaRecorrenteLista.length"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page"
+        ></mat-paginator>
       </div>
-
-      <div class="ViewFooter">
-        <div class="group-btn-row">
-          <input type="submit" value="Salvar" class="btn-primary" />
-          <input type="button" value="Cancelar" class="btn-cancelar" (click)="cancelar()" />
-          <input type="button" value="Limpar" class="btn-limpar" (click)="cancelar()" />
-        </div>
+    </div>
+    <div class="ViewFooter">
+      <div class="group-btn-row">
+        <button mat-button type="submit" class="btn-primary">Salvar</button>
+        <button mat-button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+        <button mat-button type="button" class="btn-limpar" (click)="cancelar()">Limpar</button>
       </div>
     </div>
   </form>

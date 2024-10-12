@@ -102,7 +102,7 @@ body {
   }
 }
 
-/* Rolagem para a Tabela */
+/* Estilos do Grid e da Tabela */
 .scrollable-container {
   max-height: 400px; /* Altura máxima da tabela */
   overflow-y: auto; /* Rolagem vertical */
@@ -167,9 +167,35 @@ tr:nth-child(even) {
 
 tr:hover {
   background-color: $hover-color; /* Cor de fundo ao passar o mouse */
- // border-left: 4px solid $icon-color; /* Borda ao passar o mouse */
 }
 
+/* Estilos de Ação */
+.action-cell {
+  display: flex; /* Usando flexbox para alinhar ações */
+  gap: 8px; /* Espaçamento entre ações */
+  justify-content: flex-start; /* Justificação à esquerda */
+}
+
+.action-cell a,
+.action-cell button {
+  background: none; /* Sem fundo */
+  border: none; /* Sem bordas */
+  cursor: pointer; /* Cursor em forma de ponteiro */
+  font-size: 16px; /* Tamanho da fonte das ações */
+  color: $icon-color; /* Cor das ações */
+}
+
+.action-cell a:hover,
+.action-cell button:hover {
+  color: darken($icon-color, 10%); /* Cor ao passar o mouse sobre ações */
+}
+
+/* Estilos do Paginador */
+.paginator-container {
+  display: flex; /* Usando flexbox para alinhar o paginador */
+  justify-content: flex-end; /* Alinha o paginador à direita */
+  width: 100%; /* Largura total do contêiner do paginador */
+}
 /* Estilos de Ação */
 .action-cell {
   display: flex; /* Usando flexbox para alinhar ações */

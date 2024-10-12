@@ -19,23 +19,38 @@ export class DespesaRecorrenteDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      quantidadeParcelas: [1, [Validators.required, Validators.min(1)]],
+      quantidadeParcelas: [1, [Validators.required, Validators.min(1)]], // Corrigido para inicializar com 1
       frequencia: ['mensal', Validators.required],
       valorParcela: [0, [Validators.required, Validators.min(0)]],
       dataInicio: [new Date().toISOString().substring(0, 10), Validators.required],
-      dataVencimento: [null, Validators.required],
       descricao: [''],
-      categoria: ['', Validators.required],
-      metodoPagamento: ['', Validators.required],
+      categoria: [''], // Removido Validators.required
+      metodoPagamento: [''], // Removido Validators.required
       status: ['ativa'],
       nota: ['']
     });
   }
+  
 
   salvar(): void {
+    console.log('Tentando salvar a despesa...');
+    
+    // Verifica se o formulário é válido
     if (this.form.valid) {
-      const formData = this.form.value; // Pegue os dados do formulário
-      this.dialogRef.close(formData); // Retorne os dados para o componente pai
+      console.log('Formulário válido:', this.form.value);
+      const formData = this.form.value;
+      this.dialogRef.close(formData);
+      console.log('Diálogo fechado com sucesso');
+    } else {
+      console.log('Formulário inválido');
+
+      // Itera sobre os controles do formulário para encontrar campos inválidos
+      Object.keys(this.form.controls).forEach(field => {
+        const control = this.form.get(field);
+        if (control?.invalid) {
+   
+        }
+      });
     }
   }
 
