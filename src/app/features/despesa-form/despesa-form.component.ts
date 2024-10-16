@@ -11,10 +11,10 @@ import { SelectModel } from 'src/app/models/SelectModel';
 import { Despesa } from 'src/app/models/Despesa';
 import { DespesaRecorrenteDialogComponent } from '../despesa/despesa-recorrente-dialog/despesa-recorrente-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {DataFormatada } from'src/app/models/DataFormatada';
+import { DataFormatada } from 'src/app/models/DataFormatada';
 import { DespesaParcelas } from 'src/app/models/DespesaParcelas';
 import { tap } from 'rxjs';
-
+import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 
 @Component({
   selector: 'app-despesa-form',
@@ -39,15 +39,14 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<DespesaParcelas>(this.despesaRecorrenteLista);
   totalDespesa: number = 0; // Variável para armazenar o total
 
-  excluirDespesaRecorrente: any;
-
   constructor(
     private formBuilder: FormBuilder,
     private despesaService: DespesaService,
     private categoriaService: CategoriaService,
     private authService: AuthService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public customSnackbarService: CustomSnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +63,7 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
     // Subscribing to paginator changes
     this.paginator.page
       .pipe(tap(() => this.loadPaginatedData()))
@@ -71,7 +71,6 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
   }
 
   loadPaginatedData(): void {
-    // Ajustar o tamanho dos dados de acordo com o paginator
     const paginatedData = this.despesaRecorrenteLista.slice(
       this.paginator.pageIndex * this.paginator.pageSize,
       (this.paginator.pageIndex + 1) * this.paginator.pageSize
@@ -85,8 +84,7 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
         nome: this.form.value.nome,
         valor: this.form.value.valor,
         categoriaId: parseInt(this.form.value.categoria),
-       // dataVencimento: this.form.get('data')?.value,
-       dataVencimento: new Date(this.form.get('data')?.value),
+        dataVencimento: new Date(this.form.get('data')?.value),
         pago: this.checked,
         tipoDespesa: 1
       };
@@ -147,10 +145,10 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
             console.log(`Adicionando despesa ${i + 1}:`, newDespesa);
             this.despesaRecorrenteLista.push(newDespesa); // Adiciona cada parcela à lista de despesas recorrentes
   
-            // **Atualizar dataSource**
+            // Atualiza dataSource
             this.dataSource.data = this.despesaRecorrenteLista;
   
-            // **Atualizar paginator**
+            // Atualiza paginator
             this.dataSource.paginator = this.paginator;
           }
   
@@ -160,15 +158,15 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
   
           const dataVencimento = this.despesaRecorrenteLista[0]?.dataInicio;
           if (dataVencimento) {
-              const dataFormatada = this.formatarData(dataVencimento);
-              console.log('Data de vencimento atualizada:', dataFormatada);
-              
-              // Converte a data para o formato adequado (YYYY-MM-DD) sem problemas de fuso horário
-              const dataLocal = new Date(dataVencimento.getTime() - dataVencimento.getTimezoneOffset() * 60000)
-                  .toISOString()
-                  .split('T')[0];
-              
-              this.form.get('data')?.setValue(dataLocal); // Define a data formatada no input
+            const dataFormatada = this.formatarData(dataVencimento);
+            console.log('Data de vencimento atualizada:', dataFormatada);
+            
+            // Converte a data para o formato adequado (YYYY-MM-DD) sem problemas de fuso horário
+            const dataLocal = new Date(dataVencimento.getTime() - dataVencimento.getTimezoneOffset() * 60000)
+                .toISOString()
+                .split('T')[0];
+            
+            this.form.get('data')?.setValue(dataLocal); // Define a data formatada no input
           }
   
         } else {
@@ -176,15 +174,60 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
         }
       });
     } else {
-      console.log('Checkbox desmarcado, nenhuma ação realizada.');
+      this.confirmarLimpeza();
     }
   }
   
-  formatarDsata(data: Date): string {
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0'); // Lembre-se que os meses começam em 0
+  formatarData(data: Date): string {
+    const dia = `${data.getDate()}`.padStart(2, '0');
+    const mes = `${data.getMonth() + 1}`.padStart(2, '0'); // Mês ajustado
     const ano = data.getFullYear();
     return `${dia}/${mes}/${ano}`;
+  }
+  
+  confirmarLimpeza(): void {
+    if (confirm('Você tem certeza que deseja desmarcar "Despesa Recorrente"? Isso irá limpar a lista de parcelas.')) {
+      this.despesaRecorrenteLista = [];
+      this.dataSource.data = this.despesaRecorrenteLista;
+      this.atualizarTotalDespesa();
+    } else {
+      this.form.patchValue({ despesaRecorrente: true }); // Mantém o checkbox marcado
+    }
+  }
+  
+  editarDespesaRecorrente(despesa: DespesaParcelas): void {
+    const dialogRef = this.dialog.open(DespesaRecorrenteDialogComponent, {
+      width: '400px',
+      data: despesa // Passa a despesa selecionada para o diálogo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Atualiza a despesa na lista com os dados retornados do diálogo
+        const index = this.despesaRecorrenteLista.findIndex(d => d.idDespesa === despesa.idDespesa);
+        if (index !== -1) {
+          this.despesaRecorrenteLista[index] = result; // Atualiza a despesa
+          this.dataSource.data = this.despesaRecorrenteLista; // Atualiza a fonte de dados da tabela
+          this.atualizarTotalDespesa(); // Atualiza o total de despesas
+          this.customSnackbarService.openSnackBar('Despesa editada com sucesso!', 'success');
+        }
+      }
+    });
+  }
+
+  excluirDespesaRecorrente(despesa: DespesaParcelas): void {
+    const confirmar = confirm('Deseja excluir essa despesa recorrente?'); 
+    if (confirmar) {
+      const index = this.despesaRecorrenteLista.indexOf(despesa);
+      if (index >= 0) {
+        this.despesaRecorrenteLista.splice(index, 1); // Remove a despesa da lista
+        this.dataSource.data = this.despesaRecorrenteLista; // Atualiza a fonte de dados da tabela
+        this.atualizarTotalDespesa(); // Atualiza o total de despesas
+        
+        // Mensagem de sucesso
+        this.customSnackbarService.openSnackBar('Despesa excluída com sucesso!', 'success');
+      }
+    }
   }
 
   adicionarMeses(data: Date, meses: number): DataFormatada {
@@ -197,13 +240,6 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
     };
   }
   
-  formatarData(data: Date): string {
-    const dia = `${data.getDate()}`.padStart(2, '0');
-    const mes = `${data.getMonth() + 1}`.padStart(2, '0'); // Mês ajustado
-    const ano = data.getFullYear();
-    return `${dia}/${mes}/${ano}`;
-  }
-
   ListaCategoriaUsuario() {
     this.categoriaService.ListaCategoriaSistemas(this.authService.getEmailUser())
       .subscribe(
