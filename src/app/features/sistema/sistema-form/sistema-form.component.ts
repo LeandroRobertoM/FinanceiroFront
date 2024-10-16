@@ -4,6 +4,7 @@ import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
 import { SistemaService } from 'src/app/services/sistema.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class SistemaFormComponent implements OnInit {
   checked = false;
   disabled = false;
 
-  constructor(private formBuilder: FormBuilder, private sistemaService: SistemaService, private authService: AuthService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private sistemaService: SistemaService, private authService: AuthService, private router: Router,public customSnackbarService: CustomSnackbarService) { }
 
   ngOnInit(): void {
   
@@ -53,7 +54,6 @@ export class SistemaFormComponent implements OnInit {
         AnoCopia: this.form.value.anoCopia,
       };
 
-      //Ajustado adicionar SistemaFinanceiro
       this.sistemaService.AdicionarSistemaFinanceiro(novoSistema).subscribe(
         (response: any) => {
           const sistemaFinanceiro: SistemaFinanceiro = response.dados;
@@ -61,18 +61,18 @@ export class SistemaFormComponent implements OnInit {
 
           this.sistemaService.CadastrarUsuarioNoSistema(sistemaFinanceiro.id, this.authService.getEmailUser()).subscribe(
             () => {
-              this.sistemaService.showMessage('Sistema Financeiro criado com sucessossssssss!');
-              this.router.navigate(['Sistema/tabela']); // Navega para outra rota após o sucesso
+              this.customSnackbarService.openSnackBar('Registro Efetuado com Sucesso', 'success');
+              this.router.navigate(['Sistema/tabela']); 
             },
             (error) => {
               console.error(error);
-              this.sistemaService.showMessage('Erro ao criar Sistema Financeiro.', true); // true indica que é um erro
+              this.customSnackbarService.openSnackBar('Erro efetuar registro registrar', error);
             }
           );
         },
         (error) => {
           console.error(error);
-          this.sistemaService.showMessage('Erro ao adicionar o Sistema Financeiro.', true); // true indica que é um erro
+          this.customSnackbarService.openSnackBar('Serviço não disponível!', error);
         }
       );
     }

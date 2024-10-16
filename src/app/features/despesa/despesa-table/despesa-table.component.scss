@@ -1,132 +1,273 @@
-@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500&display=swap");
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-/* Estilos globais */
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; /* Título da tela */
+  font-size: 24px; /* Tamanho do título */
+}
+
+.grid-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700; /* Títulos dentro do grid */
+  font-size: 14px; /* Tamanho do título do grid */
+}
+
+input, select {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400; /* Texto dos inputs */
+  font-size: 14px; /* Tamanho do texto do input */
+}
+
+
+/* Variáveis de Cores */
+$primary-color: #bebebe; /* Cor principal utilizada para o botão de criar */
+$secondary-color: #36515f; /* Cor para o título */
+$background-color: #f4f7f9; /* Cor de fundo geral da aplicação */
+$table-border-color: #ccd4db; /* Cor das bordas da tabela */
+$highlight-color: #e7e1e1; /* Cor das linhas pares da tabela */
+$hover-color: #bebebe; /* Cor de fundo ao passar o mouse sobre a tabela */
+$strong-line-color: #dbdbdb; /* Cor para linhas mais fortes */
+$header-background-color:rgb(245, 245, 245); /* Cor de fundo do cabeçalho da tabela */
+$th-background-color: #a3218d; /* Cor de fundo do cabeçalho da tabela */
+$header-text-color: #000000; /* Cor do texto no cabeçalho da tabela */
+$icon-color: #1976d2; /* Cor para ícones e ações */
+
+/* Estilos Globais */
 body {
-  font-family: "Poppins", sans-serif;
-  background: #f4f7f9;
-  font-size: 14px;
+  font-family: "Poppins", sans-serif; /* Fonte utilizada na aplicação */
+  background: $background-color; /* Define a cor de fundo da página */
+  font-size: 14px; /* Tamanho da fonte padrão */
 }
 
 .container-base {
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  max-width: 1200px;
-  margin: 0 auto; /* Centraliza o container na página */
+  padding: 120px; /* Espaçamento interno do contêiner principal */
+  background: #ffffff; /* Cor de fundo do contêiner */
+  border-radius: 12px; /* Bordas arredondadas do contêiner */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra do contêiner */
+  max-width: 1200px; /* Largura máxima do contêiner */
+  margin: 20px auto; /* Margem superior/inferior de 20px, centralizado horizontalmente */
 }
 
+/* Estilos da Barra de Título */
 .DivTitlebar {
-  display: flex;
-  align-items: center;
-  border-bottom: 2px solid #ccd4db;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  display: flex; /* Usando flexbox para alinhar itens */
+  align-items: center; /* Alinhamento vertical dos itens */
+  border-bottom: 2px solid $table-border-color; /* Borda inferior */
+  padding-bottom: 5px; /* Espaçamento inferior */
+  margin-bottom: 15px; /* Margem inferior */
 }
 
 .DivTitlebar h1 {
-  font-weight: 600;
-  color: #36515f;
+  font-weight: 600; /* Peso da fonte do título */
+  color: $secondary-color; /* Cor do título */
+  margin: 0; /* Remove margens padrão */
 }
 
+/* Estilo do Botão de Criar */
 .Opcaonovo {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
+  justify-content: flex-end; /* Alinhamento à direita */
+  font-size: 14px; /* Tamanho da fonte */
+  height: auto; /* Altura automática */
+  display: flex; /* Usando flexbox */
+  align-items: left; /* Alinhamento à esquerda */
+  justify-content: left; /* Justificativa à esquerda */
+  
 }
 
-.Opcaonovo button {
-  font-size: 14px;
-  padding: 10px 20px;
-  border-radius: 4px;
+/* Estilos dos Filtros */
+.Opcaosfiltro {
+  display: flex; /* Usando flexbox para organizar os filtros */
+  flex-wrap: wrap; /* Permite quebrar linhas */
+  gap: 15px; /* Espaçamento entre os filtros */
 }
 
-.Opcaofiltro {
-  margin-bottom: 20px;
+.filter-container {
+  display: flex; /* Usando flexbox */
+  align-items: center; /* Alinhamento vertical dos itens */
+  gap: 10px; /* Espaçamento entre itens */
+  width: 100%; /* Largura total do contêiner */
+
+  input[type="text"],
+  input[type="date"],
+  select {
+    flex: 1; /* Os campos de entrada ocupam o espaço disponível */
+    padding: 10px 15px; /* Espaçamento interno dos campos */
+    font-size: 14px; /* Tamanho da fonte nos campos */
+    border: 1px solid #ccc; /* Borda dos campos */
+    border-radius: 5px; /* Bordas arredondadas */
+  }
+
+  button {
+    margin-left: 10px; /* Espaçamento à esquerda do botão */
+  }
 }
 
-.Opcaofiltro .md-12 {
-  display: flex;
-  justify-content: center;
+/* Estilos do Grid e da Tabela */
+.scrollable-container {
+  max-height: 400px; /* Altura máxima da tabela */
+  overflow-y: auto; /* Rolagem vertical */
+  overflow-x: auto; /* Rolagem horizontal */
+  margin-bottom: 20px; /* Espaçamento entre a tabela e o paginador */
+  width: 100%; /* Largura total da tabela */
 }
 
-.Opcaofiltro input[type="text"] {
-  padding: 10px 15px;
-  font-size: 14px;
-  width: 100%;
-  max-width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+/* Personalização da Barra de Rolagem */
+.scrollable-container::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
 }
 
-.GridView {
-  overflow-x: auto;
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: $primary-color; /* Cor do polegar da barra de rolagem */
+  border-radius: 4px; /* Bordas arredondadas do polegar */
 }
 
-.full-width-table {
-  width: 100%;
+.scrollable-container::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Cor de fundo da trilha da barra de rolagem */
 }
 
+/* Estilos da Tabela */
 table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
+  width: 100%; /* Largura total da tabela */
+  border-collapse: collapse; /* Remove espaços entre as bordas das células */
+  border-spacing: 0; /* Remove espaços entre as células */
+  border: none; /* Sem bordas externas */
 }
 
 th,
 td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+  padding: 10px 15px; /* Espaçamento interno das células */
+  text-align: left; /* Alinhamento do texto à esquerda */
+  font-size: 14px; /* Tamanho da fonte nas células */
+  line-height: 1.5; /* Altura da linha */
+  border: 1px solid $table-border-color; /* Borda em todos os lados das células */
+}
+
+table .header-row th {
+  background-color: $header-background-color; /* Fundo do cabeçalho */
+  color: $header-text-color; /* Cor do texto no cabeçalho */
+}
+
+/* Estilo do Cabeçalho da Tabela */
+thead tr {
+  border-bottom: 1px solid $strong-line-color; /* Borda inferior mais forte para cabeçalho */
+}
+
+/* Mantém a borda inferior nas linhas */
+tr:first-child td {
+  border-top: 1px solid $strong-line-color !important; /* Borda superior para a primeira linha */
+}
+
+tr:last-child td {
+  border-bottom: 1px solid $strong-line-color !important; /* Borda inferior para a última linha */
 }
 
 tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: $highlight-color; /* Cor de fundo para linhas pares */
 }
 
 tr:hover {
-  background-color: #f1f1f1;
+  background-color: $hover-color; /* Cor de fundo ao passar o mouse */
 }
 
+/* Estilos de Ação */
 .action-cell {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-start;
+  display: flex; /* Usando flexbox para alinhar ações */
+  gap: 8px; /* Espaçamento entre ações */
+  justify-content: flex-start; /* Justificação à esquerda */
 }
 
 .action-cell a,
 .action-cell button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #333;
-  font-size: 18px;
+  background: none; /* Sem fundo */
+  border: none; /* Sem bordas */
+  cursor: pointer; /* Cursor em forma de ponteiro */
+  font-size: 16px; /* Tamanho da fonte das ações */
+  color: $icon-color; /* Cor das ações */
 }
 
 .action-cell a:hover,
 .action-cell button:hover {
-  color: #777;
+  color: darken($icon-color, 10%); /* Cor ao passar o mouse sobre ações */
 }
 
+/* Estilos do Paginador */
+.paginator-container {
+  display: flex; /* Usando flexbox para alinhar o paginador */
+  justify-content: flex-end; /* Alinha o paginador à direita */
+  width: 100%; /* Largura total do contêiner do paginador */
+}
+/* Estilos de Ação */
+.action-cell {
+  display: flex; /* Usando flexbox para alinhar ações */
+  gap: 8px; /* Espaçamento entre ações */
+  justify-content: flex-start; /* Justificação à esquerda */
+}
+
+.action-cell a,
+.action-cell button {
+  background: none; /* Sem fundo */
+  border: none; /* Sem bordas */
+  cursor: pointer; /* Cursor em forma de ponteiro */
+  font-size: 16px; /* Tamanho da fonte das ações */
+  color: $icon-color; /* Cor das ações */
+}
+
+.action-cell a:hover,
+.action-cell button:hover {
+  color: darken($icon-color, 10%); /* Cor ao passar o mouse sobre ações */
+}
+
+/* Estilos do Paginador */
+.paginator-container {
+  display: flex; /* Usando flexbox para alinhar o paginador */
+  justify-content: flex-end; /* Alinha o paginador à direita */
+  width: 100%; /* Largura total do contêiner do paginador */
+}
+
+/* Estilos de Botões de Ação */
+.custom-icon-button {
+  background: none; /* Sem fundo */
+  border: none; /* Sem bordas */
+  padding: 0; /* Sem preenchimento */
+  margin: 0; /* Sem margens */
+  width: auto; /* Largura automática */
+  height: auto; /* Altura automática */
+  line-height: 1; /* Altura da linha */
+
+  .mat-icon {
+    font-size: 24px; /* Tamanho do ícone */
+    color: $icon-color; /* Cor do ícone */
+  }
+
+  &:hover {
+    background: none; /* Sem fundo ao passar o mouse */
+  }
+
+  &:focus {
+    outline: none; /* Remove contorno ao focar */
+  }
+
+  &:active {
+    background: none; /* Sem fundo ao ativar */
+  }
+}
+
+/* Estilos de Elevação */
 .mat-elevation-z8 {
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Sombra para efeito de elevação */
 }
 
-.mat-paginator {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* Responsividade */
+@media (max-width: 768px) {
+  .filter-container {
+    flex-direction: column; /* Alinha filtros em coluna */
+    align-items: stretch; /* Alinha filtros para ocupar toda a largura */
+  }
 
-.mat-paginator .mat-form-field {
-  margin: 0;
+  input[type="text"],
+  input[type="date"],
+  select {
+    margin-bottom: 10px; /* Margem inferior dos campos de entrada */
+    flex: none; /* Remove flex para os campos de entrada */
+  }
 }
