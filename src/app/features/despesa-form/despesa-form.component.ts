@@ -11,8 +11,10 @@ import { SelectModel } from 'src/app/models/SelectModel';
 import { Despesa } from 'src/app/models/Despesa';
 import { DespesaRecorrenteDialogComponent } from '../despesa/despesa-recorrente-dialog/despesa-recorrente-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import {DataFormatada } from'src/app/models/DataFormatada';
 import { DespesaParcelas } from 'src/app/models/DespesaParcelas';
 import { tap } from 'rxjs';
+
 
 @Component({
   selector: 'app-despesa-form',
@@ -26,7 +28,7 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
+  
   lisCategoriaSistemas = new Array<SelectModel>();
   categoriaSelect = new SelectModel();
   color = 'accent';
@@ -35,6 +37,7 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
   despesaRecorrenteLista: DespesaParcelas[] = [];
   displayedColumns: string[] = ['idDespesa', 'nome', 'dataInicio', 'frequencia', 'valorParcela', 'categoria', 'status', 'action'];
   dataSource = new MatTableDataSource<DespesaParcelas>(this.despesaRecorrenteLista);
+  totalDespesa: number = 0; // Variável para armazenar o total
 
   excluirDespesaRecorrente: any;
 
@@ -82,7 +85,8 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
         nome: this.form.value.nome,
         valor: this.form.value.valor,
         categoriaId: parseInt(this.form.value.categoria),
-        dataVencimento: this.form.get('data')?.value,
+       // dataVencimento: this.form.get('data')?.value,
+       dataVencimento: new Date(this.form.get('data')?.value),
         pago: this.checked,
         tipoDespesa: 1
       };
@@ -110,45 +114,63 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
   openDespesaRecorrenteDialog(isChecked: boolean): void {
     if (isChecked) {
       console.log('Checkbox marcado, abrindo diálogo de despesa recorrente.');
-
+  
       const dialogRef = this.dialog.open(DespesaRecorrenteDialogComponent, {
         width: '400px',
         data: { formData: this.form.value }
       });
-
+  
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           console.log('Diálogo fechado com resultado:', result);
-
+  
           const quantidadeParcelas = result.quantidadeParcelas; // Supondo que o dialog retorne o número de parcelas
           const valorParcela = result.valorParcela;
-
+  
           console.log(`Quantidade de parcelas: ${quantidadeParcelas}, Valor da parcela: ${valorParcela}`);
-
+  
+          // Limpa a lista antes de adicionar novas parcelas
+          this.despesaRecorrenteLista = [];
+  
           for (let i = 0; i < quantidadeParcelas; i++) {
+            const dataFormatada = this.adicionarMeses(result.dataInicio, i); 
             const newDespesa: DespesaParcelas = {
               idDespesa: this.despesaRecorrenteLista.length + 1, // Gera um ID simples
               nome: result.descricao,
-              valorParcela: valorParcela, // Valor da parcela, pode ser dividido igualmente
-              dataInicio: this.adicionarMeses(result.dataInicio, i), // Adiciona meses à data inicial
+              valorParcela: valorParcela, // Valor da parcela
+              dataInicio: dataFormatada.data, 
               frequencia: result.frequencia,
               categoria: result.categoria,
               status: result.status
             };
-
+  
             console.log(`Adicionando despesa ${i + 1}:`, newDespesa);
             this.despesaRecorrenteLista.push(newDespesa); // Adiciona cada parcela à lista de despesas recorrentes
-
+  
             // **Atualizar dataSource**
             this.dataSource.data = this.despesaRecorrenteLista;
-
+  
             // **Atualizar paginator**
             this.dataSource.paginator = this.paginator;
           }
-
+  
           console.log('Lista de despesas recorrentes após adicionar:', this.despesaRecorrenteLista);
-
+          this.atualizarTotalDespesa();
           this.form.patchValue({ despesaRecorrente: true }); // Atualiza o controle do formulário
+  
+          const dataVencimento = this.despesaRecorrenteLista[0]?.dataInicio;
+          if (dataVencimento) {
+              const dataFormatada = this.formatarData(dataVencimento);
+              console.log('Data de vencimento atualizada:', dataFormatada);
+              
+              // Converte a data para o formato adequado (YYYY-MM-DD) sem problemas de fuso horário
+              const dataLocal = new Date(dataVencimento.getTime() - dataVencimento.getTimezoneOffset() * 60000)
+                  .toISOString()
+                  .split('T')[0];
+              
+              this.form.get('data')?.setValue(dataLocal); // Define a data formatada no input
+          }
+  
         } else {
           console.log('Diálogo fechado sem resultado.');
         }
@@ -157,12 +179,29 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
       console.log('Checkbox desmarcado, nenhuma ação realizada.');
     }
   }
+  
+  formatarDsata(data: Date): string {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0'); // Lembre-se que os meses começam em 0
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+  }
 
-  adicionarMeses(data: Date, meses: number): Date {
+  adicionarMeses(data: Date, meses: number): DataFormatada {
     const novaData = new Date(data);
     novaData.setMonth(novaData.getMonth() + meses);
-
-    return novaData; // Retorna um objeto Date
+  
+    return {
+      data: novaData,
+      dataFormatada: this.formatarData(novaData)
+    };
+  }
+  
+  formatarData(data: Date): string {
+    const dia = `${data.getDate()}`.padStart(2, '0');
+    const mes = `${data.getMonth() + 1}`.padStart(2, '0'); // Mês ajustado
+    const ano = data.getFullYear();
+    return `${dia}/${mes}/${ano}`;
   }
 
   ListaCategoriaUsuario() {
@@ -180,6 +219,10 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
           console.error('Erro ao carregar as categorias:', error);
         }
       );
+  }
+
+  atualizarTotalDespesa(): void {
+    this.totalDespesa = this.despesaRecorrenteLista.reduce((acc, parcela) => acc + Number(parcela.valorParcela), 0);
   }
 
   handleChangePago(item: any) {
