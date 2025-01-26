@@ -13,8 +13,13 @@
 <div class="row Opcaosfiltro">
     <div class="filter-container">
         <input type="text" (keyup)="applyFilter(getValue($event))" placeholder="Pesquisa de Despesas">
-        <input type="date" (change)="filterByDateRange()" placeholder="Data de Inícial" [(ngModel)]="dataInicio">
-        <input type="date" (change)="filterByDateRange()" placeholder="Data de Final" [(ngModel)]="dataFim">
+        <input id="dataInicio" type="date" [(ngModel)]="dataInicio" class="input-date" 
+        (ngModelChange)="CarregaGraficosFiltros()" />
+ <span>até</span>
+ <input id="dataFim" type="date" [(ngModel)]="dataFim" class="input-date" 
+        (ngModelChange)="CarregaGraficosFiltros()" />
+
+
         <select (change)="filterBySituacao()" [(ngModel)]="situacao">
             <option value="">Todas</option>
             <option value="pago">Pago</option>

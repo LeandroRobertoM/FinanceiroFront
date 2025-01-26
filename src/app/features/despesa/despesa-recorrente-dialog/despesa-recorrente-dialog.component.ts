@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SelectModel } from 'src/app/models/SelectModel';
+import { AuthService } from 'src/app/services/auth.service';
+import { CategoriaService } from 'src/app/services/categoria.service';
+
 
 @Component({
   selector: 'app-despesa-recorrente-dialog',
@@ -11,10 +15,15 @@ export class DespesaRecorrenteDialogComponent implements OnInit {
   form: FormGroup;
   categorias: string[] = ['Empréstimo', 'Cartão']; // Lista de categorias
   metodosPagamento: string[] = ['Cartão de Crédito', 'Débito', 'Transferência'];
+  lisCategoriaSistemas = new Array<SelectModel>();
 
   constructor(
     private fb: FormBuilder,
+    private authService: AuthService,
+    private categoriaService: CategoriaService,
     private dialogRef: MatDialogRef<DespesaRecorrenteDialogComponent>
+
+    
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +38,24 @@ export class DespesaRecorrenteDialogComponent implements OnInit {
       status: ['ativa'],
       nota: ['']
     });
+    this.ListaCategoriaUsuario();
+  }
+  
+  ListaCategoriaUsuario() {
+    this.categoriaService.ListaCategoriaSistemas(this.authService.getEmailUser())
+      .subscribe(
+        (response: any[]) => {
+          this.lisCategoriaSistemas = response.map(x => {
+            const item = new SelectModel();
+            item.id = x.idCategoria;
+            item.name = x.nome;
+            return item;
+          });
+        },
+        (error) => {
+          console.error('Erro ao carregar as categorias:', error);
+        }
+      );
   }
   
 
@@ -40,6 +67,7 @@ export class DespesaRecorrenteDialogComponent implements OnInit {
       console.log('Formulário válido:', this.form.value);
       const formData = this.form.value;
       this.dialogRef.close(formData);
+      const categoriaId = this.form.get('categoria')?.value;
       console.log('Diálogo fechado com sucesso');
     } else {
       console.log('Formulário inválido');
@@ -53,6 +81,7 @@ export class DespesaRecorrenteDialogComponent implements OnInit {
       });
     }
   }
+
 
   cancelar(): void {
     this.dialogRef.close(); // Apenas fecha o diálogo sem salvar

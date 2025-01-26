@@ -22,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { getPortuguesePaginatorIntl } from './Util/paginator-intl'; 
+import { getPortuguesePaginatorIntl } from './Util/paginator-intl';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,8 +52,8 @@ import { DespesaTableComponent } from './features/despesa/despesa-table/despesa-
 import { CommonModule } from '@angular/common';
 import { HTTPStatus,LoaderInterceptor } from './interceptor/loader.interceptor';
 import { catchError, map, startWith } from 'rxjs/operators'; 
-
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriaFormComponent } from './features/categoria/categoria-form/categoria-form.component';
@@ -114,7 +115,8 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     HeaderComponent,
     BreadcrumbComponent,
     ResetConfirmationComponent,
-    DespesaRecorrenteDialogComponent
+    DespesaRecorrenteDialogComponent,
+
 
     
   ],
@@ -145,9 +147,10 @@ const RxJS = [LoaderInterceptor, HTTPStatus];
     MatSnackBarModule, 
     MatMenuModule,
     FormsModule,
-    MatDialogModule
-  
-    
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [
     CustomSnackbarService,

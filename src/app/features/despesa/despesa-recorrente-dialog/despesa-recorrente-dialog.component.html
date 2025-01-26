@@ -31,10 +31,9 @@
   </div>
 
   <div class="form-group">
-    <label for="category">Categoria</label>
-    <select id="category" formControlName="categoria" required>
-      <option value="">Selecione uma categoria</option>
-      <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+    <label for="categoria" class="control-label">Categoria</label>
+    <select class="form-select" id="categoria" formControlName="categoria">
+      <option *ngFor="let categoria of lisCategoriaSistemas" [ngValue]="categoria.id">{{categoria.name}}</option>
     </select>
   </div>
 

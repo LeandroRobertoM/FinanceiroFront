@@ -4,6 +4,7 @@ import { environment } from "src/environment";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Observable, subscribeOn, tap, EMPTY, ObservedValueOf } from "rxjs";
 import { Despesa } from "../models/Despesa";
+import { FiltroGrafico } from "../models/filtrografico/FiltroGrafico";
 
 @Injectable({
     providedIn: 'root'
@@ -49,6 +50,13 @@ export class DespesaService {
           );
       }
 
+      CarregaGraficosFiltro(emailUsuario: string, dataInicial: string, datafinal: string): Observable<Despesa[]> {
+        const url = `${this.baseURL}/CarregaGraficosPorData?emailUsuario=${emailUsuario}` +
+                    (dataInicial ? `&dataInicial=${dataInicial}` : '') +
+                    (datafinal ? `&datafinal=${datafinal}` : '');
+        return this.httpClient.get<Despesa[]>(url);
+    }
+      
 
     showMessage(msg: string, isError: boolean = false): void {
         this.snackBar.open(msg, "X", {

@@ -34,10 +34,12 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
   color = 'accent';
   checked = false;
   disabled = false;
+  
   despesaRecorrenteLista: DespesaParcelas[] = [];
   displayedColumns: string[] = ['idDespesa', 'nome', 'dataInicio', 'frequencia', 'valorParcela', 'categoria', 'status', 'action'];
   dataSource = new MatTableDataSource<DespesaParcelas>(this.despesaRecorrenteLista);
   totalDespesa: number = 0; // Variável para armazenar o total
+  despesaRecorrente: [false];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,9 +57,9 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
       valor: ['', [Validators.required]],
       data: ['', [Validators.required]],
       categoria: ['', [Validators.required]],
-      despesaRecorrente: [false] // Adiciona o controle para despesa recorrente
     });
     this.ListaCategoriaUsuario();
+  
   }
 
   ngAfterViewInit(): void {
@@ -126,8 +128,9 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
           const valorParcela = result.valorParcela;
   
           console.log(`Quantidade de parcelas: ${quantidadeParcelas}, Valor da parcela: ${valorParcela}`);
+          
   
-          // Limpa a lista antes de adicionar novas parcelas
+   
           this.despesaRecorrenteLista = [];
   
           for (let i = 0; i < quantidadeParcelas; i++) {
@@ -155,7 +158,9 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
           console.log('Lista de despesas recorrentes após adicionar:', this.despesaRecorrenteLista);
           this.atualizarTotalDespesa();
           this.form.patchValue({ despesaRecorrente: true }); // Atualiza o controle do formulário
-  
+
+        // Caso queira disparar o evento (se necessário)
+           const event = { target: { value: result.categoria } };
           const dataVencimento = this.despesaRecorrenteLista[0]?.dataInicio;
           if (dataVencimento) {
             const dataFormatada = this.formatarData(dataVencimento);
@@ -167,6 +172,12 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
                 .split('T')[0];
             
             this.form.get('data')?.setValue(dataLocal); // Define a data formatada no input
+            const simulatedEvent = new Event('change');
+            const target = { value: result.categoria };
+            
+            // Usando o evento do tipo `Event` diretamente
+            Object.defineProperty(simulatedEvent, 'target', { value: target });
+            this.onCategoriaChange(simulatedEvent); // Atualiza a categoria após o diálogo
           }
   
         } else {
@@ -204,6 +215,8 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // Atualiza a despesa na lista com os dados retornados do diálogo
+        const event = { target: { value: result.categoria } }; // Cria um objeto de evento customizado
+        this.onCategoriaChange(result.categoria); // Passando o ID da categoria diretamente
         const index = this.despesaRecorrenteLista.findIndex(d => d.idDespesa === despesa.idDespesa);
         if (index !== -1) {
           this.despesaRecorrenteLista[index] = result; // Atualiza a despesa
@@ -261,6 +274,32 @@ export class DespesaFormComponent implements OnInit, AfterViewInit {
     this.totalDespesa = this.despesaRecorrenteLista.reduce((acc, parcela) => acc + Number(parcela.valorParcela), 0);
   }
 
+  getCategoriaName(id: number): string {
+    console.log("ID que foi passado:", id);  // Verifique se o id está correto
+    const categorianame = this.lisCategoriaSistemas.find(categoria => categoria.id.toString() === id.toString());  // Ambos como string
+    console.log("Categoria encontrada:", categorianame);  // Veja se a categoria foi encontrada corretamente
+    return categorianame ? categorianame.name : 'Não encontrada';
+  }
+  categoriaSelecionadaNome: string;
+
+  onCategoriaChange(event: Event): void {
+    const selectedId = (event.target as HTMLSelectElement).value;
+    this.categoriaSelecionadaNome = selectedId;  // Atualiza a variável para refletir o nome da categoria
+  
+    // Atualiza o FormControl com o valor da categoria selecionada
+    this.form.get('categoria')?.setValue(selectedId);
+    console.log('Categoria alterada para:', selectedId);
+  
+    // Se for uma despesa recorrente, atualiza as categorias das parcelas
+    if (this.despesaRecorrenteLista.length > 0) {
+      this.despesaRecorrenteLista.forEach(despesa => {
+        despesa.categoria = selectedId; // Atualiza a categoria para cada parcela
+      });
+      this.dataSource.data = [...this.despesaRecorrenteLista]; // Atualiza o dataSource da tabela
+      this.atualizarTotalDespesa(); // Recalcula o total das despesas
+    }
+  }
+  
   handleChangePago(item: any) {
     this.checked = item.checked as boolean;
   }

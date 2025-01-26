@@ -2,93 +2,79 @@
 <br>
 <div class="container-base">
     <div class="content-page">
+
+       <!-- Filtros do Dashboard -->
+<div class="filters">
+    <div class="filter-group">
+        <label for="dataInicio">Período:</label>
+        <input id="dataInicio" type="date" [(ngModel)]="dataInicio" class="input-date" 
+               (ngModelChange)="CarregaGraficosFiltros()" />
+        <span>até</span>
+        <input id="dataFim" type="date" [(ngModel)]="dataFim" class="input-date" 
+               (ngModelChange)="CarregaGraficosFiltros()" />
+    </div>
+
+    <div class="filter-group">
+        <label for="sistema">Sistema Financeiro:</label>
+        <select id="sistema" [(ngModel)]="sistemaSelecionado" class="input-select">
+            <option *ngFor="let sistema of sistemas" [value]="sistema.id">{{ sistema.nome }}</option>
+        </select>
+    </div>
+
+    <button (click)="AtualizarDashboard()" class="btn btn-refresh">Atualizar</button>
+</div>
+        <!-- Cards do Dashboard -->
         <div class="container-cards">
             <div class="card">
                 <div class="title">
-                    <div class="card-icon blue">
+                    <div class="card-icon-container blue">
+                        <i class="material-icons">bar_chart</i>
                     </div>
-                    <div class="card-category">
-                        Investimentos
-                    </div>
-                    <h3 class="card-title"> R$
-                        <span id="Investimento">
-                            {{objetoGrafico.investimentos}}
-                        </span>
-                    </h3>
-                </div>
-                <div class="card-footer">
-                    <div class="arrow"></div>
-                    <div class="text-info">off</div>
+                    <div class="card-category">Investimentos</div>
+                    <h3 class="card-title">R$ {{ objetoGrafico.investimentos }}</h3>
                 </div>
             </div>
+
             <div class="card">
                 <div class="title">
-                    <div class="card-icon green">
+                    <div class="card-icon-container green">
+                        <i class="material-icons">attach_money</i>
                     </div>
-                    <div class="card-category">
-                        Despesas Pagas
-                    </div>
-                    <h3 class="card-title"> R$
-                        <span id="Investimento">
-                            {{objetoGrafico.despesas_pagas}}
-                        </span>
-                    </h3>
-                </div>
-                <div class="card-footer">
-                    <div class="arrow"></div>
-                    <div class="text-info">Acessar mes</div>
+                    <div class="card-category">Despesas Pagas</div>
+                    <h3 class="card-title">R$ {{ objetoGrafico.despesas_pagas }}</h3>
                 </div>
             </div>
+
             <div class="card">
                 <div class="title">
-                    <div class="card-icon orange">
+                    <div class="card-icon-container orange">
+                        <i class="material-icons">money_off</i>
                     </div>
-                    <div class="card-category">
-                        Despesas a Pagar
-                    </div>
-                    <h3 class="card-title"> R$
-                        <span id="Investimento">
-                            {{objetoGrafico.despesas_pendentes}}
-                        </span>
-                    </h3>
+                    <div class="card-category">Despesas a Pagar</div>
+                    <h3 class="card-title">R$ {{ objetoGrafico.despesas_pendentes }}</h3>
                 </div>
-                <div class="card-footer">
-                    <div class="arrow"></div>
-                    <div class="text-info">Acessar mes</div>
+            </div>
+
+            <div class="card">
+                <div class="title">
+                    <div class="card-icon-container red">
+                        <i class="material-icons">error_outline</i>
+                    </div>
+                    <div class="card-category">Despesas Atrasadas</div>
+                    <h3 class="card-title">R$ {{ objetoGrafico.despesas_naoPagasMesesAnteriores }}</h3>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="title">
+                    <div class="card-icon-container purple">
+                        <i class="material-icons">trending_up</i>
+                    </div>
+                    <div class="card-category">Receitas Totais</div>
+                    <h3 class="card-title">R$ {{ objetoGrafico.receitas_totais }}</h3>
                 </div>
             </div>
         </div>
-        <div class="container-cards">
-            <div class="card">
 
-                <div class="title">
-                    <div class="card-icon red">
-                    </div>
-                    <div class="card-category">
-                        Despesas atrasadas
-                    </div>
-                    <h3 class="card-title"> R$
-                        <span id="Investimento">
-                            {{objetoGrafico.despesas_naoPagasMesesAnteriores}}
-                        </span>
-                    </h3>
-                </div>
-                <div class="card-footer">
-                    <div class="arrow"></div>
-                    <div class="text-info">Verificar Despesas atrasadas</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="title">
-                    <div class="card-icon red">
-                    </div>
-                    <div class="card-category">
-                        Executar copia das despesas
-                    </div>
-                    <h3 class="card-title"> R$
-                        <span id="Investimento">
-                            0
-                        </span>
-                    </h3>
-
-                </div>
+    </div>
+</div>

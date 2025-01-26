@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { DespesaService } from 'src/app/services/despesa.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Despesa } from 'src/app/models/Despesa';
+import { FiltroGrafico } from 'src/app/models/filtrografico/FiltroGrafico';
 
 @Component({
   selector: 'app-despesa-table',
@@ -31,6 +32,12 @@ export class DespesaTableComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    const today = new Date();
+    this.dataFim = today.toISOString().split('T')[0];
+    const thirtyDaysAgo = new Date(today);
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+    this.dataInicio = thirtyDaysAgo.toISOString().split('T')[0];
+    this.CarregaGraficosFiltros();
     this.loadDespesas();
   }
 
@@ -47,6 +54,25 @@ export class DespesaTableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
     });
   }
+
+   CarregaGraficosFiltros() {
+      const filtro: FiltroGrafico = {
+        dataInicio: this.dataInicio,
+        dataFim: this.dataFim,
+        emailUsuario: this.authService.getEmailUser(),
+      };
+  
+      this.despesaService.CarregaGraficosFiltro(
+        filtro.emailUsuario,
+        filtro.dataInicio,
+        filtro.dataFim
+      ).subscribe(
+        (response: any) => {
+          response;
+        },
+        (error) => console.error(error)
+      );
+    }
 
   navigateToSistemaFinanceiroCreate(): void {
     this.router.navigate(['/Despesa/formulario']);
