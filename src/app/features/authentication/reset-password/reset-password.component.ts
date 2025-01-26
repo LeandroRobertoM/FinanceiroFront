@@ -5,6 +5,8 @@ import { authenticationservice } from 'src/app/services/authentication.service';
 import { PasswordConfirmationValidatorService } from 'src/app/shared/password-confirmation-validator.service';
 import { ResetPasswordDto } from 'src/app/models/user/ResetPasswordDto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,11 +27,13 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private authService: authenticationservice,
     private passConfValidator: PasswordConfirmationValidatorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private customSnackbarService: CustomSnackbarService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    console.log('Componente ResetPassword inicializado - ngOnInit chamado');
+
     this.initializeForm();
     this.captureRouteDetails();
   }
@@ -88,7 +92,6 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public resetPassword(resetPasswordFormValue: any): void {
-    console.log('Tentando redefinir a senha com os valores:', resetPasswordFormValue);
 
     this.showError = this.showSuccess = false;
     const resetPass = { ...resetPasswordFormValue };
@@ -100,16 +103,18 @@ export class ResetPasswordComponent implements OnInit {
       email: this.email
     };
 
-    console.log('Dados enviados para redefinir a senha:', resetPassDto);
 
     this.authService.resetPassword('users/resetpassword', resetPassDto)
       .subscribe({
         next: () => {
-          console.log('Senha redefinida com sucesso');
-          this.showSuccess = true;
+
+          this.customSnackbarService.openSnackBar('Senha Criada, com sucesso!', 'success');
+          setTimeout(() => {
+            this.router.navigate(['login'], { replaceUrl: true });
+          }, 2000);
         },
         error: (err: HttpErrorResponse) => {
-          console.error('Erro ao redefinir a senha:', err);
+          this.customSnackbarService.openSnackBar(err.error, 'error');
           this.showError = true;
           this.errorMessage = err.message;
         }

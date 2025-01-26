@@ -1,15 +1,13 @@
+import { Data } from "@angular/router";
+
 export class SistemaFinanceiro{
 
     id:number;
-    Nome:string;
     nome?:string;
-    Mes:Number;
-    Ano:Number;
-    DiaFechamento:Number;
-    GerarCopiaDespesa:Boolean;
-    MesCopia:Number;
-    AnoCopia:number;
-
+    dataCadastro:Data;
+    anoBase:string;
+    ativo:boolean;
+    metaAnual:number;
     NomePropriedade?:string="";
     mensagem?:string="";
     notificacoes?:[];

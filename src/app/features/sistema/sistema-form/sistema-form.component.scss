@@ -19,26 +19,26 @@ h1 {
 }
 
 .container-base {
-  padding: 40px;  /* Aumentei o padding para mais espaço interno */
+  padding: 40px;
   background: #ffffff;
-  border-radius: 12px;  /* Aumentei o border-radius para cantos mais arredondados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Aumentei o shadow para destaque */
-  max-width: 1200px;  /* Aumentei o max-width para mais largura */
-  margin: 20px auto;  /* Adicionei margem superior para espaço entre o topo e o formulário */
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
 }
 
 .DivTitlebar {
   display: flex;
   align-items: center;
-  border-bottom: 2px solid #ccd4db;  /* Aumentei a espessura da borda */
-  padding-bottom: 20px;  /* Aumentei o padding inferior */
-  margin-bottom: 30px;  /* Aumentei a margem inferior */
+  border-bottom: 2px solid #ccd4db;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .DivTitlebar img {
-  width: 60px;  /* Aumentei o tamanho da imagem */
+  width: 60px;
   height: 60px;
-  margin-right: 20px;  /* Aumentei a margem direita */
+  margin-right: 20px;
 }
 
 form {
@@ -47,23 +47,119 @@ form {
 }
 
 .form-group {
-  margin-bottom: 20px;  /* Aumentei a margem inferior */
+  margin-bottom: 20px;
 }
 
 label {
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 10px;  /* Aumentei a margem inferior */
+  margin-bottom: 10px;
   color: #6e778b;
 }
 
-input, select {
+input[type="text"], input[type="date"], mat-form-field {
   width: 100%;
   height: 44px;
   border: 1px solid #ccd4db;
   border-radius: 4px;
   padding: 8px;
   color: #6e778b;
+  font-size: 14px;  /* Garantir o mesmo tamanho de fonte */
+}
+
+/* Estilizando o mat-input */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e778b;
+}
+
+.mat-form-field-underline {
+  display: none;
+}
+
+.mat-form-field-ripple {
+  display: none;
+}
+
+/* Ajustando o campo de input do mat-datepicker */
+mat-datepicker-trigger {
+  padding: 8px;
+  border: 1px solid #ccd4db;
+  border-radius: 4px;
+  width: 100%;
+  height: 44px;
+  color: #6e778b;
+  font-size: 14px;
+}
+
+/* Estilizando o popup do Datepicker */
+.mat-calendar {
+  font-family: "Poppins", sans-serif;
+}
+
+.mat-calendar-header {
+  background-color: #f4f7f9;
+  color: #36515f;
+}
+
+.mat-calendar-body {
+  background-color: #fff;
+}
+
+.mat-calendar-cell {
+  color: #6e778b;
+}
+
+.mat-calendar-cell:hover {
+  background-color: #ccd4db;
+}
+
+.mat-calendar-selected {
+  background-color: #36515f;
+  color: #fff;
+}
+
+.mat-datepicker-toggle {
+  position: relative;
+}
+
+.mat-datepicker-toggle-button {
+  background-color: #fff;
+}
+
+.mat-datepicker-toggle-button:hover {
+  background-color: #f4f7f9;
+}
+
+.mat-datepicker-toggle .mat-icon {
+  color: #6e778b;
+}
+
+.mat-datepicker-toggle:hover .mat-icon {
+  color: #36515f;
+}
+
+.mat-datepicker-toggle:focus {
+  outline: none;
+}
+
+.mat-datepicker-content {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-datepicker-table-header {
+  font-weight: 600;
+}
+
+.mat-datepicker-table-cell {
+  text-align: center;
 }
 
 .mat-slide-toggle {
@@ -76,9 +172,9 @@ input, select {
 }
 
 .ViewFooter {
-  border-top: 2px solid #ccd4db;  /* Aumentei a espessura da borda */
-  padding-top: 20px;  /* Aumentei o padding superior */
-  margin-top: 30px;  /* Aumentei a margem superior */
+  border-top: 2px solid #ccd4db;
+  padding-top: 20px;
+  margin-top: 30px;
 }
 
 .group-btn-row {
@@ -125,6 +221,6 @@ input, select {
 }
 
 .error-message {
-  font-size: 14px;
+  font-size: 12px;
   color: red;
 }

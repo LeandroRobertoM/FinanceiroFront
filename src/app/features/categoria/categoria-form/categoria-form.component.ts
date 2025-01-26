@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SistemaFinanceiro } from 'src/app/models/SistemaFinanceiro';
 import { SelectModel } from 'src/app/models/SelectModel';
+import { CustomSnackbarService } from 'src/app/components/CustomSnackbarService/custom-snackbar/custom-snackbar.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class CategoriaFormComponent implements OnInit{
     private categoriaService: CategoriaService,
     private SistemaService:SistemaService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public customSnackbarService: CustomSnackbarService
   ) {
    
   }
@@ -57,12 +59,12 @@ export class CategoriaFormComponent implements OnInit{
       this.categoriaService.AdicionarCategoria(novaCategoria).subscribe(
         (response: any) => {
           const categoria: Categoria = response.dados;
-          this.categoriaService.showMessage('Categoria criada com sucesso!');
+          this.customSnackbarService.openSnackBar('Verifique o seu E-mail, para criar nova senha!', 'success');
           this.router.navigate(['Categoria/tabela']);
         },
         (error) => {
           console.error(error);
-          this.categoriaService.showMessage('Erro ao criar a Categoria.', true); // true indica que é um erro
+          this.customSnackbarService.openSnackBar('Erro efetuar registro registrar', error); // true indica que é um erro
         }
       );
     }
